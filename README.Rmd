@@ -105,12 +105,15 @@ m750_training_resamples_fitted <- m750_models %>%
 
 Evaluate the results with `modeltime_resample_accuracy()`.
 
-```{r}
+```{r, eval=F}
 m750_training_resamples_fitted %>%
     modeltime_resample_accuracy(summary_fns = mean) %>%
     table_modeltime_accuracy(.interactive = FALSE)
 ```
 
+```{r, echo=F}
+knitr::include_graphics("man/figures/gt_accuracy_table.png")
+```
 
 
 ## Learning More

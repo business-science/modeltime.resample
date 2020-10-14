@@ -40,12 +40,14 @@ unnest_modeltime_resamples <- function(object) {
     object %>%
         dplyr::select(-.model) %>%
         tidyr::unnest(.resample_results) %>%
-        dplyr::select(.model_id, .model_desc, .predictions) %>%
+        dplyr::select(id, .model_id, .model_desc, .predictions) %>%
 
-        # Add .resample_id
-        dplyr::group_split(.model_id) %>%
-        purrr::map( tibble::rowid_to_column, var = ".resample_id") %>%
-        dplyr::bind_rows() %>%
+        dplyr::rename(.resample_id = id) %>%
+
+        # # Add .resample_id
+        # dplyr::group_split(.model_id) %>%
+        # purrr::map(tibble::rowid_to_column, var = ".resample_id") %>%
+        # dplyr::bind_rows() %>%
 
         # Add .row_id - Needed to compare observations between models
         tidyr::unnest(.predictions) %>%

@@ -23,10 +23,10 @@ the pain away.**
 
 Modeltime Resample makes it easy to:
 
-1.  Iteratively generate predictions from resample objects
-    (e.g. `timetk::time_series_cv()`) cross-validation plans.
-2.  Evaluate the resample predictions to compare many time series models
-    across multiple time-series windows.
+1.  **Iteratively generate predictions** from time series
+    cross-validation plans.
+2.  **Evaluate the resample predictions** to compare many time series
+    models across multiple time-series windows.
 
 ## Installation
 
@@ -52,7 +52,7 @@ remotes::install_github("business-science/modeltime.resample")
     Resample](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html):
     Learn the basics of time series resample evaluation.
 
-## Make Your First Resample in Minutes
+## Evaluate Your Time Series Resamples in Minutes
 
 Load the Following Libraries.
 
@@ -114,14 +114,14 @@ m750_training_resamples_fitted %>%
     table_modeltime_accuracy(.interactive = FALSE)
 ```
 
-<img src="man/figures/gt_accuracy_table.png" width="1381" style="display: block; margin: auto;" />
+<img src="man/figures/gt_accuracy_table.png" width="80%" style="display: block; margin: auto;" />
 
 ## Learning More
 
-<a href="https://www.youtube.com/embed/elQb4VzRINg" target="_blank"><img src="http://img.youtube.com/vi/elQb4VzRINg/0.jpg" alt="Anomalize" width="100%" height="450"/></a>
-
 [*My Talk on High-Performance Time Series
 Forecasting*](https://youtu.be/elQb4VzRINg)
+
+<a href="https://www.youtube.com/embed/elQb4VzRINg" target="_blank"><img src="http://img.youtube.com/vi/elQb4VzRINg/0.jpg" alt="Anomalize" width="100%" height="450"/></a>
 
 Time series is changing. **Businesses now need 10,000+ time series
 forecasts every day.** This is what I call a *High-Performance Time

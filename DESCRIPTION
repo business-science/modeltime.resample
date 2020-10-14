@@ -1,18 +1,53 @@
 Package: modeltime.resample
-Title: What the Package Does (One Line, Title Case)
+Title: Resampling Tools for Time Series Forecasting with Modeltime
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Authors@R: c(
+    person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
+    person("Business Science", role = "cph")
+    )
+Description: 
+    A 'modeltime' extension that implements time series ensemble resampling tools 
+    from the 'tune' package.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
 URL: https://github.com/business-science/modeltime.resample
 BugReports: https://github.com/business-science/modeltime.resample/issues
+Depends:
+    modeltime (>= 0.2.1.9000),
+    R (>= 3.5)
+Imports: 
+    tune,
+    rsample,
+    workflows,
+    parsnip,
+    recipes,
+    dials,
+    yardstick,
+    timetk (>= 2.3.0),
+    tibble,
+    dplyr,
+    tidyr,
+    purrr,
+    glue,
+    stringr,
+    cli,
+    crayon,
+    magrittr,
+    rlang (>= 0.1.2),
+    progressr,
+    tictoc
+Suggests: 
+    roxygen2,
+    testthat,
+    tidymodels,
+    tidyverse,
+    lubridate,
+    knitr,
+    rmarkdown,
+    covr, 
+    remotes
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+Remotes: business-science/modeltime

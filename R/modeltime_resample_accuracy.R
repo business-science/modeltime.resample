@@ -17,37 +17,27 @@
 #'  * A list of functions/lambdas, e.g. list(mean = mean, sd = sd)
 #'
 #' @details
-#' Returns the _average_ accuracy metrics for each resample prediction.
+#' By default, `modeltime_resample_accuracy()` returns
+#' the _average_ accuracy metrics for each resample prediction.
+#'
+#' The user can change this default behavior using `summary_fns`.
+#' Simply pass one or more Summary Functions. Internally, the functions are passed to
+#' `dplyr::across(.fns)`, which applies the summary functions.
+#'
+#' Use [modeltime::table_modeltime_accuracy()] to format the results for reporting in
+#' `reactable` (interactive) or `gt` (static) formats, which are perfect for
+#' Shiny Apps (interactive) and PDF Reports (static).
 #'
 #' @examples
-#' library(tidymodels)
 #' library(modeltime)
-#' library(timetk)
-#' library(tidyverse)
 #'
-#' resamples_tscv <- training(m750_splits) %>%
-#'     time_series_cv(
-#'         assess      = "2 years",
-#'         initial     = "5 years",
-#'         skip        = "2 years",
-#'         slice_limit = 1
-#'     )
-#'
-#' m750_models_resample <- m750_models %>%
-#'     modeltime_fit_resamples(
-#'         resamples = resamples_tscv,
-#'         control   = control_resamples(verbose = TRUE)
-#'     )
-#'
-#' m750_models_resample
-#'
-#' # Average
-#' m750_models_resample %>%
+#' # Mean (Default)
+#' m750_training_resamples_fitted %>%
 #'     modeltime_resample_accuracy() %>%
 #'     table_modeltime_accuracy(.interactive = FALSE)
 #'
 #' # Mean and Standard Deviation
-#' m750_models_resample %>%
+#' m750_training_resamples_fitted %>%
 #'     modeltime_resample_accuracy(
 #'         summary_fns = list(mean = mean, sd = sd)
 #'     ) %>%
@@ -61,7 +51,7 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
     if (!".resample_results" %in% names(object)) rlang::abort("object must contain a column, '.resample_results'. Try using `modeltime_fit_resamples()` first.")
 
     # Unnest resamples column
-    predictions_tbl <- unnest_resamples(object)
+    predictions_tbl <- unnest_modeltime_resamples(object)
 
     # Target Variable is the name in the data
     target_text <- names(predictions_tbl) %>% utils::tail(1)

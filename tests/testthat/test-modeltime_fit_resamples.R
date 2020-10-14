@@ -14,7 +14,7 @@ test_that("Structure: modeltime_fit_resamples()", {
 
     expect_true(".resample_results" %in% names(m750_models_resample))
 
-    resamples_unnested <- unnest_resamples(m750_models_resample)
+    resamples_unnested <- unnest_modeltime_resamples(m750_models_resample)
     expect_true(all(c(".model_id", ".model_desc", ".pred") %in% names(resamples_unnested)))
 
 })

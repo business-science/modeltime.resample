@@ -54,20 +54,25 @@ library(modeltime)
 library(timetk)
 library(tidyverse)
 
+# Make resamples
 resamples_tscv <- training(m750_splits) \%>\%
     time_series_cv(
         assess      = "2 years",
         initial     = "5 years",
         skip        = "2 years",
+        # Normally we do more than one slice, but this speeds up the example
         slice_limit = 1
     )
 
+# Fit and generate resample predictions
 m750_models_resample <- m750_models \%>\%
     modeltime_fit_resamples(
         resamples = resamples_tscv,
         control   = control_resamples(verbose = TRUE)
     )
 
+# A new data frame is created from the Modeltime Table
+#  with a column labeled, '.resample_results'
 m750_models_resample
 
 

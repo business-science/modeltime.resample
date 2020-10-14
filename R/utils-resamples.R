@@ -13,14 +13,24 @@
 #'
 #' @details
 #'
-#' Data Columns:
+#' The following data columns are unnested and prepared for evaluation:
 #' - `.row_id` - A unique identifier to compare observations.
 #' - `.resample_id` - A unique identifier given to the resample iteration.
 #' - `.model_id` and `.model_desc` - Modeltime Model ID and Description
-#' - `.pred`, `.row`, and actual value column (name changes to name in dataset)
+#' - `.pred` - The Resample Prediction Value
+#' - `.row` - The actual row value from the original dataset
+#' - _Actual Value Column_ - The name changes to target variable name in dataset
+#'
+#' @examples
+#'
+#' # The .resample_results column is deeply nested
+#' m750_training_resamples_fitted
+#'
+#' # Unnest and prepare the resample predictions for evaluation
+#' unnest_modeltime_resamples(m750_training_resamples_fitted)
 #'
 #' @export
-unnest_resamples <- function(object) {
+unnest_modeltime_resamples <- function(object) {
 
     # Checks
     if (!inherits(object, "data.frame")) rlang::abort("object must be a data.frame")

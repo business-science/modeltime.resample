@@ -6,7 +6,7 @@
 #' @details
 #'
 #' ``` {r eval = FALSE}#'
-#' m750_models_fit_resamples <- m750_models %>%
+#' m750_training_resamples_fitted <- m750_models %>%
 #'     modeltime_fit_resamples(
 #'         resamples = m750_training_resamples,
 #'         control   = control_resamples(verbose = T)

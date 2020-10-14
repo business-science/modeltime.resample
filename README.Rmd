@@ -8,8 +8,12 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  message = F,
+  warning = F,
+  paged.print = FALSE,
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  # out.width = "100%"
+  fig.align = 'center'
 )
 ```
 
@@ -18,43 +22,121 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of modeltime.resample is to ...
+> Resampling Tools for Time Series Forecasting with Modeltime
+
+
+A `modeltime` extension that implements ___time series resampling tools___ for making iterative predictions and evaluating resample results.
+
+## Benefits: What Modeltime Resample Does
+
+Resampling time series is an important strategy to evaluate models across multiple time series windows. However, it's a pain to do this because it requires multiple for-loops to generate the predictions. __Modeltime Resample simplifies the iterative forecasting process taking the pain away.__
+
+Modeltime Resample makes it easy to:
+
+1. Iteratively generate predictions from resample objects (e.g. `timetk::time_series_cv()`) cross-validation plans.
+2. Evaluate the resample predictions to compare many time series models across multiple time-series windows.
 
 ## Installation
 
-You can install the released version of modeltime.resample from [CRAN](https://CRAN.R-project.org) with:
+Install the CRAN version:
 
 ``` r
-install.packages("modeltime.resample")
+# Not on CRAN yet
+# install.packages("modeltime.resample")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+Or, install the development version:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("business-science/modeltime.resample")
+remotes::install_github("business-science/modeltime.resample")
 ```
-## Example
 
-This is a basic example which shows you how to solve a common problem:
+## Getting Started
 
-```{r example}
+1. [Getting Started with Modeltime](https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html): Learn the basics of forecasting with Modeltime. 
+2. [Getting Started with Modeltime Resample](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html): Learn the basics of time series resample evaluation. 
+
+
+ 
+
+## Make Your First Resample in Minutes
+
+Load the Following Libraries. 
+
+```{r}
+library(modeltime)
 library(modeltime.resample)
-## basic example code
+library(timetk)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+### Step 1 - Make a Cross-Validation Training Plan
 
-```{r cars}
-summary(cars)
+Use functions from `rsample` or `timetk` to produce an `rset`. The `m750_training_resamples` was made with `timetk::time_series_cv()`.
+
+```{r}
+# Begin with a Cross Validation Strategy
+m750_training_resamples %>%
+    tk_time_series_cv_plan() %>%
+    plot_time_series_cv_plan(date, value, .facet_ncol = 2, .interactive = FALSE)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+### Step 2 - Make a Modeltime Table
 
-You can also embed plots, for example:
+Create models and add them to a _Modeltime Table_ with [__Modeltime.__](https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html)
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r}
+m750_models
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+
+### Step 3 - Generate Resample Predictions
+
+Generate resample predictions using `modeltime_fit_resamples()`.
+
+```{r, eval=FALSE}
+m750_training_resamples_fitted <- m750_models %>%
+    modeltime_fit_resamples(
+        resamples = m750_training_resamples,
+        control   = control_resamples(verbose = T)
+    )
+```
+
+### Step 4 - Evaluate the Results
+
+Evaluate the results with `modeltime_resample_accuracy()`.
+
+```{r}
+m750_training_resamples_fitted %>%
+    modeltime_resample_accuracy(summary_fns = mean) %>%
+    table_modeltime_accuracy(.interactive = FALSE)
+```
+
+
+
+## Learning More
+
+<a href="https://www.youtube.com/embed/elQb4VzRINg" target="_blank"><img src="http://img.youtube.com/vi/elQb4VzRINg/0.jpg" alt="Anomalize" width="100%" height="450"/></a>
+
+[_My Talk on High-Performance Time Series Forecasting_](https://youtu.be/elQb4VzRINg)
+
+Time series is changing. __Businesses now need 10,000+ time series forecasts every day.__ This is what I call a _High-Performance Time Series Forecasting System (HPTSF)_ - Accurate, Robust, and Scalable Forecasting. 
+
+ __High-Performance Forecasting Systems will save companies MILLIONS of dollars.__ Imagine what will happen to your career if you can provide your organization a "High-Performance Time Series Forecasting System" (HPTSF System).
+
+I teach how to build a HPTFS System in my __High-Performance Time Series Forecasting Course__. If interested in learning Scalable High-Performance Forecasting Strategies then [take my course](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting). You will learn:
+
+- Time Series Machine Learning (cutting-edge) with `Modeltime` - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
+- NEW - Deep Learning with `GluonTS` (Competition Winners)
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- Scalable Forecasting - Forecast 1000+ time series in parallel
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock the High-Performance Time Series Forecasting Course</a>
+</p>
+
+

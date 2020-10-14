@@ -6,8 +6,8 @@ Authors@R: c(
     person("Business Science", role = "cph")
     )
 Description: 
-    A 'modeltime' extension that implements time series ensemble resampling tools 
-    from the 'tune' package.
+    A 'modeltime' extension that implements time series resampling tools
+    for making iterative predictions and evaluating resample results.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

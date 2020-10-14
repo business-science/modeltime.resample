@@ -70,8 +70,5 @@ m750_models_resample <- m750_models \%>\%
 
 m750_models_resample
 
-m750_models_resample \%>\%
-    modeltime_resample_accuracy() \%>\%
-    table_modeltime_accuracy(.interactive = FALSE)
 
 }

@@ -63,9 +63,6 @@
 #'
 #' m750_models_resample
 #'
-#' m750_models_resample %>%
-#'     modeltime_resample_accuracy() %>%
-#'     table_modeltime_accuracy(.interactive = FALSE)
 #'
 #' @export
 modeltime_fit_resamples <- function(object, resamples, control = control_resamples()) {

@@ -5,6 +5,10 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.com/business-science/modeltime.resample.svg?branch=master)](https://travis-ci.com/business-science/modeltime.resample)
+[![Codecov test
+coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/modeltime.resample?branch=master)
 <!-- badges: end -->
 
 > Resampling Tools for Time Series Forecasting with Modeltime

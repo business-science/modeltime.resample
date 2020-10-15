@@ -29,7 +29,7 @@ A `modeltime` extension that implements ___time series resampling tools___ for m
 
 ## Benefits: What Modeltime Resample Does
 
-Resampling time series is an important strategy to evaluate models across multiple time series windows. However, it's a pain to do this because it requires multiple for-loops to generate the predictions. __Modeltime Resample simplifies the iterative forecasting process taking the pain away.__
+Resampling time series is an important strategy to evaluate models across multiple time series windows. However, it's a pain to do this because it requires multiple for-loops to generate the predictions for multiple models. __Modeltime Resample simplifies the iterative forecasting process taking the pain away.__
 
 Modeltime Resample makes it easy to:
 

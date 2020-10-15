@@ -17,9 +17,9 @@ results.
 
 Resampling time series is an important strategy to evaluate models
 across multiple time series windows. However, it’s a pain to do this
-because it requires multiple for-loops to generate the predictions.
-**Modeltime Resample simplifies the iterative forecasting process taking
-the pain away.**
+because it requires multiple for-loops to generate the predictions for
+multiple models. **Modeltime Resample simplifies the iterative
+forecasting process taking the pain away.**
 
 Modeltime Resample makes it easy to:
 

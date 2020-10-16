@@ -20,11 +20,11 @@ Imports:
     tune,
     rsample,
     workflows,
-    parsnip,
+    parsnip (>= 0.1.3.9000),
     recipes,
     dials,
     yardstick,
-    timetk (>= 2.3.0),
+    timetk (>= 2.4.0.9000),
     tibble,
     dplyr,
     tidyr,
@@ -50,4 +50,7 @@ Suggests:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
-Remotes: business-science/modeltime
+Remotes: 
+    business-science/modeltime,
+    business-science/timetk,
+    tidymodels/parsnip

@@ -9,11 +9,113 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 100
 )
 ```
 
-```{r setup}
+## Evaluate Your Time Series Resamples in Minutes
+
+> Resampling gives us a way to <span style='color:blue'>compare multiple models across time.</span>
+
+__Modeltime Resample__ provide a convenient toolkit for efficiently evaluating multiple models across time, increasing our confidence in model selections. 
+
+- __The core functionality__ is `modeltime_resample()`, which automates the iterative model fitting and prediction procedure. 
+- There is also a __new accuracy function__ `modeltime_resample_accuracy()` that provides a flexible way for creating custom accuracy tables using customizable summary functions (e.g. mean, median, sd, min, max). 
+
+### Getting Started Setup
+
+Load the following R packages. 
+
+```{r}
+library(tidymodels)
+library(modeltime)
 library(modeltime.resample)
+library(tidyverse)
+library(timetk)
 ```
+
+We'll work with the `m750` data set. 
+
+```{r}
+m750 %>%
+  plot_time_series(date, value, .interactive = FALSE)
+```
+
+
+### Step 1 - Make a Cross-Validation Training Plan
+
+We'll use `timetk::time_series_cv()` to generate 4 time-series resamples.
+
+- Assess is the assessment window: `"2 years"`
+- Initial is the training window: `"5 years"`
+- Skip is the shift between resample sets: `"2 years`
+- Slice Limit is how many resamples to generate: `4`
+
+```{r}
+resamples_tscv <- time_series_cv(
+    data        = m750,
+    assess      = "2 years",
+    initial     = "5 years",
+    skip        = "2 years",
+    slice_limit = 4
+)
+
+resamples_tscv
+```
+
+Next, visualize the resample strategy to make sure we're happy with our choices.
+
+```{r}
+# Begin with a Cross Validation Strategy
+resamples_tscv %>%
+    tk_time_series_cv_plan() %>%
+    plot_time_series_cv_plan(date, value, .facet_ncol = 2, .interactive = FALSE)
+```
+
+### Step 2 - Make a Modeltime Table
+
+Create models and add them to a _Modeltime Table_ with [__Modeltime.__](https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html) I've already created 3 models (ARIMA, Prophet, and GLMNET) and saved the results as part of the `modeltime` package `m750_models`.
+
+```{r}
+m750_models
+```
+
+
+### Step 3 - Generate Resample Predictions
+
+Generate resample predictions using `modeltime_fit_resamples()`:
+
+- Use the `m750_models` (models) and `m750_training_resamples`
+- Internally, each model is refit to each training set of the resamples
+- A column is added to the _Modeltime Table_: `.resample_results` contains the resample predictions
+
+```{r}
+resamples_fitted <- m750_models %>%
+    modeltime_fit_resamples(
+        resamples = resamples_tscv,
+        control   = control_resamples(verbose = FALSE)
+    )
+
+resamples_fitted
+```
+
+### Step 4 - Evaluate the Results
+
+Evaluate the results with `modeltime_resample_accuracy()`. We can compare the modeling approaches. The default is to report the average `summary_fns = mean`, but this can be changed to any summary function or a list containing multiple summary functions (e.g. `summary_fns = list(mean = mean, sd = sd)`). From the table below, ARIMA has a 6% lower RMSE, indicating it's the best choice for consistent performance on this dataset.
+
+```{r}
+resamples_fitted %>%
+    modeltime_resample_accuracy(summary_fns = mean) %>%
+    table_modeltime_accuracy(.interactive = FALSE)
+```
+
+
+# Wrapup
+
+Resampling gives us a way to compare multiple models across time. In this example, we can clearly see that the ARIMA model performs better than the Prophet and GLMNET models with a 6% lower RMSE. This won't always be the case (every time series is different). 

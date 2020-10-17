@@ -15,6 +15,9 @@ knitr::opts_chunk$set(
   # out.width = "100%"
   fig.align = 'center'
 )
+
+library(modeltime)
+library(modeltime.resample)
 ```
 
 # modeltime.resample
@@ -41,6 +44,11 @@ Modeltime Resample makes it easy to:
 1. __Iteratively generate predictions__ from time series cross-validation plans.
 2. __Evaluate the resample predictions__ to compare many time series models across multiple time-series windows.
 
+
+```{r, echo=F, out.width='80%', fig.cap="Model Accuracy for 6 Time Series Resamples"}
+knitr::include_graphics("man/figures/gt_accuracy_table.png")
+```
+
 ## Installation
 
 Install the CRAN version:
@@ -60,65 +68,13 @@ remotes::install_github("business-science/modeltime.resample")
 
 1. [Getting Started with Modeltime](https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html): Learn the basics of forecasting with Modeltime. 
 2. [Getting Started with Modeltime Resample](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html): Learn the basics of time series resample evaluation. 
-
+3. [Resampling Panel Data](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html): An advanced tutorial on resample evaluation with multiple __time series groups (Panel Data)__
 
  
 
-## Evaluate Your Time Series Resamples in Minutes
-
-Load the Following Libraries. 
-
-```{r}
-library(modeltime)
-library(modeltime.resample)
-library(timetk)
-```
-
-### Step 1 - Make a Cross-Validation Training Plan
-
-Use functions from `rsample` or `timetk` to produce an `rset`. The `m750_training_resamples` was made with `timetk::time_series_cv()`.
-
-```{r}
-# Begin with a Cross Validation Strategy
-m750_training_resamples %>%
-    tk_time_series_cv_plan() %>%
-    plot_time_series_cv_plan(date, value, .facet_ncol = 2, .interactive = FALSE)
-```
-
-### Step 2 - Make a Modeltime Table
-
-Create models and add them to a _Modeltime Table_ with [__Modeltime.__](https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html)
-
-```{r}
-m750_models
-```
 
 
-### Step 3 - Generate Resample Predictions
 
-Generate resample predictions using `modeltime_fit_resamples()`.
-
-```{r, eval=FALSE}
-m750_training_resamples_fitted <- m750_models %>%
-    modeltime_fit_resamples(
-        resamples = m750_training_resamples,
-        control   = control_resamples(verbose = T)
-    )
-```
-
-### Step 4 - Evaluate the Results
-
-Evaluate the results with `modeltime_resample_accuracy()`.
-
-```{r, eval=F}
-m750_training_resamples_fitted %>%
-    modeltime_resample_accuracy(summary_fns = mean) %>%
-    table_modeltime_accuracy(.interactive = FALSE)
-```
-
-```{r, echo=F, out.width='80%'}
-knitr::include_graphics("man/figures/gt_accuracy_table.png")
-```
 
 
 ## Learning More

@@ -15,6 +15,8 @@ status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 <!-- badges: end -->
 
+# modeltime.resample <img src='man/figures/logo.png' align="right" height="138.5" />
+
 > Resampling Tools for Time Series Forecasting with Modeltime
 
 A `modeltime` extension that implements ***time series resampling

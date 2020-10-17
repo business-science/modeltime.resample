@@ -1,0 +1,49 @@
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: UA-76139189-2
+
+navbar:
+  title: "modeltime.resample"
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "Getting Started"
+      href: articles/getting-started.html
+    - text: "Documentation"
+      href: articles/index.html
+      menu:
+        - text: 'Basics'
+        - text: "Getting Started"
+          href: articles/getting-started.html
+        - text: 'Panel Data'
+        - text: "Resampling Panel Data"
+          href: articles/panel-data.html
+    - text: "Key Functions"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+
+  right:
+    - icon: fa-github
+      href: https://github.com/business-science/modeltime.resample
+
+reference:
+  - title: Core Functions
+    desc: Functions used to create resample predictions.
+    contents:
+    - "modeltime_fit_resamples"
+    - "modeltime_resample_accuracy"
+  - title: Helper Functions
+    contents:
+    - "unnest_modeltime_resamples"
+  - title: Data
+    contents:
+    - "m750_training_resamples_fitted"
+
+
+repo:
+  url:
+    home: https://github.com/business-science/modeltime.resample
+    source: https://github.com/business-science/modeltime.resample/blob/master/
+    issue: https://github.com/business-science/modeltime.resample/issues/

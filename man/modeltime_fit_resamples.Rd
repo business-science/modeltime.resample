@@ -42,7 +42,7 @@ to understand the model performance and stability under different
 forecasting windows. See \code{\link[=modeltime_resample_accuracy]{modeltime_resample_accuracy()}} for
 getting resampled prediction accuracy for each model.
 
-\strong{Ensembles}_
+\strong{Ensembles}
 
 Fitting and Predicting Resamples is useful in
 creating Stacked Ensembles using \code{modeltime.ensemble::ensemble_model_spec()}.

@@ -33,7 +33,7 @@
 #' getting resampled prediction accuracy for each model.
 #'
 #'
-#' __Ensembles___
+#' __Ensembles__
 #'
 #' Fitting and Predicting Resamples is useful in
 #' creating Stacked Ensembles using `modeltime.ensemble::ensemble_model_spec()`.

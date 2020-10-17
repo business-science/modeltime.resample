@@ -57,6 +57,7 @@ walmart_sales_weekly %>%
 We'll create 2 datasets that incorporate a grouping variable:
 
 - __Training Data Set, `data_prepared_tbl`:__ Dataset that contains information on the training region for each time series group
+
 - __Forecast Data Set, `future_tbl`:__ Dataset that contains information on the forecast region for each time series group. We'll extend each time series group by `"3 months"` based on the business forecast needs.
 
 ```{r}
@@ -91,9 +92,11 @@ future_tbl <- full_data_tbl %>%
 
 ## Modeling
 
-We'll create a:
-- 1 Recipe: This applies engineered features from calendar variables
-- 3 Fitted Models: Prophet, XGBoost, and Prophet Boost
+We'll create:
+
+- __1 Recipe:__ This applies engineered features from calendar variables
+
+- __3 Fitted Models:__ Prophet, XGBoost, and Prophet Boost fitted on the `data_prepared_tbl` dataset
 
 ### Recipe 
 

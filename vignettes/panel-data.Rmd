@@ -1,8 +1,8 @@
 ---
-title: "Resampling Panel Time Series Data"
+title: "Resampling Panel Data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Resampling Panel Time Series Data}
+  %\VignetteIndexEntry{Resampling Panel Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -269,18 +269,7 @@ resample_results %>%
   table_modeltime_accuracy(.interactive = FALSE)
 ```
 
-We can customize the accuracy results by supplying multiple summary functions in a list. I've supplied `min()` and `max()` to get the range. 
 
-```{r}
-resample_results %>%
-  modeltime_resample_accuracy(
-    summary_fns = list(
-      min    = min,
-      max    = max
-    )
-  ) %>%
-  table_modeltime_accuracy(.interactive = FALSE)
-```
 
 # Wrapup
 

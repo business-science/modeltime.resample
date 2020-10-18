@@ -67,18 +67,14 @@ full_data_tbl <- walmart_sales_weekly %>%
   
   # Apply Group-wise Time Series Manipulations
   group_by(id) %>%
-  group_split() %>%
-  # Extend
-  map(.f = function(df) {
-    df %>% 
-      future_frame(.date_var   = Date, 
-                   .length_out = "3 months", 
-                   .bind_data  = TRUE) 
-  }) %>%
+  future_frame(
+    .date_var   = Date,
+    .length_out = "3 months",
+    .bind_data  = TRUE
+  ) %>%
+  ungroup() %>%
   
-  # Recombine Time Series Groups
-  bind_rows() %>%
-  fill(id, .direction = "down") %>%
+  # Consolidate IDs
   mutate(id = fct_drop(id))
 
 # Training Data
@@ -168,7 +164,7 @@ model_tbl
 We can visualize any of the time series groups. 
 
 ```{r}
-group_number <- 4
+group_number <- 1
 new_data     <- future_tbl %>% filter(id == unique(id)[group_number])
 actual_data  <- data_prepared_tbl %>% filter(id == unique(id)[group_number])
 
@@ -177,7 +173,7 @@ model_tbl %>%
     new_data    = new_data,
     actual_data = actual_data
   ) %>%
-  plot_modeltime_forecast(.interactive = FALSE, .y_intercept = 0)
+  plot_modeltime_forecast(.interactive = FALSE, .y_intercept = 0, .facet_ncol = 3)
 ```
 
 ## Resampling Panel Data
@@ -226,7 +222,7 @@ resample_results <- model_tbl %>%
 resample_results <- read_rds("resample_results.rds")
 ```
 
-A new column has been added to the `model_tbl` containing the resample predictions. 
+A new column (".resample_results") containing the resample predictions has been added to the original `model_tbl`. 
 
 ```{r}
 resample_results

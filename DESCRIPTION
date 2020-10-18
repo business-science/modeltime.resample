@@ -42,6 +42,7 @@ Suggests:
     testthat,
     tidymodels,
     tidyverse,
+    tidyquant,
     lubridate,
     knitr,
     rmarkdown,

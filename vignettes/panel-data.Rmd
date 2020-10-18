@@ -40,6 +40,7 @@ library(modeltime)
 library(modeltime.resample)
 library(timetk)
 library(tidyverse)
+library(tidyquant)
 ```
 
 ## Data
@@ -140,7 +141,12 @@ wflw_fit_xgboost <- workflow() %>%
 ```{r}
 wflw_fit_prophet_boost <- workflow() %>%
   add_model(
-    prophet_boost() %>% set_engine("prophet_xgboost") 
+    prophet_boost(
+      seasonality_daily  = FALSE, 
+      seasonality_weekly = FALSE,
+      seasonality_yearly = FALSE
+    ) %>% 
+      set_engine("prophet_xgboost") 
   ) %>%
   add_recipe(recipe_spec) %>%
   fit(data_prepared_tbl)
@@ -160,29 +166,49 @@ model_tbl <- modeltime_table(
 model_tbl
 ```
 
-
-We can visualize any of the time series groups. 
+__We can make a Panel Data forecast__, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach. 
 
 ```{r}
-group_number <- 1
-new_data     <- future_tbl %>% filter(id == unique(id)[group_number])
-actual_data  <- data_prepared_tbl %>% filter(id == unique(id)[group_number])
-
-model_tbl %>%
+# Panel data forecast produces results at once
+forecast_panel_tbl <- model_tbl %>%
   modeltime_forecast(
-    new_data    = new_data,
-    actual_data = actual_data
-  ) %>%
-  plot_modeltime_forecast(.interactive = FALSE, .y_intercept = 0, .facet_ncol = 3)
+    new_data      = future_tbl,
+    # Keep new data allows us keep the ID feature for the 
+    #  time series groups
+    keep_new_data = TRUE
+  ) 
 ```
 
-## Resampling Panel Data
 
-Next, we need to determine how our models perform across time. To do so, we'll evaluate using time series resamples. The first step is to make a resample strategy. Our business objective is to forecast 3 months so we'll use the following strategy:
+__We can visualize the Panel Data forecasts.__ We can see that the Prophet w/ Regressors model is struggling with the Panel Data. However, the Boosted Models are responding well. 
+
+```{r, fig.cap="Forecast Plot for Panel Data Predictions"}
+forecast_panel_tbl %>%
+  mutate(model_identifier = str_c(.model_id, "_", .model_desc)) %>%
+  filter(.key == "prediction") %>%
+  ggplot(aes(.index, .value, color = model_identifier)) +
+  geom_line(aes(Date, Weekly_Sales), color = "gray30",
+            data = data_prepared_tbl) +
+  geom_line() + 
+  facet_wrap(~ id, scales = "free_y") +
+  theme_tq() +
+  scale_color_tq() +
+  labs(title = "Forecast Plot for Panel Data Predictions",
+       caption = "Prophet with Regressors ")
+```
+
+# Quantifying Prediction Error
+
+__We've made predictions, but this doesn't tell us how the models will do over time. We need to quantify prediction error.__ To do so, we'll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions. 
+
+### Resampling Panel Data
+
+The first step is to make a resample strategy. Our business objective is to forecast 3 months so we'll use the following strategy:
 
 - assess: 3 months
-- initial: 18 months (this gets us more than a full-year of data)
 - skip: 3 months
+- cumulative: TRUE. Maximizes the Training Set (alternatively we could do initial = "18 months" to have sliding training sets)
+- slice_limit: 6 (keep the 6 largest train/test resamples to prevent too few observations)
 
 This generates 5 resample sets. 
 
@@ -190,9 +216,10 @@ This generates 5 resample sets.
 walmart_tscv <- data_prepared_tbl %>%
   time_series_cv(
     date_var = Date, 
-    initial  = "18 months",
-    assess   = "3 months",
-    skip     = "3 months"
+    assess      = "3 months",
+    skip        = "3 months",
+    cumulative  = TRUE,
+    slice_limit = 6
   )
 
 walmart_tscv
@@ -203,7 +230,8 @@ We can visualize the resample sets with `plot_time_series_cv_plan()`. They look 
 ```{r}
 walmart_tscv %>%
   tk_time_series_cv_plan() %>%
-  plot_time_series_cv_plan(Date, Weekly_Sales, .facet_ncol = 2, .interactive = F)
+  plot_time_series_cv_plan(Date, Weekly_Sales, 
+                           .facet_ncol = 2, .interactive = F)
 ```
 
 ### Apply Models to Resamples 
@@ -214,11 +242,12 @@ With `model_tbl` (models) and `walmart_tscv` (resamples) in had, we are ready to
 resample_results <- model_tbl %>%
   modeltime_fit_resamples(
     resamples = walmart_tscv,
-    control   = control_resamples(verbose = TRUE)
+    control   = control_resamples(verbose = FALSE)
   )
 ```
 
 ```{r, echo=FALSE}
+# write_rds(resample_results, "resample_results.rds")
 resample_results <- read_rds("resample_results.rds")
 ```
 
@@ -230,7 +259,9 @@ resample_results
 
 ### Evaluate Resample Accuracy
 
-Finally, we can evaluate the accuracy with `modeltime_resample_accuracy()`. We can see that Prophet Boost has the lowest average RMSE of the 6 resample sets. 
+Finally, we can evaluate the accuracy with `modeltime_resample_accuracy()`. We can see that Prophet Boost has the lowest average RMSE compared to the other 2 models. 
+
+__Model Selection:__ If we are interested in a single model, we should select the Prophet Boost model, which has the lowest RMSE of the 3 models. 
 
 ```{r}
 resample_results %>%
@@ -253,5 +284,7 @@ resample_results %>%
 
 # Wrapup
 
-Working with Panel Data (data with multiple overlapping time series groups) can be challenging. Modeltime Resample makes it much easier to evaluate multiple models. We saw how we can easily evaluate multiple models on varying time series windows. This increased our confidence that the Prophet Boost model was the best model for this data. 
+Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. __Modeltime Resample makes working with Panel Data much easier.__ We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that the Prophet Boost model was the best model for this data. 
+
+
 

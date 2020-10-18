@@ -132,7 +132,8 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime">modeltime</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime.resample">modeltime.resample</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span></pre></div>
 </div>
 <div id="data" class="section level2">
 <h2 class="hasAnchor">
@@ -159,18 +160,14 @@
   
   <span class="co"># Apply Group-wise Time Series Manipulations</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">group_split</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="co"># Extend</span>
-  <span class="fu">map</span><span class="op">(</span>.f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">df</span> <span class="op">%&gt;%</span> 
-      <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/future_frame.html">future_frame</a></span><span class="op">(</span>.date_var   <span class="op">=</span> <span class="va">Date</span>, 
-                   .length_out <span class="op">=</span> <span class="st">"3 months"</span>, 
-                   .bind_data  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/future_frame.html">future_frame</a></span><span class="op">(</span>
+    .date_var   <span class="op">=</span> <span class="va">Date</span>,
+    .length_out <span class="op">=</span> <span class="st">"3 months"</span>,
+    .bind_data  <span class="op">=</span> <span class="cn">TRUE</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   
-  <span class="co"># Recombine Time Series Groups</span>
-  <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">fill</span><span class="op">(</span><span class="va">id</span>, .direction <span class="op">=</span> <span class="st">"down"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># Consolidate IDs</span>
   <span class="fu">mutate</span><span class="op">(</span>id <span class="op">=</span> <span class="fu">fct_drop</span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Training Data</span>
@@ -248,7 +245,12 @@
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="va">wflw_fit_prophet_boost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_model</span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_boost.html">prophet_boost</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet_xgboost"</span><span class="op">)</span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_boost.html">prophet_boost</a></span><span class="op">(</span>
+      seasonality_daily  <span class="op">=</span> <span class="cn">FALSE</span>, 
+      seasonality_weekly <span class="op">=</span> <span class="cn">FALSE</span>,
+      seasonality_yearly <span class="op">=</span> <span class="cn">FALSE</span>
+    <span class="op">)</span> <span class="op">%&gt;%</span> 
+      <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet_xgboost"</span><span class="op">)</span> 
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">fit</span><span class="op">(</span><span class="va">data_prepared_tbl</span><span class="op">)</span></pre></div>
@@ -273,82 +275,108 @@
 ## 1         1 &lt;workflow&gt; PROPHET W/ REGRESSORS    
 ## 2         2 &lt;workflow&gt; XGBOOST                  
 ## 3         3 &lt;workflow&gt; PROPHET W/ XGBOOST ERRORS</code></pre>
-<p>We can visualize any of the time series groups.</p>
+<p><strong>We can make a Panel Data forecast</strong>, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">group_number</span> <span class="op">&lt;-</span> <span class="fl">4</span>
-<span class="va">new_data</span>     <span class="op">&lt;-</span> <span class="va">future_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">[</span><span class="va">group_number</span><span class="op">]</span><span class="op">)</span>
-<span class="va">actual_data</span>  <span class="op">&lt;-</span> <span class="va">data_prepared_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">[</span><span class="va">group_number</span><span class="op">]</span><span class="op">)</span>
-
-<span class="va">model_tbl</span> <span class="op">%&gt;%</span>
+<span class="co"># Panel data forecast produces results at once</span>
+<span class="va">forecast_panel_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_forecast.html">modeltime_forecast</a></span><span class="op">(</span>
-    new_data    <span class="op">=</span> <span class="va">new_data</span>,
-    actual_data <span class="op">=</span> <span class="va">actual_data</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/plot_modeltime_forecast.html">plot_modeltime_forecast</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span>, .y_intercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></pre></div>
-<p><img src="panel-data_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
+    new_data      <span class="op">=</span> <span class="va">future_tbl</span>,
+    <span class="co"># Keep new data allows us keep the ID feature for the </span>
+    <span class="co">#  time series groups</span>
+    keep_new_data <span class="op">=</span> <span class="cn">TRUE</span>
+  <span class="op">)</span> </pre></div>
+<p><strong>We can visualize the Panel Data forecasts.</strong> We can see that the Prophet w/ Regressors model is struggling with the Panel Data. However, the Boosted Models are responding well.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="va">forecast_panel_tbl</span> <span class="op">%&gt;%</span>
+  <span class="fu">mutate</span><span class="op">(</span>model_identifier <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">.model_id</span>, <span class="st">"_"</span>, <span class="va">.model_desc</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.key</span> <span class="op">==</span> <span class="st">"prediction"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">.index</span>, <span class="va">.value</span>, color <span class="op">=</span> <span class="va">model_identifier</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray30"</span>,
+            data <span class="op">=</span> <span class="va">data_prepared_tbl</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">id</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html">theme_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/scale_manual.html">scale_color_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Forecast Plot for Panel Data Predictions"</span>,
+       caption <span class="op">=</span> <span class="st">"Prophet with Regressors "</span><span class="op">)</span></pre></div>
+<div class="figure" style="text-align: center">
+<img src="panel-data_files/figure-html/unnamed-chunk-10-1.png" alt="Forecast Plot for Panel Data Predictions" width="95%"><p class="caption">
+Forecast Plot for Panel Data Predictions
+</p>
 </div>
 </div>
-<div id="resampling-panel-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#resampling-panel-data" class="anchor"></a>Resampling Panel Data</h2>
-<p>Next, we need to determine how our models perform across time. To do so, we’ll evaluate using time series resamples. The first step is to make a resample strategy. Our business objective is to forecast 3 months so we’ll use the following strategy:</p>
+</div>
+<div id="quantifying-prediction-error" class="section level1">
+<h1 class="hasAnchor">
+<a href="#quantifying-prediction-error" class="anchor"></a>Quantifying Prediction Error</h1>
+<p><strong>We’ve made predictions, but this doesn’t tell us how the models will do over time. We need to quantify prediction error.</strong> To do so, we’ll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions.</p>
+<div id="resampling-panel-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#resampling-panel-data" class="anchor"></a>Resampling Panel Data</h3>
+<p>The first step is to make a resample strategy. Our business objective is to forecast 3 months so we’ll use the following strategy:</p>
 <ul>
 <li>assess: 3 months</li>
-<li>initial: 18 months (this gets us more than a full-year of data)</li>
 <li>skip: 3 months</li>
+<li>cumulative: TRUE. Maximizes the Training Set (alternatively we could do initial = “18 months” to have sliding training sets)</li>
+<li>slice_limit: 6 (keep the 6 largest train/test resamples to prevent too few observations)</li>
 </ul>
 <p>This generates 5 resample sets.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
+<div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="va">walmart_tscv</span> <span class="op">&lt;-</span> <span class="va">data_prepared_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/timetk.html">time_series_cv</a></span><span class="op">(</span>
     date_var <span class="op">=</span> <span class="va">Date</span>, 
-    initial  <span class="op">=</span> <span class="st">"18 months"</span>,
-    assess   <span class="op">=</span> <span class="st">"3 months"</span>,
-    skip     <span class="op">=</span> <span class="st">"3 months"</span>
+    assess      <span class="op">=</span> <span class="st">"3 months"</span>,
+    skip        <span class="op">=</span> <span class="st">"3 months"</span>,
+    cumulative  <span class="op">=</span> <span class="cn">TRUE</span>,
+    slice_limit <span class="op">=</span> <span class="fl">6</span>
   <span class="op">)</span>
 
 <span class="va">walmart_tscv</span></pre></div>
 <pre><code>## # Time Series Cross Validation Plan 
-## # A tibble: 5 x 2
+## # A tibble: 6 x 2
 ##   splits           id    
 ##   &lt;list&gt;           &lt;chr&gt; 
-## 1 &lt;split [540/78]&gt; Slice1
-## 2 &lt;split [540/78]&gt; Slice2
-## 3 &lt;split [540/78]&gt; Slice3
-## 4 &lt;split [540/78]&gt; Slice4
-## 5 &lt;split [540/78]&gt; Slice5</code></pre>
+## 1 &lt;split [911/78]&gt; Slice1
+## 2 &lt;split [827/78]&gt; Slice2
+## 3 &lt;split [743/78]&gt; Slice3
+## 4 &lt;split [659/78]&gt; Slice4
+## 5 &lt;split [575/78]&gt; Slice5
+## 6 &lt;split [491/78]&gt; Slice6</code></pre>
 <p>We can visualize the resample sets with <code><a href="../reference/timetk.html">plot_time_series_cv_plan()</a></code>. They look a little crazy because there are multiple time series groups. The important thing is to make sure the red and blue parts line up as expected in relation to our sampling strategy.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
+<div class="sourceCode" id="cb15"><pre class="downlit">
 <span class="va">walmart_tscv</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/timetk.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/timetk.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></pre></div>
-<p><img src="panel-data_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;"></p>
+  <span class="fu"><a href="../reference/timetk.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, 
+                           .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></pre></div>
+<p><img src="panel-data_files/figure-html/unnamed-chunk-12-1.png" width="95%" style="display: block; margin: auto;"></p>
+</div>
 <div id="apply-models-to-resamples" class="section level3">
 <h3 class="hasAnchor">
 <a href="#apply-models-to-resamples" class="anchor"></a>Apply Models to Resamples</h3>
 <p>With <code>model_tbl</code> (models) and <code>walmart_tscv</code> (resamples) in had, we are ready to iteratively fit and predict each of the models on each of the resampling plan sets, producing resample predictions.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
+<div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="va">resample_results</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span>
     resamples <span class="op">=</span> <span class="va">walmart_tscv</span>,
-    control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+    control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
   <span class="op">)</span></pre></div>
-<p>A new column has been added to the <code>model_tbl</code> containing the resample predictions.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
+<p>A new column (“.resample_results”) containing the resample predictions has been added to the original <code>model_tbl</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit">
 <span class="va">resample_results</span></pre></div>
 <pre><code>## # Modeltime Table
 ## # A tibble: 3 x 4
 ##   .model_id .model     .model_desc               .resample_results
 ##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                     &lt;list&gt;           
-## 1         1 &lt;workflow&gt; PROPHET W/ REGRESSORS     &lt;tibble [5 × 5]&gt; 
-## 2         2 &lt;workflow&gt; XGBOOST                   &lt;tibble [5 × 5]&gt; 
-## 3         3 &lt;workflow&gt; PROPHET W/ XGBOOST ERRORS &lt;tibble [5 × 5]&gt;</code></pre>
+## 1         1 &lt;workflow&gt; PROPHET W/ REGRESSORS     &lt;tibble [6 × 5]&gt; 
+## 2         2 &lt;workflow&gt; XGBOOST                   &lt;tibble [6 × 5]&gt; 
+## 3         3 &lt;workflow&gt; PROPHET W/ XGBOOST ERRORS &lt;tibble [6 × 5]&gt;</code></pre>
 </div>
 <div id="evaluate-resample-accuracy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#evaluate-resample-accuracy" class="anchor"></a>Evaluate Resample Accuracy</h3>
-<p>Finally, we can evaluate the accuracy with <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. We can see that Prophet Boost has the lowest average RMSE of the 6 resample sets.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
+<p>Finally, we can evaluate the accuracy with <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. We can see that Prophet Boost has the lowest average RMSE compared to the other 2 models.</p>
+<p><strong>Model Selection:</strong> If we are interested in a single model, we should select the Prophet Boost model, which has the lowest RMSE of the 3 models.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit">
 <span class="va">resample_results</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
@@ -356,7 +384,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#fihyiyngcm .gt_table {
+#uqpsovuqxw .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -381,7 +409,7 @@
   border-left-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_heading {
+#uqpsovuqxw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -393,7 +421,7 @@
   border-right-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_title {
+#uqpsovuqxw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -403,7 +431,7 @@
   border-bottom-width: 0;
 }
 
-#fihyiyngcm .gt_subtitle {
+#uqpsovuqxw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -413,13 +441,13 @@
   border-top-width: 0;
 }
 
-#fihyiyngcm .gt_bottom_border {
+#uqpsovuqxw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_col_headings {
+#uqpsovuqxw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -434,7 +462,7 @@
   border-right-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_col_heading {
+#uqpsovuqxw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -454,7 +482,7 @@
   overflow-x: hidden;
 }
 
-#fihyiyngcm .gt_column_spanner_outer {
+#uqpsovuqxw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -466,15 +494,15 @@
   padding-right: 4px;
 }
 
-#fihyiyngcm .gt_column_spanner_outer:first-child {
+#uqpsovuqxw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fihyiyngcm .gt_column_spanner_outer:last-child {
+#uqpsovuqxw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fihyiyngcm .gt_column_spanner {
+#uqpsovuqxw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -486,7 +514,7 @@
   width: 100%;
 }
 
-#fihyiyngcm .gt_group_heading {
+#uqpsovuqxw .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -508,7 +536,7 @@
   vertical-align: middle;
 }
 
-#fihyiyngcm .gt_empty_group_heading {
+#uqpsovuqxw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -523,15 +551,15 @@
   vertical-align: middle;
 }
 
-#fihyiyngcm .gt_from_md > :first-child {
+#uqpsovuqxw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fihyiyngcm .gt_from_md > :last-child {
+#uqpsovuqxw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fihyiyngcm .gt_row {
+#uqpsovuqxw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -550,7 +578,7 @@
   overflow-x: hidden;
 }
 
-#fihyiyngcm .gt_stub {
+#uqpsovuqxw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -562,7 +590,7 @@
   padding-left: 12px;
 }
 
-#fihyiyngcm .gt_summary_row {
+#uqpsovuqxw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -572,7 +600,7 @@
   padding-right: 5px;
 }
 
-#fihyiyngcm .gt_first_summary_row {
+#uqpsovuqxw .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -582,7 +610,7 @@
   border-top-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_grand_summary_row {
+#uqpsovuqxw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -592,7 +620,7 @@
   padding-right: 5px;
 }
 
-#fihyiyngcm .gt_first_grand_summary_row {
+#uqpsovuqxw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -602,11 +630,11 @@
   border-top-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_striped {
+#uqpsovuqxw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fihyiyngcm .gt_table_body {
+#uqpsovuqxw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -615,7 +643,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_footnotes {
+#uqpsovuqxw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -629,13 +657,13 @@
   border-right-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_footnote {
+#uqpsovuqxw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#fihyiyngcm .gt_sourcenotes {
+#uqpsovuqxw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -649,46 +677,46 @@
   border-right-color: #D3D3D3;
 }
 
-#fihyiyngcm .gt_sourcenote {
+#uqpsovuqxw .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#fihyiyngcm .gt_left {
+#uqpsovuqxw .gt_left {
   text-align: left;
 }
 
-#fihyiyngcm .gt_center {
+#uqpsovuqxw .gt_center {
   text-align: center;
 }
 
-#fihyiyngcm .gt_right {
+#uqpsovuqxw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fihyiyngcm .gt_font_normal {
+#uqpsovuqxw .gt_font_normal {
   font-weight: normal;
 }
 
-#fihyiyngcm .gt_font_bold {
+#uqpsovuqxw .gt_font_bold {
   font-weight: bold;
 }
 
-#fihyiyngcm .gt_font_italic {
+#uqpsovuqxw .gt_font_italic {
   font-style: italic;
 }
 
-#fihyiyngcm .gt_super {
+#uqpsovuqxw .gt_super {
   font-size: 65%;
 }
 
-#fihyiyngcm .gt_footnote_marks {
+#uqpsovuqxw .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="fihyiyngcm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="uqpsovuqxw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
 <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
@@ -714,42 +742,42 @@
 <td class="gt_row gt_center">1</td>
       <td class="gt_row gt_left">PROPHET W/ REGRESSORS</td>
       <td class="gt_row gt_left">Resamples</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">5781.13</td>
-      <td class="gt_row gt_right">16.07</td>
-      <td class="gt_row gt_right">0.17</td>
-      <td class="gt_row gt_right">15.20</td>
-      <td class="gt_row gt_right">8172.05</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_right">6328.68</td>
+      <td class="gt_row gt_right">17.26</td>
+      <td class="gt_row gt_right">0.19</td>
+      <td class="gt_row gt_right">16.49</td>
+      <td class="gt_row gt_right">8792.52</td>
       <td class="gt_row gt_right">0.95</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">2</td>
       <td class="gt_row gt_left">XGBOOST</td>
       <td class="gt_row gt_left">Resamples</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">4709.81</td>
-      <td class="gt_row gt_right">12.01</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_right">4854.34</td>
+      <td class="gt_row gt_right">12.58</td>
       <td class="gt_row gt_right">0.14</td>
-      <td class="gt_row gt_right">11.48</td>
-      <td class="gt_row gt_right">6879.50</td>
+      <td class="gt_row gt_right">11.87</td>
+      <td class="gt_row gt_right">6969.84</td>
       <td class="gt_row gt_right">0.97</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">3</td>
       <td class="gt_row gt_left">PROPHET W/ XGBOOST ERRORS</td>
       <td class="gt_row gt_left">Resamples</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">4503.63</td>
-      <td class="gt_row gt_right">13.24</td>
-      <td class="gt_row gt_right">0.13</td>
-      <td class="gt_row gt_right">11.72</td>
-      <td class="gt_row gt_right">6609.03</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_right">4677.63</td>
+      <td class="gt_row gt_right">13.73</td>
+      <td class="gt_row gt_right">0.14</td>
+      <td class="gt_row gt_right">12.12</td>
+      <td class="gt_row gt_right">6724.22</td>
       <td class="gt_row gt_right">0.97</td>
     </tr>
 </tbody>
 </table></div>
 <p>We can customize the accuracy results by supplying multiple summary functions in a list. I’ve supplied <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> to get the range.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
+<div class="sourceCode" id="cb20"><pre class="downlit">
 <span class="va">resample_results</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>
     summary_fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -762,7 +790,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#oethyfqwls .gt_table {
+#spnkaabgft .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -787,7 +815,7 @@
   border-left-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_heading {
+#spnkaabgft .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -799,7 +827,7 @@
   border-right-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_title {
+#spnkaabgft .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -809,7 +837,7 @@
   border-bottom-width: 0;
 }
 
-#oethyfqwls .gt_subtitle {
+#spnkaabgft .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -819,13 +847,13 @@
   border-top-width: 0;
 }
 
-#oethyfqwls .gt_bottom_border {
+#spnkaabgft .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_col_headings {
+#spnkaabgft .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -840,7 +868,7 @@
   border-right-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_col_heading {
+#spnkaabgft .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -860,7 +888,7 @@
   overflow-x: hidden;
 }
 
-#oethyfqwls .gt_column_spanner_outer {
+#spnkaabgft .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -872,15 +900,15 @@
   padding-right: 4px;
 }
 
-#oethyfqwls .gt_column_spanner_outer:first-child {
+#spnkaabgft .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#oethyfqwls .gt_column_spanner_outer:last-child {
+#spnkaabgft .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#oethyfqwls .gt_column_spanner {
+#spnkaabgft .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -892,7 +920,7 @@
   width: 100%;
 }
 
-#oethyfqwls .gt_group_heading {
+#spnkaabgft .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -914,7 +942,7 @@
   vertical-align: middle;
 }
 
-#oethyfqwls .gt_empty_group_heading {
+#spnkaabgft .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -929,15 +957,15 @@
   vertical-align: middle;
 }
 
-#oethyfqwls .gt_from_md > :first-child {
+#spnkaabgft .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#oethyfqwls .gt_from_md > :last-child {
+#spnkaabgft .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#oethyfqwls .gt_row {
+#spnkaabgft .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -956,7 +984,7 @@
   overflow-x: hidden;
 }
 
-#oethyfqwls .gt_stub {
+#spnkaabgft .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -968,7 +996,7 @@
   padding-left: 12px;
 }
 
-#oethyfqwls .gt_summary_row {
+#spnkaabgft .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -978,7 +1006,7 @@
   padding-right: 5px;
 }
 
-#oethyfqwls .gt_first_summary_row {
+#spnkaabgft .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -988,7 +1016,7 @@
   border-top-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_grand_summary_row {
+#spnkaabgft .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -998,7 +1026,7 @@
   padding-right: 5px;
 }
 
-#oethyfqwls .gt_first_grand_summary_row {
+#spnkaabgft .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1008,11 +1036,11 @@
   border-top-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_striped {
+#spnkaabgft .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#oethyfqwls .gt_table_body {
+#spnkaabgft .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1021,7 +1049,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_footnotes {
+#spnkaabgft .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1035,13 +1063,13 @@
   border-right-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_footnote {
+#spnkaabgft .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#oethyfqwls .gt_sourcenotes {
+#spnkaabgft .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1055,46 +1083,46 @@
   border-right-color: #D3D3D3;
 }
 
-#oethyfqwls .gt_sourcenote {
+#spnkaabgft .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#oethyfqwls .gt_left {
+#spnkaabgft .gt_left {
   text-align: left;
 }
 
-#oethyfqwls .gt_center {
+#spnkaabgft .gt_center {
   text-align: center;
 }
 
-#oethyfqwls .gt_right {
+#spnkaabgft .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#oethyfqwls .gt_font_normal {
+#spnkaabgft .gt_font_normal {
   font-weight: normal;
 }
 
-#oethyfqwls .gt_font_bold {
+#spnkaabgft .gt_font_bold {
   font-weight: bold;
 }
 
-#oethyfqwls .gt_font_italic {
+#spnkaabgft .gt_font_italic {
   font-style: italic;
 }
 
-#oethyfqwls .gt_super {
+#spnkaabgft .gt_super {
   font-size: 65%;
 }
 
-#oethyfqwls .gt_footnote_marks {
+#spnkaabgft .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="oethyfqwls" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="spnkaabgft" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
 <th colspan="16" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
@@ -1126,17 +1154,17 @@
 <td class="gt_row gt_center">1</td>
       <td class="gt_row gt_left">PROPHET W/ REGRESSORS</td>
       <td class="gt_row gt_left">Resamples</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">5079.99</td>
-      <td class="gt_row gt_right">6930.57</td>
-      <td class="gt_row gt_right">12.04</td>
-      <td class="gt_row gt_right">20.31</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_right">5221.26</td>
+      <td class="gt_row gt_right">8159.46</td>
+      <td class="gt_row gt_right">11.71</td>
+      <td class="gt_row gt_right">23.01</td>
       <td class="gt_row gt_right">0.15</td>
-      <td class="gt_row gt_right">0.22</td>
-      <td class="gt_row gt_right">12.17</td>
-      <td class="gt_row gt_right">17.58</td>
-      <td class="gt_row gt_right">7483.02</td>
-      <td class="gt_row gt_right">9917.76</td>
+      <td class="gt_row gt_right">0.23</td>
+      <td class="gt_row gt_right">12.10</td>
+      <td class="gt_row gt_right">22.78</td>
+      <td class="gt_row gt_right">7093.67</td>
+      <td class="gt_row gt_right">10746.54</td>
       <td class="gt_row gt_right">0.92</td>
       <td class="gt_row gt_right">0.97</td>
     </tr>
@@ -1144,17 +1172,17 @@
 <td class="gt_row gt_center">2</td>
       <td class="gt_row gt_left">XGBOOST</td>
       <td class="gt_row gt_left">Resamples</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">3665.48</td>
-      <td class="gt_row gt_right">5567.77</td>
-      <td class="gt_row gt_right">7.99</td>
-      <td class="gt_row gt_right">17.22</td>
-      <td class="gt_row gt_right">0.11</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_right">4093.19</td>
+      <td class="gt_row gt_right">5451.55</td>
+      <td class="gt_row gt_right">8.21</td>
+      <td class="gt_row gt_right">18.60</td>
+      <td class="gt_row gt_right">0.12</td>
       <td class="gt_row gt_right">0.18</td>
-      <td class="gt_row gt_right">7.90</td>
-      <td class="gt_row gt_right">14.32</td>
-      <td class="gt_row gt_right">5289.17</td>
-      <td class="gt_row gt_right">8321.47</td>
+      <td class="gt_row gt_right">8.22</td>
+      <td class="gt_row gt_right">15.57</td>
+      <td class="gt_row gt_right">5575.19</td>
+      <td class="gt_row gt_right">8040.35</td>
       <td class="gt_row gt_right">0.95</td>
       <td class="gt_row gt_right">0.99</td>
     </tr>
@@ -1162,17 +1190,17 @@
 <td class="gt_row gt_center">3</td>
       <td class="gt_row gt_left">PROPHET W/ XGBOOST ERRORS</td>
       <td class="gt_row gt_left">Resamples</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">3837.74</td>
-      <td class="gt_row gt_right">5087.11</td>
-      <td class="gt_row gt_right">9.32</td>
-      <td class="gt_row gt_right">16.78</td>
-      <td class="gt_row gt_right">0.11</td>
-      <td class="gt_row gt_right">0.16</td>
-      <td class="gt_row gt_right">8.61</td>
-      <td class="gt_row gt_right">13.70</td>
-      <td class="gt_row gt_right">5591.65</td>
-      <td class="gt_row gt_right">7443.07</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_right">3435.40</td>
+      <td class="gt_row gt_right">5341.38</td>
+      <td class="gt_row gt_right">8.02</td>
+      <td class="gt_row gt_right">21.29</td>
+      <td class="gt_row gt_right">0.10</td>
+      <td class="gt_row gt_right">0.17</td>
+      <td class="gt_row gt_right">7.58</td>
+      <td class="gt_row gt_right">16.28</td>
+      <td class="gt_row gt_right">4873.08</td>
+      <td class="gt_row gt_right">8046.84</td>
       <td class="gt_row gt_right">0.95</td>
       <td class="gt_row gt_right">0.98</td>
     </tr>
@@ -1183,7 +1211,7 @@
 <div id="wrapup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#wrapup" class="anchor"></a>Wrapup</h1>
-<p>Working with Panel Data (data with multiple overlapping time series groups) can be challenging. Modeltime Resample makes it much easier to evaluate multiple models. We saw how we can easily evaluate multiple models on varying time series windows. This increased our confidence that the Prophet Boost model was the best model for this data.</p>
+<p>Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. <strong>Modeltime Resample makes working with Panel Data much easier.</strong> We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that the Prophet Boost model was the best model for this data.</p>
 </div>
   </div>
 

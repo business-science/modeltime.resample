@@ -191,10 +191,11 @@ forecast_panel_tbl %>%
             data = data_prepared_tbl) +
   geom_line() + 
   facet_wrap(~ id, scales = "free_y") +
+  expand_limits(y = 0) +
   theme_tq() +
   scale_color_tq() +
   labs(title = "Forecast Plot for Panel Data Predictions",
-       caption = "Prophet with Regressors ")
+       caption = "Prophet with Regressors is struggling with Panel Data. Boosted models are doing well.")
 ```
 
 # Quantifying Prediction Error

@@ -35,8 +35,8 @@ library(modeltime.resample)
 
 A `modeltime` extension that implements ___forecast resampling tools___ for making iterative predictions and evaluating resample results.
 
-```{r, echo=F, out.width='100%', fig.cap="Model Accuracy for 6 Time Series Resamples"}
-knitr::include_graphics("man/figures/plotly_resample_error_plot.jpg")
+```{r, echo=F, out.width='100%'}
+knitr::include_graphics("man/figures/cross_validation_plan.jpg")
 ```
 
 ## Benefits: What Modeltime Resample Does
@@ -48,9 +48,12 @@ Modeltime Resample makes it easy to:
 1. __Iteratively generate predictions__ from time series cross-validation plans.
 2. __Evaluate the resample predictions__ to compare many time series models across multiple time-series windows.
 
+```{r, echo=F, out.width='100%', fig.cap="Model Accuracy for 6 Time Series Resamples"}
+knitr::include_graphics("man/figures/plotly_resample_error_plot.jpg")
+```
 
-```{r, echo=F, out.width='80%', fig.cap="Model Accuracy for 6 Time Series Resamples"}
-knitr::include_graphics("man/figures/gt_accuracy_table.png")
+```{r, echo=F, out.width='80%', fig.cap="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)"}
+knitr::include_graphics("man/figures/gt_accuracy_table.jpg")
 ```
 
 ## Installation

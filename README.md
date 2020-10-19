@@ -20,17 +20,7 @@ status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R
 A `modeltime` extension that implements ***forecast resampling tools***
 for making iterative predictions and evaluating resample results.
 
-<div class="figure" style="text-align: center">
-
-<img src="man/figures/plotly_resample_error_plot.jpg" alt="Model Accuracy for 6 Time Series Resamples" width="100%" />
-
-<p class="caption">
-
-Model Accuracy for 6 Time Series Resamples
-
-</p>
-
-</div>
+<img src="man/figures/cross_validation_plan.jpg" width="100%" style="display: block; margin: auto;" />
 
 ## Benefits: What Modeltime Resample Does
 
@@ -49,11 +39,23 @@ Modeltime Resample makes it easy to:
 
 <div class="figure" style="text-align: center">
 
-<img src="man/figures/gt_accuracy_table.png" alt="Model Accuracy for 6 Time Series Resamples" width="80%" />
+<img src="man/figures/plotly_resample_error_plot.jpg" alt="Model Accuracy for 6 Time Series Resamples" width="100%" />
 
 <p class="caption">
 
 Model Accuracy for 6 Time Series Resamples
+
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="man/figures/gt_accuracy_table.jpg" alt="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)" width="80%" />
+
+<p class="caption">
+
+Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)
 
 </p>
 

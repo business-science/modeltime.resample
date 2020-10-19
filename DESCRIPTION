@@ -6,8 +6,8 @@ Authors@R: c(
     person("Business Science", role = "cph")
     )
 Description: 
-    A 'modeltime' extension that implements time series resampling tools
-    that help assess time-based model stability for a single time series, 
+    A 'modeltime' extension that implements forecast resampling tools
+    that assess time-based model performance and stability for a single time series, 
     panel data, and cross-sectional time series analysis. 
 License: MIT + file LICENSE
 Encoding: UTF-8

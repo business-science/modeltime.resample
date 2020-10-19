@@ -30,10 +30,12 @@ library(modeltime.resample)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 <!-- badges: end -->
 
-> Model Performance and Stability Assessment Tools for Single Time Series, Panel Data, & Cross-Sectional Time Series Analysis
+> __Model Performance and Stability Assessment Tools__ for Single Time Series, Panel Data, & Cross-Sectional Time Series Analysis
 
 
-A `modeltime` extension that implements ___forecast resampling tools___ for making iterative predictions and evaluating resample results with the __goal of assessing model performance and stability over time.__
+A `modeltime` extension that implements ___forecast resampling tools___ that assess __time-based model performance and stability__ for a single time series, panel data, and cross-sectional time series analysis.
+
+
 
 ```{r, echo=F, out.width='100%'}
 knitr::include_graphics("man/figures/cross_validation_plan.jpg")

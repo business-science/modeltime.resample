@@ -15,11 +15,12 @@ status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 <!-- badges: end -->
 
-> Resampling Tools for Single Time Series, Panel Data, & Cross-Sectional
-> Time Series Analysis
+> Model Performance and Stability Assessment Tools for Single Time
+> Series, Panel Data, & Cross-Sectional Time Series Analysis
 
 A `modeltime` extension that implements ***forecast resampling tools***
-for making iterative predictions and evaluating resample results.
+for making iterative predictions and evaluating resample results with
+the **goal of assessing model performance and stability over time.**
 
 <img src="man/figures/cross_validation_plan.jpg" width="100%" style="display: block; margin: auto;" />
 

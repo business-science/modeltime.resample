@@ -40,7 +40,7 @@ Modeltime Resample makes it easy to:
     models across multiple time-series windows.
 
 Here is an example from [*Resampling Panel
-Data*](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html),
+Data*](https://business-science.github.io/modeltime.resample/articles/articles/panel-data.html),
 where we can see that Prophet Boost and XGBoost Models outperform
 Prophet with Regressors for the Walmart Time Series Panel Dataset using
 the 6-Slice Time Series Cross Validation plan shown above.
@@ -90,10 +90,10 @@ remotes::install_github("business-science/modeltime.resample")
     Modeltime](https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html):
     Learn the basics of forecasting with Modeltime.
 2.  [Resampling a Single Time
-    Series](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html):
+    Series](https://business-science.github.io/modeltime.resample/articles/getting-started.html):
     Learn the basics of time series resample evaluation.
 3.  [Resampling Panel
-    Data](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html):
+    Data](https://business-science.github.io/modeltime.resample/articles/articles/panel-data.html):
     An advanced tutorial on resample evaluation with **multiple time
     series groups (Panel Data)**
 

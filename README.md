@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# modeltime.resample
+# modeltime.resample <img src='man/figures/logo.png' align="right" height="138.5" />
 
 <!-- badges: start -->
 
@@ -14,8 +14,6 @@ status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R
 ![](http://cranlogs.r-pkg.org/badges/modeltime.resample?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 <!-- badges: end -->
-
-# modeltime.resample <img src='man/figures/logo.png' align="right" height="138.5" />
 
 > Resampling Tools for Time Series Forecasting with Modeltime
 

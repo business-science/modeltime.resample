@@ -20,7 +20,7 @@ library(modeltime)
 library(modeltime.resample)
 ```
 
-# modeltime.resample
+# modeltime.resample <img src='man/figures/logo.png' align="right" height="138.5" />
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.com/business-science/modeltime.resample.svg?branch=master)](https://travis-ci.com/business-science/modeltime.resample)
@@ -29,8 +29,6 @@ library(modeltime.resample)
 ![](http://cranlogs.r-pkg.org/badges/modeltime.resample?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 <!-- badges: end -->
-
-# modeltime.resample <img src='man/figures/logo.png' align="right" height="138.5" />
 
 > Resampling Tools for Time Series Forecasting with Modeltime
 

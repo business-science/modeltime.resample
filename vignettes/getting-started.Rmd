@@ -19,15 +19,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Evaluate Your Models Across Time
 
-> Resampling gives us a way to <span style='color:blue'>compare multiple models across time.</span>
 
 __Modeltime Resample__ provide a convenient toolkit for efficiently evaluating multiple models across time, increasing our confidence in model selections. 
 
 - __The core functionality__ is `modeltime_resample()`, which automates the iterative model fitting and prediction procedure. 
 - __A new plotting function__ `plot_modeltime_resamples()` provides a quick way to review model resample accuracy visually.
 - __A new accuracy function__ `modeltime_resample_accuracy()` provides a flexible way for creating custom accuracy tables using customizable summary functions (e.g. mean, median, sd, min, max). 
+
+## Single Time Series
+
+> Resampling gives us a way to <span style='color:blue'>compare multiple models across time.</span>
+
+In this tutorial, we'll get you up to speed by evaluating multiple models using resampling of a single time series. 
 
 ### Getting Started Setup
 
@@ -117,7 +121,11 @@ Visualize the model resample accuracy using `plot_modeltime_resamples()`. Some o
 
 ```{r}
 resamples_fitted %>%
-    plot_modeltime_resamples(.interactive = FALSE)
+    plot_modeltime_resamples(
+      .point_size  = 3, 
+      .point_alpha = 0.8,
+      .interactive = FALSE
+    )
 ```
 
 

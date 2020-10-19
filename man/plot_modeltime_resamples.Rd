@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_modeltime_resamples.R
 \name{plot_modeltime_resamples}
 \alias{plot_modeltime_resamples}
-\title{Interactive Resampling Error Plots}
+\title{Interactive Resampling Accuracy Plots}
 \usage{
 plot_modeltime_resamples(
   .data,
@@ -86,7 +86,7 @@ Can save space with long model descriptions.}
 \item{.interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 }
 \description{
-A convenient plotting function for visualizing resampling error by
+A convenient plotting function for visualizing resampling accuracy by
 resample set for each model in a Modeltime Table.
 }
 \details{

@@ -13,10 +13,10 @@ navbar:
     - text: "Documentation"
       href: articles/index.html
       menu:
-        - text: 'Basics'
-        - text: "Getting Started"
+        - text: 'Single Time Series'
+        - text: "Resampling Single Time Series"
           href: articles/getting-started.html
-        - text: 'Panel Data'
+        - text: 'Multiple Time Series'
         - text: "Resampling Panel Data"
           href: articles/panel-data.html
     - text: "Key Functions"
@@ -32,6 +32,7 @@ reference:
   - title: Core Functions
     desc: Functions used to create resample predictions.
     contents:
+    - "time_series_cv"
     - "modeltime_fit_resamples"
     - "modeltime_resample_accuracy"
     - "plot_modeltime_resamples"

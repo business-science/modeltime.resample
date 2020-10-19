@@ -66,11 +66,11 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Basics</li>
+<li class="dropdown-header">Single Time Series</li>
     <li>
-      <a href="../articles/getting-started.html">Getting Started</a>
+      <a href="../articles/getting-started.html">Resampling Single Time Series</a>
     </li>
-    <li class="dropdown-header">Panel Data</li>
+    <li class="dropdown-header">Multiple Time Series</li>
     <li>
       <a href="../articles/panel-data.html">Resampling Panel Data</a>
     </li>
@@ -113,12 +113,6 @@
 
     
     
-<div id="evaluate-your-models-across-time" class="section level2">
-<h2 class="hasAnchor">
-<a href="#evaluate-your-models-across-time" class="anchor"></a>Evaluate Your Models Across Time</h2>
-<blockquote>
-<p>Resampling gives us a way to <span style="color:blue">compare multiple models across time.</span></p>
-</blockquote>
 <p><strong>Modeltime Resample</strong> provide a convenient toolkit for efficiently evaluating multiple models across time, increasing our confidence in model selections.</p>
 <ul>
 <li>
@@ -128,6 +122,13 @@
 <li>
 <strong>A new accuracy function</strong> <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code> provides a flexible way for creating custom accuracy tables using customizable summary functions (e.g. mean, median, sd, min, max).</li>
 </ul>
+<div id="single-time-series" class="section level2">
+<h2 class="hasAnchor">
+<a href="#single-time-series" class="anchor"></a>Single Time Series</h2>
+<blockquote>
+<p>Resampling gives us a way to <span style="color:blue">compare multiple models across time.</span></p>
+</blockquote>
+<p>In this tutorial, we’ll get you up to speed by evaluating multiple models using resampling of a single time series.</p>
 <div id="getting-started-setup" class="section level3">
 <h3 class="hasAnchor">
 <a href="#getting-started-setup" class="anchor"></a>Getting Started Setup</h3>
@@ -239,7 +240,11 @@
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="va">resamples_fitted</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>
+      .point_size  <span class="op">=</span> <span class="fl">3</span>, 
+      .point_alpha <span class="op">=</span> <span class="fl">0.8</span>,
+      .interactive <span class="op">=</span> <span class="cn">FALSE</span>
+    <span class="op">)</span></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="accuracy-table" class="section level4">
@@ -254,7 +259,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#bmosaaocct .gt_table {
+#zgqudthgsb .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -279,7 +284,7 @@
   border-left-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_heading {
+#zgqudthgsb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -291,7 +296,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_title {
+#zgqudthgsb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -301,7 +306,7 @@
   border-bottom-width: 0;
 }
 
-#bmosaaocct .gt_subtitle {
+#zgqudthgsb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -311,13 +316,13 @@
   border-top-width: 0;
 }
 
-#bmosaaocct .gt_bottom_border {
+#zgqudthgsb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_col_headings {
+#zgqudthgsb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -332,7 +337,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_col_heading {
+#zgqudthgsb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -352,7 +357,7 @@
   overflow-x: hidden;
 }
 
-#bmosaaocct .gt_column_spanner_outer {
+#zgqudthgsb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -364,15 +369,15 @@
   padding-right: 4px;
 }
 
-#bmosaaocct .gt_column_spanner_outer:first-child {
+#zgqudthgsb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bmosaaocct .gt_column_spanner_outer:last-child {
+#zgqudthgsb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bmosaaocct .gt_column_spanner {
+#zgqudthgsb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -384,7 +389,7 @@
   width: 100%;
 }
 
-#bmosaaocct .gt_group_heading {
+#zgqudthgsb .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -406,7 +411,7 @@
   vertical-align: middle;
 }
 
-#bmosaaocct .gt_empty_group_heading {
+#zgqudthgsb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -421,15 +426,15 @@
   vertical-align: middle;
 }
 
-#bmosaaocct .gt_from_md > :first-child {
+#zgqudthgsb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bmosaaocct .gt_from_md > :last-child {
+#zgqudthgsb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bmosaaocct .gt_row {
+#zgqudthgsb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -448,7 +453,7 @@
   overflow-x: hidden;
 }
 
-#bmosaaocct .gt_stub {
+#zgqudthgsb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -460,7 +465,7 @@
   padding-left: 12px;
 }
 
-#bmosaaocct .gt_summary_row {
+#zgqudthgsb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -470,7 +475,7 @@
   padding-right: 5px;
 }
 
-#bmosaaocct .gt_first_summary_row {
+#zgqudthgsb .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -480,7 +485,7 @@
   border-top-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_grand_summary_row {
+#zgqudthgsb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -490,7 +495,7 @@
   padding-right: 5px;
 }
 
-#bmosaaocct .gt_first_grand_summary_row {
+#zgqudthgsb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -500,11 +505,11 @@
   border-top-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_striped {
+#zgqudthgsb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bmosaaocct .gt_table_body {
+#zgqudthgsb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -513,7 +518,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_footnotes {
+#zgqudthgsb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -527,13 +532,13 @@
   border-right-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_footnote {
+#zgqudthgsb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#bmosaaocct .gt_sourcenotes {
+#zgqudthgsb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -547,46 +552,46 @@
   border-right-color: #D3D3D3;
 }
 
-#bmosaaocct .gt_sourcenote {
+#zgqudthgsb .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#bmosaaocct .gt_left {
+#zgqudthgsb .gt_left {
   text-align: left;
 }
 
-#bmosaaocct .gt_center {
+#zgqudthgsb .gt_center {
   text-align: center;
 }
 
-#bmosaaocct .gt_right {
+#zgqudthgsb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bmosaaocct .gt_font_normal {
+#zgqudthgsb .gt_font_normal {
   font-weight: normal;
 }
 
-#bmosaaocct .gt_font_bold {
+#zgqudthgsb .gt_font_bold {
   font-weight: bold;
 }
 
-#bmosaaocct .gt_font_italic {
+#zgqudthgsb .gt_font_italic {
   font-style: italic;
 }
 
-#bmosaaocct .gt_super {
+#zgqudthgsb .gt_super {
   font-size: 65%;
 }
 
-#bmosaaocct .gt_footnote_marks {
+#zgqudthgsb .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="bmosaaocct" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="zgqudthgsb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
 <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>

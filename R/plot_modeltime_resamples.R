@@ -1,9 +1,9 @@
 # PLOT MODELTIME RESAMPLES ----
 
 
-#' Interactive Resampling Error Plots
+#' Interactive Resampling Accuracy Plots
 #'
-#' A convenient plotting function for visualizing resampling error by
+#' A convenient plotting function for visualizing resampling accuracy by
 #' resample set for each model in a Modeltime Table.
 #'
 #' @inheritParams modeltime::plot_modeltime_forecast

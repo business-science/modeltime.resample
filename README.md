@@ -15,7 +15,8 @@ status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 <!-- badges: end -->
 
-> Resampling Tools for Time Series Forecasting
+> Resampling Tools for Single Time Series, Panel Data, & Cross-Sectional
+> Time Series Analysis
 
 A `modeltime` extension that implements ***forecast resampling tools***
 for making iterative predictions and evaluating resample results.
@@ -24,11 +25,11 @@ for making iterative predictions and evaluating resample results.
 
 ## Benefits: What Modeltime Resample Does
 
-Resampling time series is an important strategy to evaluate models
-across multiple time series windows. However, it’s a pain to do this
-because it requires multiple for-loops to generate the predictions for
-multiple models. **Modeltime Resample simplifies the iterative
-forecasting process taking the pain away.**
+Resampling time series is an important strategy to **evaluate the
+stability of models over time.** However, it’s a pain to do this because
+it requires multiple for-loops to generate the predictions for multiple
+models and potentially multiple time series groups. **Modeltime Resample
+simplifies the iterative forecasting process taking the pain away.**
 
 Modeltime Resample makes it easy to:
 
@@ -36,6 +37,12 @@ Modeltime Resample makes it easy to:
     cross-validation plans.
 2.  **Evaluate the resample predictions** to compare many time series
     models across multiple time-series windows.
+
+Here is an example from [*Resampling Panel
+Data*](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html),
+where we can see that Prophet Boost and XGBoost Models outperform
+Prophet with Regressors for the Walmart Time Series Panel Dataset using
+the 6-Slice Time Series Cross Validation plan shown above.
 
 <div class="figure" style="text-align: center">
 
@@ -81,12 +88,12 @@ remotes::install_github("business-science/modeltime.resample")
 1.  [Getting Started with
     Modeltime](https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html):
     Learn the basics of forecasting with Modeltime.
-2.  [Getting Started with Modeltime
-    Resample](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html):
+2.  [Resampling a Single Time
+    Series](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html):
     Learn the basics of time series resample evaluation.
 3.  [Resampling Panel
     Data](https://business-science.github.io/modeltime.resample/articles/getting-started-with-modeltime-resample.html):
-    An advanced tutorial on resample evaluation with multiple **time
+    An advanced tutorial on resample evaluation with **multiple time
     series groups (Panel Data)**
 
 ## Learning More

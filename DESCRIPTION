@@ -1,5 +1,5 @@
 Package: modeltime.resample
-Title: Resampling Tools for Time Series Forecasting with Modeltime
+Title: Resampling Tools for Time Series Forecasting
 Version: 0.0.0.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
@@ -7,7 +7,8 @@ Authors@R: c(
     )
 Description: 
     A 'modeltime' extension that implements time series resampling tools
-    for making iterative predictions and evaluating resample results.
+    that help assess time-based model stability for a single time series, 
+    panel data, and cross-sectional time series analysis. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

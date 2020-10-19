@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tidy eval helpers — tidyeval • modeltime.resample</title>
+<title>Time Series Resampling Sets and Plans — time_series_cv • modeltime.resample</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,40 +46,14 @@
 
 
 
-<meta property="og:title" content="Tidy eval helpers — tidyeval" />
-<meta property="og:description" content="
+<meta property="og:title" content="Time Series Resampling Sets and Plans — time_series_cv" />
+<meta property="og:description" content="These resampling tools are exported from the timetk package.
+timetk::time_series_cv(): Creates resample sets using time series cross validation
+timetk::time_series_split(): Makes an initial time series split
+timetk::plot_time_series_cv_plan(): Plots a cross validation plan
+timetk::tk_time_series_cv_plan(): Unnests a cross validation plan
 
-sym() creates a symbol from a string and
-syms() creates a list of symbols from a
-character vector.
-enquo() and
-enquos() delay the execution of one or
-several function arguments. enquo() returns a single quoted
-expression, which is like a blueprint for the delayed computation.
-enquos() returns a list of such quoted expressions.
-expr() quotes a new expression locally. It
-is mostly useful to build new expressions around arguments
-captured with enquo() or enquos():
-expr(mean(!!enquo(arg), na.rm = TRUE)).
-as_name() transforms a quoted variable name
-into a string. Supplying something else than a quoted variable
-name is an error.
-That's unlike as_label() which also returns
-a single string but supports any kind of R object as input,
-including quoted function calls and vectors. Its purpose is to
-summarise that object into a single label. That label is often
-suitable as a default name.
-If you don't know what a quoted expression contains (for instance
-expressions captured with enquo() could be a variable
-name, a call to a function, or an unquoted constant), then use
-as_label(). If you know you have quoted a simple variable
-name, or would like to enforce this, use as_name().
-
-
-To learn more about tidy eval and how to use these tools, visit
-https://tidyeval.tidyverse.org and the
-Metaprogramming
-section of Advanced R." />
+" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -181,50 +155,54 @@ section of Advanced R." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tidy eval helpers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/modeltime.resample/blob/master/R/utils-tidy-eval.R'><code>R/utils-tidy-eval.R</code></a></small>
-    <div class="hidden name"><code>tidyeval.Rd</code></div>
+    <h1>Time Series Resampling Sets and Plans</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/modeltime.resample/blob/master/R/utils-timetk.R'><code>R/utils-timetk.R</code></a></small>
+    <div class="hidden name"><code>time_series_cv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code><a href='https://rlang.r-lib.org/reference/sym.html'>sym</a>()</code> creates a symbol from a string and
-<code><a href='https://rlang.r-lib.org/reference/sym.html'>syms</a>()</code> creates a list of symbols from a
-character vector.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquo</a>()</code> and
-<code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquos</a>()</code> delay the execution of one or
-several function arguments. <code>enquo()</code> returns a single quoted
-expression, which is like a blueprint for the delayed computation.
-<code>enquos()</code> returns a list of such quoted expressions.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>expr</a>()</code> quotes a new expression <em>locally</em>. It
-is mostly useful to build new expressions around arguments
-captured with <code>enquo()</code> or <code>enquos()</code>:
-<code>expr(mean(!!enquo(arg), na.rm = TRUE))</code>.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a>()</code> transforms a quoted variable name
-into a string. Supplying something else than a quoted variable
-name is an error.</p>
-<p>That's unlike <code><a href='https://rlang.r-lib.org/reference/as_label.html'>as_label</a>()</code> which also returns
-a single string but supports any kind of R object as input,
-including quoted function calls and vectors. Its purpose is to
-summarise that object into a single label. That label is often
-suitable as a default name.</p>
-<p>If you don't know what a quoted expression contains (for instance
-expressions captured with <code>enquo()</code> could be a variable
-name, a call to a function, or an unquoted constant), then use
-<code>as_label()</code>. If you know you have quoted a simple variable
-name, or would like to enforce this, use <code>as_name()</code>.</p></li>
+    <p>These resampling tools are exported from the <code>timetk</code> package.</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/timetk/man/time_series_cv.html'>timetk::time_series_cv()</a></code>: Creates resample sets using time series cross validation</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/timetk/man/time_series_split.html'>timetk::time_series_split()</a></code>: Makes an initial time series split</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/timetk/man/plot_time_series_cv_plan.html'>timetk::plot_time_series_cv_plan()</a></code>: Plots a cross validation plan</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/timetk/man/tk_time_series_cv_plan.html'>timetk::tk_time_series_cv_plan()</a></code>: Unnests a cross validation plan</p></li>
 </ul>
 
-<p>To learn more about tidy eval and how to use these tools, visit
-<a href='https://tidyeval.tidyverse.org'>https://tidyeval.tidyverse.org</a> and the
-<a href='https://adv-r.hadley.nz/metaprogramming.html'>Metaprogramming
-section</a> of <a href='https://adv-r.hadley.nz'>Advanced R</a>.</p>
     </div>
 
 
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># Generate Time Series Resamples</span>
+<span class='va'>resamples_tscv</span> <span class='op'>&lt;-</span> <span class='fu'>time_series_cv</span><span class='op'>(</span>
+    data        <span class='op'>=</span> <span class='va'>m750</span>,
+    assess      <span class='op'>=</span> <span class='st'>"2 years"</span>,
+    initial     <span class='op'>=</span> <span class='st'>"5 years"</span>,
+    skip        <span class='op'>=</span> <span class='st'>"2 years"</span>,
+    slice_limit <span class='op'>=</span> <span class='fl'>4</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
+<span class='va'>resamples_tscv</span>
+</div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
+#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt;   splits          id    
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice1
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice2
+#&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice3
+#&gt; </span><span style='color: #555555;'>4</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice4</div><div class='input'>
+<span class='co'># Visualize the Resample Sets</span>
+<span class='va'>resamples_tscv</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>tk_time_series_cv_plan</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_time_series_cv_plan</span><span class='op'>(</span>
+        <span class='va'>date</span>, <span class='va'>value</span>,
+        .facet_ncol  <span class='op'>=</span> <span class='fl'>2</span>,
+        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <span class='op'>)</span>
+</div><div class='img'><img src='time_series_cv-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

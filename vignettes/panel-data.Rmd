@@ -89,19 +89,19 @@ future_tbl <- full_data_tbl %>%
 
 ## Resampling Panel Data
 
-__The first step is to make a resample strategy.__ Our business objective is to forecast 3 months so we'll use the following strategy:
+__The first step is to make a resample strategy.__ Our business objective is to forecast 3 months so we'll use `time_series_cv()` with the following strategy:
 
 - __assess: 3 months.__ Corresponds to our business objective.
 - __skip: 3 months.__ Use 3 months to avoid overlapping assessment sets. 
 - __cumulative: TRUE.__ Maximizes the Training Set (alternatively we could do initial = "18 months" to have sliding training sets)
-- __slice_limit: 6.__ (keep the 6 largest train/test resamples to prevent too few observations - If we go below one full year, we will not be able to take advantage of the week of the year feature)
+- __slice_limit: 6.__ Keep the 6 largest train/test resamples to prevent too few observations. If we go below one full year, we will not be able to take advantage of the week of the year feature.
 
 This generates 6 resample sets. 
 
 ```{r}
 walmart_tscv <- data_prepared_tbl %>%
   time_series_cv(
-    date_var = Date, 
+    date_var    = Date, 
     assess      = "3 months",
     skip        = "3 months",
     cumulative  = TRUE,
@@ -270,7 +270,11 @@ We can visually evaluate the accuracy with `plot_modeltime_resamples()`. We can 
 
 ```{r}
 resample_results %>%
-  plot_modeltime_resamples(.summary_fn = mean, .interactive = FALSE)
+  plot_modeltime_resamples(
+    .summary_fn  = mean, 
+    .point_size  = 3,
+    .interactive = FALSE
+  )
 ```
 
 
@@ -292,7 +296,7 @@ If we are interested in a single model, we should select either the XGBoost Mode
 
 # Wrapup
 
-Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. 
+Working with Panel Data can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. 
 
 __Modeltime Resample makes working with Panel Data much easier.__ We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that selecting either the XGBoost or Prophet Boost models were best for this data. 
 

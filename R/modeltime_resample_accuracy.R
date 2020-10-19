@@ -17,12 +17,28 @@
 #'  * A list of functions/lambdas, e.g. list(mean = mean, sd = sd)
 #'
 #' @details
+#'
+#' #' __Default Accuracy Metrics__
+#'
+#' The following accuracy metrics are included by default via [modeltime::default_forecast_accuracy_metric_set()]:
+#'
+#' - MAE - Mean absolute error, [yardstick::mae()]
+#' - MAPE - Mean absolute percentage error, [yardstick::mape()]
+#' - MASE  - Mean absolute scaled error, [yardstick::mase()]
+#' - SMAPE - Symmetric mean absolute percentage error, [yardstick::smape()]
+#' - RMSE  - Root mean squared error, [yardstick::rmse()]
+#' - RSQ   - R-squared, [yardstick::rsq()]
+#'
+#' __Summary Functions__
+#'
 #' By default, `modeltime_resample_accuracy()` returns
 #' the _average_ accuracy metrics for each resample prediction.
 #'
 #' The user can change this default behavior using `summary_fns`.
 #' Simply pass one or more Summary Functions. Internally, the functions are passed to
 #' `dplyr::across(.fns)`, which applies the summary functions.
+#'
+#' __Professional Tables (Interactive & Static)__
 #'
 #' Use [modeltime::table_modeltime_accuracy()] to format the results for reporting in
 #' `reactable` (interactive) or `gt` (static) formats, which are perfect for

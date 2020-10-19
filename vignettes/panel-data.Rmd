@@ -28,7 +28,7 @@ __Modeltime Resample__ provides a convienent way for generating resample predict
 
 ## Panel Data Tutorial Overview
 
-__This is an advanced tutorial.__ Working with Panel Data requires working with multiple time series groups at the same time, and you need to be comfortable setting up the datasets required to generate training sets and forecast sets. I cover working with Panel Data and Time Series Groups in my [High-Performance Time Series Course.](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/) 
+__This is an advanced tutorial.__ Working with Panel Data requires working with multiple time series groups at the same time, and you need to be comfortable setting up the datasets required to generate training sets and forecast sets. I cover working with Panel Data and Time Series Groups in my [High-Performance Time Series Course.](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/)
 
 ## Libraries
 
@@ -259,9 +259,17 @@ resample_results
 
 ### Evaluate Resample Accuracy
 
-Finally, we can evaluate the accuracy with `modeltime_resample_accuracy()`. We can see that Prophet Boost has the lowest average RMSE compared to the other 2 models. 
+__Resample Plot__ We can visually evaluate the accuracy with `plot_modeltime_resamples()`. We can see that Prophet Boost has the lowest average RMSE compared to the other 2 models. 
 
-__Model Selection:__ If we are interested in a single model, we should select the Prophet Boost model, which has the lowest RMSE of the 3 models. 
+```{r}
+resample_results %>%
+  plot_modeltime_resamples(.summary_fn = mean, .interactive = FALSE)
+```
+
+
+
+
+__Accuracy Table__ We can get an interactive or static table using `modeltime_resample_accuracy()`.
 
 ```{r}
 resample_results %>%
@@ -269,11 +277,14 @@ resample_results %>%
   table_modeltime_accuracy(.interactive = FALSE)
 ```
 
-
+__Model Selection:__ If we are interested in a single model, we should select the Prophet Boost model, which has the lowest RMSE of the 3 models. 
 
 # Wrapup
 
 Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. __Modeltime Resample makes working with Panel Data much easier.__ We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that the Prophet Boost model was the best model for this data. 
+
+This is a quick overview of working with Panel Data. To learn how to evaluate Panel Data in-depth, take my [High-Performance Time Series Course.](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/) 
+
 
 
 

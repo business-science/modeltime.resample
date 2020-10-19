@@ -32,12 +32,28 @@ a Modeltime Table that has been resampled and fitted using
 \code{\link[=modeltime_fit_resamples]{modeltime_fit_resamples()}}.
 }
 \details{
+#' \strong{Default Accuracy Metrics}
+
+The following accuracy metrics are included by default via \code{\link[modeltime:default_forecast_accuracy_metric_set]{modeltime::default_forecast_accuracy_metric_set()}}:
+\itemize{
+\item MAE - Mean absolute error, \code{\link[yardstick:mae]{yardstick::mae()}}
+\item MAPE - Mean absolute percentage error, \code{\link[yardstick:mape]{yardstick::mape()}}
+\item MASE  - Mean absolute scaled error, \code{\link[yardstick:mase]{yardstick::mase()}}
+\item SMAPE - Symmetric mean absolute percentage error, \code{\link[yardstick:smape]{yardstick::smape()}}
+\item RMSE  - Root mean squared error, \code{\link[yardstick:rmse]{yardstick::rmse()}}
+\item RSQ   - R-squared, \code{\link[yardstick:rsq]{yardstick::rsq()}}
+}
+
+\strong{Summary Functions}
+
 By default, \code{modeltime_resample_accuracy()} returns
 the \emph{average} accuracy metrics for each resample prediction.
 
 The user can change this default behavior using \code{summary_fns}.
 Simply pass one or more Summary Functions. Internally, the functions are passed to
 \code{dplyr::across(.fns)}, which applies the summary functions.
+
+\strong{Professional Tables (Interactive & Static)}
 
 Use \code{\link[modeltime:table_modeltime_accuracy]{modeltime::table_modeltime_accuracy()}} to format the results for reporting in
 \code{reactable} (interactive) or \code{gt} (static) formats, which are perfect for

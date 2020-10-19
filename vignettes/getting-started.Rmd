@@ -19,14 +19,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Evaluate Your Time Series Resamples in Minutes
+## Evaluate Your Models Across Time
 
 > Resampling gives us a way to <span style='color:blue'>compare multiple models across time.</span>
 
 __Modeltime Resample__ provide a convenient toolkit for efficiently evaluating multiple models across time, increasing our confidence in model selections. 
 
 - __The core functionality__ is `modeltime_resample()`, which automates the iterative model fitting and prediction procedure. 
-- There is also a __new accuracy function__ `modeltime_resample_accuracy()` that provides a flexible way for creating custom accuracy tables using customizable summary functions (e.g. mean, median, sd, min, max). 
+- __A new plotting function__ `plot_modeltime_resamples()` provides a quick way to review model resample accuracy visually.
+- __A new accuracy function__ `modeltime_resample_accuracy()` provides a flexible way for creating custom accuracy tables using customizable summary functions (e.g. mean, median, sd, min, max). 
 
 ### Getting Started Setup
 
@@ -107,7 +108,23 @@ resamples_fitted
 
 ### Step 4 - Evaluate the Results
 
-Evaluate the results with `modeltime_resample_accuracy()`. We can compare the modeling approaches. The default is to report the average `summary_fns = mean`, but this can be changed to any summary function or a list containing multiple summary functions (e.g. `summary_fns = list(mean = mean, sd = sd)`). From the table below, ARIMA has a 6% lower RMSE, indicating it's the best choice for consistent performance on this dataset.
+#### Accuracy Plot
+
+Visualize the model resample accuracy using `plot_modeltime_resamples()`. Some observations:
+
+- __Overall:__ The ARIMA has the best overall performance, but it's not always the best. 
+- __Slice 4:__ We can see that Slice 4 seems to be giving the models the most issue. The GLMNET model is relatively robust to Slice 4. Prophet gets thrown for a loop. 
+
+```{r}
+resamples_fitted %>%
+    plot_modeltime_resamples(.interactive = FALSE)
+```
+
+
+
+#### Accuracy Table
+
+We can compare the overall modeling approaches by evaluating the results with `modeltime_resample_accuracy()`. The default is to report the average `summary_fns = mean`, but this can be changed to any summary function or a list containing multiple summary functions (e.g. `summary_fns = list(mean = mean, sd = sd)`). From the table below, ARIMA has a 6% lower RMSE, indicating it's the best choice for consistent performance on this dataset.
 
 ```{r}
 resamples_fitted %>%
@@ -118,4 +135,6 @@ resamples_fitted %>%
 
 # Wrapup
 
-Resampling gives us a way to compare multiple models across time. In this example, we can clearly see that the ARIMA model performs better than the Prophet and GLMNET models with a 6% lower RMSE. This won't always be the case (every time series is different). 
+Resampling gives us a way to compare multiple models across time. In this example, we can see that the ARIMA model performs better than the Prophet and GLMNET models with a lower RMSE. This won't always be the case (every time series is different). 
+
+This is a quick overview of Getting Started with Modeltime Resample. To learn how to tune, ensemble, and work with multiple groups of Time Series, take my [High-Performance Time Series Course.](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/) 

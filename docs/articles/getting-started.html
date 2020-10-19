@@ -113,9 +113,9 @@
 
     
     
-<div id="evaluate-your-time-series-resamples-in-minutes" class="section level2">
+<div id="evaluate-your-models-across-time" class="section level2">
 <h2 class="hasAnchor">
-<a href="#evaluate-your-time-series-resamples-in-minutes" class="anchor"></a>Evaluate Your Time Series Resamples in Minutes</h2>
+<a href="#evaluate-your-models-across-time" class="anchor"></a>Evaluate Your Models Across Time</h2>
 <blockquote>
 <p>Resampling gives us a way to <span style="color:blue">compare multiple models across time.</span></p>
 </blockquote>
@@ -123,7 +123,10 @@
 <ul>
 <li>
 <strong>The core functionality</strong> is <code>modeltime_resample()</code>, which automates the iterative model fitting and prediction procedure.</li>
-<li>There is also a <strong>new accuracy function</strong> <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code> that provides a flexible way for creating custom accuracy tables using customizable summary functions (e.g. mean, median, sd, min, max).</li>
+<li>
+<strong>A new plotting function</strong> <code><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples()</a></code> provides a quick way to review model resample accuracy visually.</li>
+<li>
+<strong>A new accuracy function</strong> <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code> provides a flexible way for creating custom accuracy tables using customizable summary functions (e.g. mean, median, sd, min, max).</li>
 </ul>
 <div id="getting-started-setup" class="section level3">
 <h3 class="hasAnchor">
@@ -224,8 +227,26 @@
 <div id="step-4---evaluate-the-results" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step-4---evaluate-the-results" class="anchor"></a>Step 4 - Evaluate the Results</h3>
-<p>Evaluate the results with <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. We can compare the modeling approaches. The default is to report the average <code>summary_fns = mean</code>, but this can be changed to any summary function or a list containing multiple summary functions (e.g. <code>summary_fns = list(mean = mean, sd = sd)</code>). From the table below, ARIMA has a 6% lower RMSE, indicating it’s the best choice for consistent performance on this dataset.</p>
+<div id="accuracy-plot" class="section level4">
+<h4 class="hasAnchor">
+<a href="#accuracy-plot" class="anchor"></a>Accuracy Plot</h4>
+<p>Visualize the model resample accuracy using <code><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples()</a></code>. Some observations:</p>
+<ul>
+<li>
+<strong>Overall:</strong> The ARIMA has the best overall performance, but it’s not always the best.</li>
+<li>
+<strong>Slice 4:</strong> We can see that Slice 4 seems to be giving the models the most issue. The GLMNET model is relatively robust to Slice 4. Prophet gets thrown for a loop.</li>
+</ul>
 <div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="va">resamples_fitted</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<p><img src="getting-started_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
+</div>
+<div id="accuracy-table" class="section level4">
+<h4 class="hasAnchor">
+<a href="#accuracy-table" class="anchor"></a>Accuracy Table</h4>
+<p>We can compare the overall modeling approaches by evaluating the results with <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. The default is to report the average <code>summary_fns = mean</code>, but this can be changed to any summary function or a list containing multiple summary functions (e.g. <code>summary_fns = list(mean = mean, sd = sd)</code>). From the table below, ARIMA has a 6% lower RMSE, indicating it’s the best choice for consistent performance on this dataset.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="va">resamples_fitted</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
@@ -233,7 +254,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qxsubqfjkx .gt_table {
+#zwvffnhwdf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -258,7 +279,7 @@
   border-left-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_heading {
+#zwvffnhwdf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -270,7 +291,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_title {
+#zwvffnhwdf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -280,7 +301,7 @@
   border-bottom-width: 0;
 }
 
-#qxsubqfjkx .gt_subtitle {
+#zwvffnhwdf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -290,13 +311,13 @@
   border-top-width: 0;
 }
 
-#qxsubqfjkx .gt_bottom_border {
+#zwvffnhwdf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_col_headings {
+#zwvffnhwdf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -311,7 +332,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_col_heading {
+#zwvffnhwdf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -331,7 +352,7 @@
   overflow-x: hidden;
 }
 
-#qxsubqfjkx .gt_column_spanner_outer {
+#zwvffnhwdf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -343,15 +364,15 @@
   padding-right: 4px;
 }
 
-#qxsubqfjkx .gt_column_spanner_outer:first-child {
+#zwvffnhwdf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qxsubqfjkx .gt_column_spanner_outer:last-child {
+#zwvffnhwdf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qxsubqfjkx .gt_column_spanner {
+#zwvffnhwdf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -363,7 +384,7 @@
   width: 100%;
 }
 
-#qxsubqfjkx .gt_group_heading {
+#zwvffnhwdf .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -385,7 +406,7 @@
   vertical-align: middle;
 }
 
-#qxsubqfjkx .gt_empty_group_heading {
+#zwvffnhwdf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -400,15 +421,15 @@
   vertical-align: middle;
 }
 
-#qxsubqfjkx .gt_from_md > :first-child {
+#zwvffnhwdf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qxsubqfjkx .gt_from_md > :last-child {
+#zwvffnhwdf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qxsubqfjkx .gt_row {
+#zwvffnhwdf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -427,7 +448,7 @@
   overflow-x: hidden;
 }
 
-#qxsubqfjkx .gt_stub {
+#zwvffnhwdf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -439,7 +460,7 @@
   padding-left: 12px;
 }
 
-#qxsubqfjkx .gt_summary_row {
+#zwvffnhwdf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -449,7 +470,7 @@
   padding-right: 5px;
 }
 
-#qxsubqfjkx .gt_first_summary_row {
+#zwvffnhwdf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -459,7 +480,7 @@
   border-top-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_grand_summary_row {
+#zwvffnhwdf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -469,7 +490,7 @@
   padding-right: 5px;
 }
 
-#qxsubqfjkx .gt_first_grand_summary_row {
+#zwvffnhwdf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -479,11 +500,11 @@
   border-top-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_striped {
+#zwvffnhwdf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qxsubqfjkx .gt_table_body {
+#zwvffnhwdf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -492,7 +513,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_footnotes {
+#zwvffnhwdf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -506,13 +527,13 @@
   border-right-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_footnote {
+#zwvffnhwdf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#qxsubqfjkx .gt_sourcenotes {
+#zwvffnhwdf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -526,46 +547,46 @@
   border-right-color: #D3D3D3;
 }
 
-#qxsubqfjkx .gt_sourcenote {
+#zwvffnhwdf .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#qxsubqfjkx .gt_left {
+#zwvffnhwdf .gt_left {
   text-align: left;
 }
 
-#qxsubqfjkx .gt_center {
+#zwvffnhwdf .gt_center {
   text-align: center;
 }
 
-#qxsubqfjkx .gt_right {
+#zwvffnhwdf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qxsubqfjkx .gt_font_normal {
+#zwvffnhwdf .gt_font_normal {
   font-weight: normal;
 }
 
-#qxsubqfjkx .gt_font_bold {
+#zwvffnhwdf .gt_font_bold {
   font-weight: bold;
 }
 
-#qxsubqfjkx .gt_font_italic {
+#zwvffnhwdf .gt_font_italic {
   font-style: italic;
 }
 
-#qxsubqfjkx .gt_super {
+#zwvffnhwdf .gt_super {
   font-size: 65%;
 }
 
-#qxsubqfjkx .gt_footnote_marks {
+#zwvffnhwdf .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="qxsubqfjkx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="zwvffnhwdf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
 <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
@@ -627,10 +648,12 @@
 </table></div>
 </div>
 </div>
+</div>
 <div id="wrapup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#wrapup" class="anchor"></a>Wrapup</h1>
-<p>Resampling gives us a way to compare multiple models across time. In this example, we can clearly see that the ARIMA model performs better than the Prophet and GLMNET models with a 6% lower RMSE. This won’t always be the case (every time series is different).</p>
+<p>Resampling gives us a way to compare multiple models across time. In this example, we can see that the ARIMA model performs better than the Prophet and GLMNET models with a lower RMSE. This won’t always be the case (every time series is different).</p>
+<p>This is a quick overview of Getting Started with Modeltime Resample. To learn how to tune, ensemble, and work with multiple groups of Time Series, take my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">High-Performance Time Series Course.</a></p>
 </div>
   </div>
 

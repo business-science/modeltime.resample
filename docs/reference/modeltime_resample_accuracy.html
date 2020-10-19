@@ -196,11 +196,23 @@ forecast accuracy (regression) metrics.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>By default, <code>modeltime_resample_accuracy()</code> returns
+    <p>#' <strong>Default Accuracy Metrics</strong></p>
+<p>The following accuracy metrics are included by default via <code><a href='https://rdrr.io/pkg/modeltime/man/default_forecast_accuracy_metric_set.html'>modeltime::default_forecast_accuracy_metric_set()</a></code>:</p><ul>
+<li><p>MAE - Mean absolute error, <code><a href='https://yardstick.tidymodels.org/reference/mae.html'>yardstick::mae()</a></code></p></li>
+<li><p>MAPE - Mean absolute percentage error, <code><a href='https://yardstick.tidymodels.org/reference/mape.html'>yardstick::mape()</a></code></p></li>
+<li><p>MASE  - Mean absolute scaled error, <code><a href='https://yardstick.tidymodels.org/reference/mase.html'>yardstick::mase()</a></code></p></li>
+<li><p>SMAPE - Symmetric mean absolute percentage error, <code><a href='https://yardstick.tidymodels.org/reference/smape.html'>yardstick::smape()</a></code></p></li>
+<li><p>RMSE  - Root mean squared error, <code><a href='https://yardstick.tidymodels.org/reference/rmse.html'>yardstick::rmse()</a></code></p></li>
+<li><p>RSQ   - R-squared, <code><a href='https://yardstick.tidymodels.org/reference/rsq.html'>yardstick::rsq()</a></code></p></li>
+</ul>
+
+<p><strong>Summary Functions</strong></p>
+<p>By default, <code>modeltime_resample_accuracy()</code> returns
 the <em>average</em> accuracy metrics for each resample prediction.</p>
 <p>The user can change this default behavior using <code>summary_fns</code>.
 Simply pass one or more Summary Functions. Internally, the functions are passed to
 <code><a href='https://dplyr.tidyverse.org/reference/across.html'>dplyr::across(.fns)</a></code>, which applies the summary functions.</p>
+<p><strong>Professional Tables (Interactive &amp; Static)</strong></p>
 <p>Use <code><a href='https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html'>modeltime::table_modeltime_accuracy()</a></code> to format the results for reporting in
 <code>reactable</code> (interactive) or <code>gt</code> (static) formats, which are perfect for
 Shiny Apps (interactive) and PDF Reports (static).</p>

@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 ```
 
 
-Working with __Panel Data__ is a common challenge for business analysts. We often have multiple time series (called Time Series Groups) that have overlapping timestamps. These time series may depend on each other and should be modeled together to take advantage of relationships between correlated time series. 
+Working with [__Panel Data__](https://en.wikipedia.org/wiki/Panel_data) is a common challenge for business analysts. We often have multiple time series (called Time Series Groups) that have overlapping timestamps (panels). These time series may depend on each other and should be modeled together using [_cross-sectional modeling strategies_](https://en.wikipedia.org/wiki/Cross-sectional_data) to take advantage of relationships between correlated time series. The issue becomes, how to evaluate the cross-sectional model over time so we can __select the most robust model.__
 
-> <span style="color:blue">__The challenge__ when working with Panel Data is judging how models will perform across time.</span> A single cross-section is not sufficient to instill confidence. 
+> <span style="color:blue">__The challenge__ when working with Panel Data is judging how cross-sectional models will perform over time.</span> A single cross-section is not sufficient to instill confidence. Rather, we need to resample to assess stability of our models prior to model selection.  
 
 __Modeltime Resample__ provides a convienent way for generating resample predictions across time for Panel Data, simplifying the model comparison process.
 
@@ -45,7 +45,7 @@ library(tidyquant)
 
 ## Data
 
-We'll use the `walmart_sales_weekly` dataset from `timetk`. This contains 7 time series groups. 
+We'll use the `walmart_sales_weekly` dataset from `timetk`. This contains 7 time series groups, which correspond to the revenue over time for seven departments in one Walmart Store. 
 
 ```{r}
 walmart_sales_weekly %>%
@@ -87,131 +87,16 @@ future_tbl <- full_data_tbl %>%
   filter(is.na(Weekly_Sales))
 ```
 
-## Modeling
+## Resampling Panel Data
 
-We'll create:
+__The first step is to make a resample strategy.__ Our business objective is to forecast 3 months so we'll use the following strategy:
 
-- __1 Recipe:__ This applies engineered features from calendar variables
+- __assess: 3 months.__ Corresponds to our business objective.
+- __skip: 3 months.__ Use 3 months to avoid overlapping assessment sets. 
+- __cumulative: TRUE.__ Maximizes the Training Set (alternatively we could do initial = "18 months" to have sliding training sets)
+- __slice_limit: 6.__ (keep the 6 largest train/test resamples to prevent too few observations - If we go below one full year, we will not be able to take advantage of the week of the year feature)
 
-- __3 Fitted Models:__ Prophet, XGBoost, and Prophet Boost fitted on the `data_prepared_tbl` dataset
-
-### Recipe 
-
-We'll create a recipe that leverages `step_timeseries_signature()` to generate calendar features. 
-
-```{r}
-recipe_spec <- recipe(Weekly_Sales ~ ., data = data_prepared_tbl) %>%
-  step_timeseries_signature(Date) %>%
-  step_rm(matches("(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)")) %>%
-  step_mutate(Date_week = factor(Date_week, ordered = TRUE)) %>%
-  step_dummy(all_nominal(), one_hot = TRUE)
-
-recipe_spec
-```
-
-
-### Models
-
-Let's generate 3 Models: Prophet, XGBoost, and Prophet Boost. 
-
-#### Prophet
-
-```{r}
-wflw_fit_prophet <- workflow() %>%
-  add_model(
-    prophet_reg() %>% set_engine("prophet") 
-  ) %>%
-  add_recipe(recipe_spec) %>%
-  fit(data_prepared_tbl)
-```
-
-#### XGBoost
-
-```{r}
-wflw_fit_xgboost <- workflow() %>%
-  add_model(
-    boost_tree() %>% set_engine("xgboost") 
-  ) %>%
-  add_recipe(recipe_spec %>% step_rm(Date)) %>%
-  fit(data_prepared_tbl)
-```
-
-#### Prophet Boost
-
-```{r}
-wflw_fit_prophet_boost <- workflow() %>%
-  add_model(
-    prophet_boost(
-      seasonality_daily  = FALSE, 
-      seasonality_weekly = FALSE,
-      seasonality_yearly = FALSE
-    ) %>% 
-      set_engine("prophet_xgboost") 
-  ) %>%
-  add_recipe(recipe_spec) %>%
-  fit(data_prepared_tbl)
-```
-
-### Organize in a Modeltime Table
-
-Add the 3 fitted models to a Modeltime Table with `modeltime_table()`.
-
-```{r}
-model_tbl <- modeltime_table(
-  wflw_fit_prophet,
-  wflw_fit_xgboost,
-  wflw_fit_prophet_boost
-)
-
-model_tbl
-```
-
-__We can make a Panel Data forecast__, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach. 
-
-```{r}
-# Panel data forecast produces results at once
-forecast_panel_tbl <- model_tbl %>%
-  modeltime_forecast(
-    new_data      = future_tbl,
-    # Keep new data allows us keep the ID feature for the 
-    #  time series groups
-    keep_new_data = TRUE
-  ) 
-```
-
-
-__We can visualize the Panel Data forecasts.__ We can see that the Prophet w/ Regressors model is struggling with the Panel Data. However, the Boosted Models are responding well. 
-
-```{r, fig.cap="Forecast Plot for Panel Data Predictions"}
-forecast_panel_tbl %>%
-  mutate(model_identifier = str_c(.model_id, "_", .model_desc)) %>%
-  filter(.key == "prediction") %>%
-  ggplot(aes(.index, .value, color = model_identifier)) +
-  geom_line(aes(Date, Weekly_Sales), color = "gray30",
-            data = data_prepared_tbl) +
-  geom_line() + 
-  facet_wrap(~ id, scales = "free_y") +
-  expand_limits(y = 0) +
-  theme_tq() +
-  scale_color_tq() +
-  labs(title = "Forecast Plot for Panel Data Predictions",
-       caption = "Prophet with Regressors is struggling with Panel Data. Boosted models are doing well.")
-```
-
-# Quantifying Prediction Error
-
-__We've made predictions, but this doesn't tell us how the models will do over time. We need to quantify prediction error.__ To do so, we'll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions. 
-
-### Resampling Panel Data
-
-The first step is to make a resample strategy. Our business objective is to forecast 3 months so we'll use the following strategy:
-
-- assess: 3 months
-- skip: 3 months
-- cumulative: TRUE. Maximizes the Training Set (alternatively we could do initial = "18 months" to have sliding training sets)
-- slice_limit: 6 (keep the 6 largest train/test resamples to prevent too few observations)
-
-This generates 5 resample sets. 
+This generates 6 resample sets. 
 
 ```{r}
 walmart_tscv <- data_prepared_tbl %>%
@@ -234,6 +119,123 @@ walmart_tscv %>%
   plot_time_series_cv_plan(Date, Weekly_Sales, 
                            .facet_ncol = 2, .interactive = F)
 ```
+
+## Modeling
+
+We'll create:
+
+- __1 Recipe:__ This applies engineered features from calendar variables
+
+- __3 Fitted Models:__ Prophet, XGBoost, and Prophet Boost fitted on the `data_prepared_tbl` dataset
+
+### Recipe 
+
+We'll create a recipe that leverages `step_timeseries_signature()` to generate calendar features. 
+
+```{r}
+recipe_spec <- recipe(Weekly_Sales ~ ., 
+                      data = training(walmart_tscv$splits[[1]])) %>%
+  step_timeseries_signature(Date) %>%
+  step_rm(matches("(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)")) %>%
+  step_mutate(Date_week = factor(Date_week, ordered = TRUE)) %>%
+  step_dummy(all_nominal(), one_hot = TRUE)
+```
+
+
+### Models
+
+Let's generate 3 Models: Prophet, XGBoost, and Prophet Boost. 
+
+#### Prophet
+
+```{r}
+wflw_fit_prophet <- workflow() %>%
+  add_model(
+    prophet_reg() %>% set_engine("prophet") 
+  ) %>%
+  add_recipe(recipe_spec) %>%
+  fit(training(walmart_tscv$splits[[1]]))
+```
+
+#### XGBoost
+
+```{r}
+wflw_fit_xgboost <- workflow() %>%
+  add_model(
+    boost_tree() %>% set_engine("xgboost") 
+  ) %>%
+  add_recipe(recipe_spec %>% step_rm(Date)) %>%
+  fit(training(walmart_tscv$splits[[1]]))
+```
+
+#### Prophet Boost
+
+```{r}
+wflw_fit_prophet_boost <- workflow() %>%
+  add_model(
+    prophet_boost(
+      seasonality_daily  = FALSE, 
+      seasonality_weekly = FALSE,
+      seasonality_yearly = FALSE
+    ) %>% 
+      set_engine("prophet_xgboost") 
+  ) %>%
+  add_recipe(recipe_spec) %>%
+  fit(training(walmart_tscv$splits[[1]]))
+```
+
+### Organize in a Modeltime Table
+
+Add the 3 fitted models to a Modeltime Table with `modeltime_table()`.
+
+```{r}
+model_tbl <- modeltime_table(
+  wflw_fit_prophet,
+  wflw_fit_xgboost,
+  wflw_fit_prophet_boost
+)
+
+model_tbl
+```
+
+### Assess a Single Resample Split
+
+__We can make a Panel Data forecast__, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach. 
+
+```{r}
+# Panel data forecast produces results at once
+forecast_panel_tbl <- model_tbl %>%
+  modeltime_forecast(
+    new_data      = testing(walmart_tscv$splits[[1]]),
+    # Keep new data allows us keep the ID feature for the 
+    #  time series groups
+    keep_new_data = TRUE
+  ) 
+```
+
+
+__We can visualize the Panel Data forecasts on a single split__. It's a bit difficult to tell how each model is performing. 
+
+```{r, fig.cap="Forecast Plot for Panel Data Predictions"}
+forecast_panel_tbl %>%
+  mutate(model_identifier = str_c(.model_id, "_", .model_desc)) %>%
+  filter(.key == "prediction") %>%
+  ggplot(aes(.index, .value, color = model_identifier)) +
+  geom_line(aes(Date, Weekly_Sales), color = "gray30",
+            data = data_prepared_tbl) +
+  geom_line() + 
+  facet_wrap(~ id, scales = "free_y") +
+  expand_limits(y = 0) +
+  theme_tq() +
+  scale_color_tq() +
+  labs(title = "Forecast Plot for Panel Data Predictions")
+```
+
+# Quantifying Prediction Error
+
+__We've made predictions, but this doesn't tell us how the models will do over time. We need to quantify prediction error.__ To do so, we'll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions. 
+
+
 
 ### Apply Models to Resamples 
 
@@ -260,7 +262,11 @@ resample_results
 
 ### Evaluate Resample Accuracy
 
-__Resample Plot__ We can visually evaluate the accuracy with `plot_modeltime_resamples()`. We can see that Prophet Boost has the lowest average RMSE compared to the other 2 models. 
+With resampled predictions, we can now assess the robustness of our models over time. This will increase our confidence in the stability of our models, __enabling us select the best model(s) for the time-varying data.__
+
+#### Resample Accuracy Plot
+
+We can visually evaluate the accuracy with `plot_modeltime_resamples()`. We can see that Prophet Boost and XGBoost Models have the much lower average RMSE compared to the other Prophet w/ Regressors Model. 
 
 ```{r}
 resample_results %>%
@@ -270,19 +276,25 @@ resample_results %>%
 
 
 
-__Accuracy Table__ We can get an interactive or static table using `modeltime_resample_accuracy()`.
+#### Resample Accuracy Table
+
+We can get an interactive or static table using `modeltime_resample_accuracy()`. I'm interested not only in the average metric value but also in the variability (standard deviation). I can get both of these by adding multiple summary functions using a `list()`.
 
 ```{r}
 resample_results %>%
-  modeltime_resample_accuracy() %>%
+  modeltime_resample_accuracy(summary_fns = list(mean = mean, sd = sd)) %>%
   table_modeltime_accuracy(.interactive = FALSE)
 ```
 
-__Model Selection:__ If we are interested in a single model, we should select the Prophet Boost model, which has the lowest RMSE of the 3 models. 
+## Model Selection 
+
+If we are interested in a single model, we should select either the XGBoost Model or the Prophet Boost Model, which have lower RMSE than the Prophet w/ Regressors Model. 
 
 # Wrapup
 
-Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. __Modeltime Resample makes working with Panel Data much easier.__ We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that the Prophet Boost model was the best model for this data. 
+Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. 
+
+__Modeltime Resample makes working with Panel Data much easier.__ We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that selecting either the XGBoost or Prophet Boost models were best for this data. 
 
 This is a quick overview of working with Panel Data. To learn how to evaluate Panel Data in-depth, take my [High-Performance Time Series Course.](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/) 
 

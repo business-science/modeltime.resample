@@ -113,9 +113,9 @@
 
     
     
-<p>Working with <strong>Panel Data</strong> is a common challenge for business analysts. We often have multiple time series (called Time Series Groups) that have overlapping timestamps. These time series may depend on each other and should be modeled together to take advantage of relationships between correlated time series.</p>
+<p>Working with <a href="https://en.wikipedia.org/wiki/Panel_data"><strong>Panel Data</strong></a> is a common challenge for business analysts. We often have multiple time series (called Time Series Groups) that have overlapping timestamps (panels). These time series may depend on each other and should be modeled together using <a href="https://en.wikipedia.org/wiki/Cross-sectional_data"><em>cross-sectional modeling strategies</em></a> to take advantage of relationships between correlated time series. The issue becomes, how to evaluate the cross-sectional model over time so we can <strong>select the most robust model.</strong></p>
 <blockquote>
-<p><span style="color:blue"><strong>The challenge</strong> when working with Panel Data is judging how models will perform across time.</span> A single cross-section is not sufficient to instill confidence.</p>
+<p><span style="color:blue"><strong>The challenge</strong> when working with Panel Data is judging how cross-sectional models will perform over time.</span> A single cross-section is not sufficient to instill confidence. Rather, we need to resample to assess stability of our models prior to model selection.</p>
 </blockquote>
 <p><strong>Modeltime Resample</strong> provides a convienent way for generating resample predictions across time for Panel Data, simplifying the model comparison process.</p>
 <div id="panel-data-tutorial-overview" class="section level2">
@@ -138,7 +138,7 @@
 <div id="data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
-<p>We’ll use the <code>walmart_sales_weekly</code> dataset from <code>timetk</code>. This contains 7 time series groups.</p>
+<p>We’ll use the <code>walmart_sales_weekly</code> dataset from <code>timetk</code>. This contains 7 time series groups, which correspond to the revenue over time for seven departments in one Walmart Store.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="va">walmart_sales_weekly</span> <span class="op">%&gt;%</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -178,151 +178,22 @@
 <span class="va">future_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></pre></div>
 </div>
-<div id="modeling" class="section level2">
+<div id="resampling-panel-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modeling" class="anchor"></a>Modeling</h2>
-<p>We’ll create:</p>
+<a href="#resampling-panel-data" class="anchor"></a>Resampling Panel Data</h2>
+<p><strong>The first step is to make a resample strategy.</strong> Our business objective is to forecast 3 months so we’ll use the following strategy:</p>
 <ul>
-<li><p><strong>1 Recipe:</strong> This applies engineered features from calendar variables</p></li>
-<li><p><strong>3 Fitted Models:</strong> Prophet, XGBoost, and Prophet Boost fitted on the <code>data_prepared_tbl</code> dataset</p></li>
+<li>
+<strong>assess: 3 months.</strong> Corresponds to our business objective.</li>
+<li>
+<strong>skip: 3 months.</strong> Use 3 months to avoid overlapping assessment sets.</li>
+<li>
+<strong>cumulative: TRUE.</strong> Maximizes the Training Set (alternatively we could do initial = “18 months” to have sliding training sets)</li>
+<li>
+<strong>slice_limit: 6.</strong> (keep the 6 largest train/test resamples to prevent too few observations - If we go below one full year, we will not be able to take advantage of the week of the year feature)</li>
 </ul>
-<div id="recipe" class="section level3">
-<h3 class="hasAnchor">
-<a href="#recipe" class="anchor"></a>Recipe</h3>
-<p>We’ll create a recipe that leverages <code><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html">step_timeseries_signature()</a></code> to generate calendar features.</p>
+<p>This generates 6 resample sets.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">recipe_spec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Weekly_Sales</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_prepared_tbl</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html">step_timeseries_signature</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">step_rm</span><span class="op">(</span><span class="fu">matches</span><span class="op">(</span><span class="st">"(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">step_mutate</span><span class="op">(</span>Date_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Date_week</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal</span><span class="op">(</span><span class="op">)</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">recipe_spec</span></pre></div>
-<pre><code>## Data Recipe
-## 
-## Inputs:
-## 
-##       role #variables
-##    outcome          1
-##  predictor          2
-## 
-## Operations:
-## 
-## Timeseries signature features from Date
-## Delete terms 1 items
-## Variable mutation for Date_week
-## Dummy variables from all_nominal()</code></pre>
-</div>
-<div id="models" class="section level3">
-<h3 class="hasAnchor">
-<a href="#models" class="anchor"></a>Models</h3>
-<p>Let’s generate 3 Models: Prophet, XGBoost, and Prophet Boost.</p>
-<div id="prophet" class="section level4">
-<h4 class="hasAnchor">
-<a href="#prophet" class="anchor"></a>Prophet</h4>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">wflw_fit_prophet</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">add_model</span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_reg.html">prophet_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet"</span><span class="op">)</span> 
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">fit</span><span class="op">(</span><span class="va">data_prepared_tbl</span><span class="op">)</span></pre></div>
-</div>
-<div id="xgboost" class="section level4">
-<h4 class="hasAnchor">
-<a href="#xgboost" class="anchor"></a>XGBoost</h4>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">wflw_fit_xgboost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">add_model</span><span class="op">(</span>
-    <span class="fu">boost_tree</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> 
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span> <span class="op">%&gt;%</span> <span class="fu">step_rm</span><span class="op">(</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">fit</span><span class="op">(</span><span class="va">data_prepared_tbl</span><span class="op">)</span></pre></div>
-</div>
-<div id="prophet-boost" class="section level4">
-<h4 class="hasAnchor">
-<a href="#prophet-boost" class="anchor"></a>Prophet Boost</h4>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">wflw_fit_prophet_boost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">add_model</span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_boost.html">prophet_boost</a></span><span class="op">(</span>
-      seasonality_daily  <span class="op">=</span> <span class="cn">FALSE</span>, 
-      seasonality_weekly <span class="op">=</span> <span class="cn">FALSE</span>,
-      seasonality_yearly <span class="op">=</span> <span class="cn">FALSE</span>
-    <span class="op">)</span> <span class="op">%&gt;%</span> 
-      <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet_xgboost"</span><span class="op">)</span> 
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">fit</span><span class="op">(</span><span class="va">data_prepared_tbl</span><span class="op">)</span></pre></div>
-</div>
-</div>
-<div id="organize-in-a-modeltime-table" class="section level3">
-<h3 class="hasAnchor">
-<a href="#organize-in-a-modeltime-table" class="anchor"></a>Organize in a Modeltime Table</h3>
-<p>Add the 3 fitted models to a Modeltime Table with <code><a href="https://rdrr.io/pkg/modeltime/man/modeltime_table.html">modeltime_table()</a></code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">model_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_table.html">modeltime_table</a></span><span class="op">(</span>
-  <span class="va">wflw_fit_prophet</span>,
-  <span class="va">wflw_fit_xgboost</span>,
-  <span class="va">wflw_fit_prophet_boost</span>
-<span class="op">)</span>
-
-<span class="va">model_tbl</span></pre></div>
-<pre><code>## # Modeltime Table
-## # A tibble: 3 x 3
-##   .model_id .model     .model_desc              
-##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                    
-## 1         1 &lt;workflow&gt; PROPHET W/ REGRESSORS    
-## 2         2 &lt;workflow&gt; XGBOOST                  
-## 3         3 &lt;workflow&gt; PROPHET W/ XGBOOST ERRORS</code></pre>
-<p><strong>We can make a Panel Data forecast</strong>, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="co"># Panel data forecast produces results at once</span>
-<span class="va">forecast_panel_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_forecast.html">modeltime_forecast</a></span><span class="op">(</span>
-    new_data      <span class="op">=</span> <span class="va">future_tbl</span>,
-    <span class="co"># Keep new data allows us keep the ID feature for the </span>
-    <span class="co">#  time series groups</span>
-    keep_new_data <span class="op">=</span> <span class="cn">TRUE</span>
-  <span class="op">)</span> </pre></div>
-<p><strong>We can visualize the Panel Data forecasts.</strong> We can see that the Prophet w/ Regressors model is struggling with the Panel Data. However, the Boosted Models are responding well.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">forecast_panel_tbl</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>model_identifier <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">.model_id</span>, <span class="st">"_"</span>, <span class="va">.model_desc</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.key</span> <span class="op">==</span> <span class="st">"prediction"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">.index</span>, <span class="va">.value</span>, color <span class="op">=</span> <span class="va">model_identifier</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray30"</span>,
-            data <span class="op">=</span> <span class="va">data_prepared_tbl</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">id</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html">theme_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/scale_manual.html">scale_color_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Forecast Plot for Panel Data Predictions"</span>,
-       caption <span class="op">=</span> <span class="st">"Prophet with Regressors is struggling with Panel Data. Boosted models are doing well."</span><span class="op">)</span></pre></div>
-<div class="figure" style="text-align: center">
-<img src="panel-data_files/figure-html/unnamed-chunk-10-1.png" alt="Forecast Plot for Panel Data Predictions" width="95%"><p class="caption">
-Forecast Plot for Panel Data Predictions
-</p>
-</div>
-</div>
-</div>
-<div id="quantifying-prediction-error" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quantifying-prediction-error" class="anchor"></a>Quantifying Prediction Error</h1>
-<p><strong>We’ve made predictions, but this doesn’t tell us how the models will do over time. We need to quantify prediction error.</strong> To do so, we’ll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions.</p>
-<div id="resampling-panel-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#resampling-panel-data" class="anchor"></a>Resampling Panel Data</h3>
-<p>The first step is to make a resample strategy. Our business objective is to forecast 3 months so we’ll use the following strategy:</p>
-<ul>
-<li>assess: 3 months</li>
-<li>skip: 3 months</li>
-<li>cumulative: TRUE. Maximizes the Training Set (alternatively we could do initial = “18 months” to have sliding training sets)</li>
-<li>slice_limit: 6 (keep the 6 largest train/test resamples to prevent too few observations)</li>
-</ul>
-<p>This generates 5 resample sets.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="va">walmart_tscv</span> <span class="op">&lt;-</span> <span class="va">data_prepared_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/timetk.html">time_series_cv</a></span><span class="op">(</span>
     date_var <span class="op">=</span> <span class="va">Date</span>, 
@@ -344,25 +215,146 @@ Forecast Plot for Panel Data Predictions
 ## 5 &lt;split [575/78]&gt; Slice5
 ## 6 &lt;split [491/78]&gt; Slice6</code></pre>
 <p>We can visualize the resample sets with <code><a href="../reference/timetk.html">plot_time_series_cv_plan()</a></code>. They look a little crazy because there are multiple time series groups. The important thing is to make sure the red and blue parts line up as expected in relation to our sampling strategy.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="va">walmart_tscv</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/timetk.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/timetk.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, 
                            .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></pre></div>
-<p><img src="panel-data_files/figure-html/unnamed-chunk-12-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="panel-data_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
+<div id="modeling" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modeling" class="anchor"></a>Modeling</h2>
+<p>We’ll create:</p>
+<ul>
+<li><p><strong>1 Recipe:</strong> This applies engineered features from calendar variables</p></li>
+<li><p><strong>3 Fitted Models:</strong> Prophet, XGBoost, and Prophet Boost fitted on the <code>data_prepared_tbl</code> dataset</p></li>
+</ul>
+<div id="recipe" class="section level3">
+<h3 class="hasAnchor">
+<a href="#recipe" class="anchor"></a>Recipe</h3>
+<p>We’ll create a recipe that leverages <code><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html">step_timeseries_signature()</a></code> to generate calendar features.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="va">recipe_spec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Weekly_Sales</span> <span class="op">~</span> <span class="va">.</span>, 
+                      data <span class="op">=</span> <span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html">step_timeseries_signature</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">step_rm</span><span class="op">(</span><span class="fu">matches</span><span class="op">(</span><span class="st">"(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">step_mutate</span><span class="op">(</span>Date_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Date_week</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal</span><span class="op">(</span><span class="op">)</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+</div>
+<div id="models" class="section level3">
+<h3 class="hasAnchor">
+<a href="#models" class="anchor"></a>Models</h3>
+<p>Let’s generate 3 Models: Prophet, XGBoost, and Prophet Boost.</p>
+<div id="prophet" class="section level4">
+<h4 class="hasAnchor">
+<a href="#prophet" class="anchor"></a>Prophet</h4>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="va">wflw_fit_prophet</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_model</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_reg.html">prophet_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet"</span><span class="op">)</span> 
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></pre></div>
+</div>
+<div id="xgboost" class="section level4">
+<h4 class="hasAnchor">
+<a href="#xgboost" class="anchor"></a>XGBoost</h4>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="va">wflw_fit_xgboost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_model</span><span class="op">(</span>
+    <span class="fu">boost_tree</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> 
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span> <span class="op">%&gt;%</span> <span class="fu">step_rm</span><span class="op">(</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></pre></div>
+</div>
+<div id="prophet-boost" class="section level4">
+<h4 class="hasAnchor">
+<a href="#prophet-boost" class="anchor"></a>Prophet Boost</h4>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="va">wflw_fit_prophet_boost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_model</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_boost.html">prophet_boost</a></span><span class="op">(</span>
+      seasonality_daily  <span class="op">=</span> <span class="cn">FALSE</span>, 
+      seasonality_weekly <span class="op">=</span> <span class="cn">FALSE</span>,
+      seasonality_yearly <span class="op">=</span> <span class="cn">FALSE</span>
+    <span class="op">)</span> <span class="op">%&gt;%</span> 
+      <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet_xgboost"</span><span class="op">)</span> 
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></pre></div>
+</div>
+</div>
+<div id="organize-in-a-modeltime-table" class="section level3">
+<h3 class="hasAnchor">
+<a href="#organize-in-a-modeltime-table" class="anchor"></a>Organize in a Modeltime Table</h3>
+<p>Add the 3 fitted models to a Modeltime Table with <code><a href="https://rdrr.io/pkg/modeltime/man/modeltime_table.html">modeltime_table()</a></code>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="va">model_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_table.html">modeltime_table</a></span><span class="op">(</span>
+  <span class="va">wflw_fit_prophet</span>,
+  <span class="va">wflw_fit_xgboost</span>,
+  <span class="va">wflw_fit_prophet_boost</span>
+<span class="op">)</span>
+
+<span class="va">model_tbl</span></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 3 x 3
+##   .model_id .model     .model_desc              
+##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                    
+## 1         1 &lt;workflow&gt; PROPHET W/ REGRESSORS    
+## 2         2 &lt;workflow&gt; XGBOOST                  
+## 3         3 &lt;workflow&gt; PROPHET W/ XGBOOST ERRORS</code></pre>
+</div>
+<div id="assess-a-single-resample-split" class="section level3">
+<h3 class="hasAnchor">
+<a href="#assess-a-single-resample-split" class="anchor"></a>Assess a Single Resample Split</h3>
+<p><strong>We can make a Panel Data forecast</strong>, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="co"># Panel data forecast produces results at once</span>
+<span class="va">forecast_panel_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_forecast.html">modeltime_forecast</a></span><span class="op">(</span>
+    new_data      <span class="op">=</span> <span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,
+    <span class="co"># Keep new data allows us keep the ID feature for the </span>
+    <span class="co">#  time series groups</span>
+    keep_new_data <span class="op">=</span> <span class="cn">TRUE</span>
+  <span class="op">)</span> </pre></div>
+<p><strong>We can visualize the Panel Data forecasts on a single split</strong>. It’s a bit difficult to tell how each model is performing.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="va">forecast_panel_tbl</span> <span class="op">%&gt;%</span>
+  <span class="fu">mutate</span><span class="op">(</span>model_identifier <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">.model_id</span>, <span class="st">"_"</span>, <span class="va">.model_desc</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.key</span> <span class="op">==</span> <span class="st">"prediction"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">.index</span>, <span class="va">.value</span>, color <span class="op">=</span> <span class="va">model_identifier</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray30"</span>,
+            data <span class="op">=</span> <span class="va">data_prepared_tbl</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">id</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html">theme_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/scale_manual.html">scale_color_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Forecast Plot for Panel Data Predictions"</span><span class="op">)</span></pre></div>
+<div class="figure" style="text-align: center">
+<img src="panel-data_files/figure-html/unnamed-chunk-12-1.png" alt="Forecast Plot for Panel Data Predictions" width="95%"><p class="caption">
+Forecast Plot for Panel Data Predictions
+</p>
+</div>
+</div>
+</div>
+<div id="quantifying-prediction-error" class="section level1">
+<h1 class="hasAnchor">
+<a href="#quantifying-prediction-error" class="anchor"></a>Quantifying Prediction Error</h1>
+<p><strong>We’ve made predictions, but this doesn’t tell us how the models will do over time. We need to quantify prediction error.</strong> To do so, we’ll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions.</p>
 <div id="apply-models-to-resamples" class="section level3">
 <h3 class="hasAnchor">
 <a href="#apply-models-to-resamples" class="anchor"></a>Apply Models to Resamples</h3>
 <p>With <code>model_tbl</code> (models) and <code>walmart_tscv</code> (resamples) in had, we are ready to iteratively fit and predict each of the models on each of the resampling plan sets, producing resample predictions.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
+<div class="sourceCode" id="cb15"><pre class="downlit">
 <span class="va">resample_results</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span>
     resamples <span class="op">=</span> <span class="va">walmart_tscv</span>,
     control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
   <span class="op">)</span></pre></div>
 <p>A new column (“.resample_results”) containing the resample predictions has been added to the original <code>model_tbl</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
+<div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="va">resample_results</span></pre></div>
 <pre><code>## # Modeltime Table
 ## # A tibble: 3 x 4
@@ -375,21 +367,29 @@ Forecast Plot for Panel Data Predictions
 <div id="evaluate-resample-accuracy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#evaluate-resample-accuracy" class="anchor"></a>Evaluate Resample Accuracy</h3>
-<p><strong>Resample Plot</strong> We can visually evaluate the accuracy with <code><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples()</a></code>. We can see that Prophet Boost has the lowest average RMSE compared to the other 2 models.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
+<p>With resampled predictions, we can now assess the robustness of our models over time. This will increase our confidence in the stability of our models, <strong>enabling us select the best model(s) for the time-varying data.</strong></p>
+<div id="resample-accuracy-plot" class="section level4">
+<h4 class="hasAnchor">
+<a href="#resample-accuracy-plot" class="anchor"></a>Resample Accuracy Plot</h4>
+<p>We can visually evaluate the accuracy with <code><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples()</a></code>. We can see that Prophet Boost and XGBoost Models have the much lower average RMSE compared to the other Prophet w/ Regressors Model.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit">
 <span class="va">resample_results</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>.summary_fn <span class="op">=</span> <span class="va">mean</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;"></p>
-<p><strong>Accuracy Table</strong> We can get an interactive or static table using <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
+</div>
+<div id="resample-accuracy-table" class="section level4">
+<h4 class="hasAnchor">
+<a href="#resample-accuracy-table" class="anchor"></a>Resample Accuracy Table</h4>
+<p>We can get an interactive or static table using <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. I’m interested not only in the average metric value but also in the variability (standard deviation). I can get both of these by adding multiple summary functions using a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code>.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit">
 <span class="va">resample_results</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#aogegsqyal .gt_table {
+#hrprxybkeq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -414,7 +414,7 @@ Forecast Plot for Panel Data Predictions
   border-left-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_heading {
+#hrprxybkeq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -426,7 +426,7 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_title {
+#hrprxybkeq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -436,7 +436,7 @@ Forecast Plot for Panel Data Predictions
   border-bottom-width: 0;
 }
 
-#aogegsqyal .gt_subtitle {
+#hrprxybkeq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -446,13 +446,13 @@ Forecast Plot for Panel Data Predictions
   border-top-width: 0;
 }
 
-#aogegsqyal .gt_bottom_border {
+#hrprxybkeq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_col_headings {
+#hrprxybkeq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -467,7 +467,7 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_col_heading {
+#hrprxybkeq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -487,7 +487,7 @@ Forecast Plot for Panel Data Predictions
   overflow-x: hidden;
 }
 
-#aogegsqyal .gt_column_spanner_outer {
+#hrprxybkeq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -499,15 +499,15 @@ Forecast Plot for Panel Data Predictions
   padding-right: 4px;
 }
 
-#aogegsqyal .gt_column_spanner_outer:first-child {
+#hrprxybkeq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aogegsqyal .gt_column_spanner_outer:last-child {
+#hrprxybkeq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aogegsqyal .gt_column_spanner {
+#hrprxybkeq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -519,7 +519,7 @@ Forecast Plot for Panel Data Predictions
   width: 100%;
 }
 
-#aogegsqyal .gt_group_heading {
+#hrprxybkeq .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -541,7 +541,7 @@ Forecast Plot for Panel Data Predictions
   vertical-align: middle;
 }
 
-#aogegsqyal .gt_empty_group_heading {
+#hrprxybkeq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -556,15 +556,15 @@ Forecast Plot for Panel Data Predictions
   vertical-align: middle;
 }
 
-#aogegsqyal .gt_from_md > :first-child {
+#hrprxybkeq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aogegsqyal .gt_from_md > :last-child {
+#hrprxybkeq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aogegsqyal .gt_row {
+#hrprxybkeq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -583,7 +583,7 @@ Forecast Plot for Panel Data Predictions
   overflow-x: hidden;
 }
 
-#aogegsqyal .gt_stub {
+#hrprxybkeq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -595,7 +595,7 @@ Forecast Plot for Panel Data Predictions
   padding-left: 12px;
 }
 
-#aogegsqyal .gt_summary_row {
+#hrprxybkeq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -605,7 +605,7 @@ Forecast Plot for Panel Data Predictions
   padding-right: 5px;
 }
 
-#aogegsqyal .gt_first_summary_row {
+#hrprxybkeq .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -615,7 +615,7 @@ Forecast Plot for Panel Data Predictions
   border-top-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_grand_summary_row {
+#hrprxybkeq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -625,7 +625,7 @@ Forecast Plot for Panel Data Predictions
   padding-right: 5px;
 }
 
-#aogegsqyal .gt_first_grand_summary_row {
+#hrprxybkeq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -635,11 +635,11 @@ Forecast Plot for Panel Data Predictions
   border-top-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_striped {
+#hrprxybkeq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aogegsqyal .gt_table_body {
+#hrprxybkeq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -648,7 +648,7 @@ Forecast Plot for Panel Data Predictions
   border-bottom-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_footnotes {
+#hrprxybkeq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -662,13 +662,13 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_footnote {
+#hrprxybkeq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#aogegsqyal .gt_sourcenotes {
+#hrprxybkeq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -682,52 +682,52 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#aogegsqyal .gt_sourcenote {
+#hrprxybkeq .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#aogegsqyal .gt_left {
+#hrprxybkeq .gt_left {
   text-align: left;
 }
 
-#aogegsqyal .gt_center {
+#hrprxybkeq .gt_center {
   text-align: center;
 }
 
-#aogegsqyal .gt_right {
+#hrprxybkeq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aogegsqyal .gt_font_normal {
+#hrprxybkeq .gt_font_normal {
   font-weight: normal;
 }
 
-#aogegsqyal .gt_font_bold {
+#hrprxybkeq .gt_font_bold {
   font-weight: bold;
 }
 
-#aogegsqyal .gt_font_italic {
+#hrprxybkeq .gt_font_italic {
   font-style: italic;
 }
 
-#aogegsqyal .gt_super {
+#hrprxybkeq .gt_super {
   font-size: 65%;
 }
 
-#aogegsqyal .gt_footnote_marks {
+#hrprxybkeq .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="aogegsqyal" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="hrprxybkeq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
-<th colspan="10" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
+<th colspan="16" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
     </tr>
 <tr>
-<th colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+<th colspan="16" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
     </tr>
 </thead>
 <thead class="gt_col_headings"><tr>
@@ -735,12 +735,18 @@ Forecast Plot for Panel Data Predictions
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">.model_desc</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">.type</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">n</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_sd</th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
@@ -749,11 +755,17 @@ Forecast Plot for Panel Data Predictions
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">6</td>
       <td class="gt_row gt_right">6328.68</td>
+      <td class="gt_row gt_right">1168.42</td>
       <td class="gt_row gt_right">17.26</td>
+      <td class="gt_row gt_right">4.09</td>
       <td class="gt_row gt_right">0.19</td>
+      <td class="gt_row gt_right">0.04</td>
       <td class="gt_row gt_right">16.49</td>
+      <td class="gt_row gt_right">3.68</td>
       <td class="gt_row gt_right">8792.52</td>
+      <td class="gt_row gt_right">1322.96</td>
       <td class="gt_row gt_right">0.95</td>
+      <td class="gt_row gt_right">0.02</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">2</td>
@@ -761,11 +773,17 @@ Forecast Plot for Panel Data Predictions
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">6</td>
       <td class="gt_row gt_right">4854.34</td>
+      <td class="gt_row gt_right">519.97</td>
       <td class="gt_row gt_right">12.58</td>
+      <td class="gt_row gt_right">3.50</td>
       <td class="gt_row gt_right">0.14</td>
+      <td class="gt_row gt_right">0.02</td>
       <td class="gt_row gt_right">11.87</td>
+      <td class="gt_row gt_right">2.44</td>
       <td class="gt_row gt_right">6969.84</td>
+      <td class="gt_row gt_right">970.69</td>
       <td class="gt_row gt_right">0.97</td>
+      <td class="gt_row gt_right">0.02</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">3</td>
@@ -773,21 +791,33 @@ Forecast Plot for Panel Data Predictions
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">6</td>
       <td class="gt_row gt_right">4677.63</td>
+      <td class="gt_row gt_right">747.38</td>
       <td class="gt_row gt_right">13.73</td>
+      <td class="gt_row gt_right">4.96</td>
       <td class="gt_row gt_right">0.14</td>
+      <td class="gt_row gt_right">0.02</td>
       <td class="gt_row gt_right">12.12</td>
+      <td class="gt_row gt_right">3.14</td>
       <td class="gt_row gt_right">6724.22</td>
+      <td class="gt_row gt_right">1221.71</td>
       <td class="gt_row gt_right">0.97</td>
+      <td class="gt_row gt_right">0.02</td>
     </tr>
 </tbody>
 </table></div>
-<p><strong>Model Selection:</strong> If we are interested in a single model, we should select the Prophet Boost model, which has the lowest RMSE of the 3 models.</p>
+</div>
+</div>
+<div id="model-selection" class="section level2">
+<h2 class="hasAnchor">
+<a href="#model-selection" class="anchor"></a>Model Selection</h2>
+<p>If we are interested in a single model, we should select either the XGBoost Model or the Prophet Boost Model, which have lower RMSE than the Prophet w/ Regressors Model.</p>
 </div>
 </div>
 <div id="wrapup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#wrapup" class="anchor"></a>Wrapup</h1>
-<p>Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets. <strong>Modeltime Resample makes working with Panel Data much easier.</strong> We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that the Prophet Boost model was the best model for this data.</p>
+<p>Working with Panel Data (data with multiple overlapping time series groups) can be challenging due to managing multiple models, overlapping time series groups, and multiple resample sets.</p>
+<p><strong>Modeltime Resample makes working with Panel Data much easier.</strong> We saw how we can evaluate multiple models on varying time series windows. This increased our confidence that selecting either the XGBoost or Prophet Boost models were best for this data.</p>
 <p>This is a quick overview of working with Panel Data. To learn how to evaluate Panel Data in-depth, take my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">High-Performance Time Series Course.</a></p>
 </div>
   </div>

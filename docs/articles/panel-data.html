@@ -310,37 +310,38 @@
 <a href="#assess-a-single-resample-split" class="anchor"></a>Assess a Single Resample Split</h3>
 <p><strong>We can make a Panel Data forecast</strong>, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="co"># Panel data forecast produces results at once</span>
-<span class="va">forecast_panel_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
+<span class="co"># Calibrate using the Test Sample</span>
+<span class="va">calibration_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_calibrate.html">modeltime_calibrate</a></span><span class="op">(</span><span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Forecast the Test Sample</span>
+<span class="va">forecast_panel_tbl</span> <span class="op">&lt;-</span> <span class="va">calibration_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_forecast.html">modeltime_forecast</a></span><span class="op">(</span>
     new_data      <span class="op">=</span> <span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,
+    actual_data   <span class="op">=</span> <span class="va">data_prepared_tbl</span>,
     <span class="co"># Keep data allows us keep the ID feature for the time series groups</span>
     keep_data <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span> </pre></div>
 <p><strong>We can visualize the Panel Data forecasts on a single split</strong>. It’s a bit difficult to tell how each model is performing.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="va">forecast_panel_tbl</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>model_identifier <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">.model_id</span>, <span class="st">"_"</span>, <span class="va">.model_desc</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.key</span> <span class="op">==</span> <span class="st">"prediction"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">.index</span>, <span class="va">.value</span>, color <span class="op">=</span> <span class="va">model_identifier</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray30"</span>,
-            data <span class="op">=</span> <span class="va">data_prepared_tbl</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">id</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">expand_limits</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html">theme_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/scale_manual.html">scale_color_tq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Forecast Plot for Panel Data Predictions"</span><span class="op">)</span></pre></div>
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/plot_modeltime_forecast.html">plot_modeltime_forecast</a></span><span class="op">(</span>
+    .facet_ncol  <span class="op">=</span> <span class="fl">3</span>,
+    .y_intercept <span class="op">=</span> <span class="fl">0</span>, 
+    .interactive <span class="op">=</span> <span class="cn">FALSE</span>,
+    .title       <span class="op">=</span> <span class="st">"Panel Forecasting | 7 Time Series Groups"</span>
+  <span class="op">)</span></pre></div>
 <div class="figure" style="text-align: center">
-<img src="panel-data_files/figure-html/unnamed-chunk-12-1.png" alt="Forecast Plot for Panel Data Predictions" width="95%"><p class="caption">
-Forecast Plot for Panel Data Predictions
+<img src="panel-data_files/figure-html/unnamed-chunk-12-1.png" alt="Panel Forecasting | 7 Time Series Groups" width="95%"><p class="caption">
+Panel Forecasting | 7 Time Series Groups
 </p>
 </div>
 </div>
 </div>
-<div id="quantifying-prediction-error" class="section level1">
+<div id="quantifying-prediction-error-over-time" class="section level1">
 <h1 class="hasAnchor">
-<a href="#quantifying-prediction-error" class="anchor"></a>Quantifying Prediction Error</h1>
+<a href="#quantifying-prediction-error-over-time" class="anchor"></a>Quantifying Prediction Error Over Time</h1>
 <p><strong>We’ve made predictions, but this doesn’t tell us how the models will do over time. We need to quantify prediction error.</strong> To do so, we’ll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions.</p>
 <div id="apply-models-to-resamples" class="section level3">
 <h3 class="hasAnchor">
@@ -392,7 +393,7 @@ Forecast Plot for Panel Data Predictions
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#rdefeobhgg .gt_table {
+#lhcusyiixt .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -417,7 +418,7 @@ Forecast Plot for Panel Data Predictions
   border-left-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_heading {
+#lhcusyiixt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -429,7 +430,7 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_title {
+#lhcusyiixt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -439,7 +440,7 @@ Forecast Plot for Panel Data Predictions
   border-bottom-width: 0;
 }
 
-#rdefeobhgg .gt_subtitle {
+#lhcusyiixt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -449,13 +450,13 @@ Forecast Plot for Panel Data Predictions
   border-top-width: 0;
 }
 
-#rdefeobhgg .gt_bottom_border {
+#lhcusyiixt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_col_headings {
+#lhcusyiixt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -470,7 +471,7 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_col_heading {
+#lhcusyiixt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -490,7 +491,7 @@ Forecast Plot for Panel Data Predictions
   overflow-x: hidden;
 }
 
-#rdefeobhgg .gt_column_spanner_outer {
+#lhcusyiixt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -502,15 +503,15 @@ Forecast Plot for Panel Data Predictions
   padding-right: 4px;
 }
 
-#rdefeobhgg .gt_column_spanner_outer:first-child {
+#lhcusyiixt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rdefeobhgg .gt_column_spanner_outer:last-child {
+#lhcusyiixt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rdefeobhgg .gt_column_spanner {
+#lhcusyiixt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -522,7 +523,7 @@ Forecast Plot for Panel Data Predictions
   width: 100%;
 }
 
-#rdefeobhgg .gt_group_heading {
+#lhcusyiixt .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -544,7 +545,7 @@ Forecast Plot for Panel Data Predictions
   vertical-align: middle;
 }
 
-#rdefeobhgg .gt_empty_group_heading {
+#lhcusyiixt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -559,15 +560,15 @@ Forecast Plot for Panel Data Predictions
   vertical-align: middle;
 }
 
-#rdefeobhgg .gt_from_md > :first-child {
+#lhcusyiixt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rdefeobhgg .gt_from_md > :last-child {
+#lhcusyiixt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rdefeobhgg .gt_row {
+#lhcusyiixt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -586,7 +587,7 @@ Forecast Plot for Panel Data Predictions
   overflow-x: hidden;
 }
 
-#rdefeobhgg .gt_stub {
+#lhcusyiixt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -598,7 +599,7 @@ Forecast Plot for Panel Data Predictions
   padding-left: 12px;
 }
 
-#rdefeobhgg .gt_summary_row {
+#lhcusyiixt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -608,7 +609,7 @@ Forecast Plot for Panel Data Predictions
   padding-right: 5px;
 }
 
-#rdefeobhgg .gt_first_summary_row {
+#lhcusyiixt .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -618,7 +619,7 @@ Forecast Plot for Panel Data Predictions
   border-top-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_grand_summary_row {
+#lhcusyiixt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -628,7 +629,7 @@ Forecast Plot for Panel Data Predictions
   padding-right: 5px;
 }
 
-#rdefeobhgg .gt_first_grand_summary_row {
+#lhcusyiixt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -638,11 +639,11 @@ Forecast Plot for Panel Data Predictions
   border-top-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_striped {
+#lhcusyiixt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rdefeobhgg .gt_table_body {
+#lhcusyiixt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -651,7 +652,7 @@ Forecast Plot for Panel Data Predictions
   border-bottom-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_footnotes {
+#lhcusyiixt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -665,13 +666,13 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_footnote {
+#lhcusyiixt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#rdefeobhgg .gt_sourcenotes {
+#lhcusyiixt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -685,46 +686,46 @@ Forecast Plot for Panel Data Predictions
   border-right-color: #D3D3D3;
 }
 
-#rdefeobhgg .gt_sourcenote {
+#lhcusyiixt .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#rdefeobhgg .gt_left {
+#lhcusyiixt .gt_left {
   text-align: left;
 }
 
-#rdefeobhgg .gt_center {
+#lhcusyiixt .gt_center {
   text-align: center;
 }
 
-#rdefeobhgg .gt_right {
+#lhcusyiixt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rdefeobhgg .gt_font_normal {
+#lhcusyiixt .gt_font_normal {
   font-weight: normal;
 }
 
-#rdefeobhgg .gt_font_bold {
+#lhcusyiixt .gt_font_bold {
   font-weight: bold;
 }
 
-#rdefeobhgg .gt_font_italic {
+#lhcusyiixt .gt_font_italic {
   font-style: italic;
 }
 
-#rdefeobhgg .gt_super {
+#lhcusyiixt .gt_super {
   font-size: 65%;
 }
 
-#rdefeobhgg .gt_footnote_marks {
+#lhcusyiixt .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="rdefeobhgg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="lhcusyiixt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
 <th colspan="16" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>

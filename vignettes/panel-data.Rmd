@@ -203,10 +203,15 @@ model_tbl
 __We can make a Panel Data forecast__, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach. 
 
 ```{r}
-# Panel data forecast produces results at once
-forecast_panel_tbl <- model_tbl %>%
+# Calibrate using the Test Sample
+calibration_tbl <- model_tbl %>%
+  modeltime_calibrate(testing(walmart_tscv$splits[[1]]))
+
+# Forecast the Test Sample
+forecast_panel_tbl <- calibration_tbl %>%
   modeltime_forecast(
     new_data      = testing(walmart_tscv$splits[[1]]),
+    actual_data   = data_prepared_tbl,
     # Keep data allows us keep the ID feature for the time series groups
     keep_data = TRUE
   ) 
@@ -215,22 +220,18 @@ forecast_panel_tbl <- model_tbl %>%
 
 __We can visualize the Panel Data forecasts on a single split__. It's a bit difficult to tell how each model is performing. 
 
-```{r, fig.cap="Forecast Plot for Panel Data Predictions"}
+```{r, fig.cap="Panel Forecasting | 7 Time Series Groups"}
 forecast_panel_tbl %>%
-  mutate(model_identifier = str_c(.model_id, "_", .model_desc)) %>%
-  filter(.key == "prediction") %>%
-  ggplot(aes(.index, .value, color = model_identifier)) +
-  geom_line(aes(Date, Weekly_Sales), color = "gray30",
-            data = data_prepared_tbl) +
-  geom_line() + 
-  facet_wrap(~ id, scales = "free_y") +
-  expand_limits(y = 0) +
-  theme_tq() +
-  scale_color_tq() +
-  labs(title = "Forecast Plot for Panel Data Predictions")
+  group_by(id) %>%
+  plot_modeltime_forecast(
+    .facet_ncol  = 3,
+    .y_intercept = 0, 
+    .interactive = FALSE,
+    .title       = "Panel Forecasting | 7 Time Series Groups"
+  )
 ```
 
-# Quantifying Prediction Error
+# Quantifying Prediction Error Over Time
 
 __We've made predictions, but this doesn't tell us how the models will do over time. We need to quantify prediction error.__ To do so, we'll evaluate our models using time series resamples. This technique involves making resamples across time series windows and refitting our models to the resample data sets, producing predictions, and quantifying the error from the predictions. 
 

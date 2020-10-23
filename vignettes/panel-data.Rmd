@@ -207,9 +207,8 @@ __We can make a Panel Data forecast__, which forecasts all of the time series gr
 forecast_panel_tbl <- model_tbl %>%
   modeltime_forecast(
     new_data      = testing(walmart_tscv$splits[[1]]),
-    # Keep new data allows us keep the ID feature for the 
-    #  time series groups
-    keep_new_data = TRUE
+    # Keep data allows us keep the ID feature for the time series groups
+    keep_data = TRUE
   ) 
 ```
 

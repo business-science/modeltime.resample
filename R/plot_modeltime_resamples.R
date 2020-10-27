@@ -98,12 +98,19 @@ plot_modeltime_resamples <- function(.data,
     summary_fn_partial <- purrr::partial(.f = .summary_fn, ...)
 
     # Data ----
-    data_prepared <- .data %>%
 
+    # Unnest resamples column
+    resample_results_tbl <- .data %>%
         dplyr::ungroup() %>%
+        unnest_modeltime_resamples()
 
-        unnest_modeltime_resamples()  %>%
-        dplyr::rename(.value = length(colnames(.))) %>%
+    # Target Variable is the name in the data
+    target_text <- resample_results_tbl %>% get_target_text_from_resamples(column_before_target = ".row")
+    target_var  <- rlang::sym(target_text)
+
+    # Prepare Data for Plot
+    data_prepared <- resample_results_tbl  %>%
+        dplyr::rename(.value = !! target_var) %>%
 
         dplyr::mutate(.model_desc = ifelse(!is.na(.model_id), stringr::str_c(.model_id, "_", .model_desc), .model_desc)) %>%
         dplyr::mutate(.model_desc = .model_desc %>% stringr::str_trunc(width = .legend_max_width)) %>%

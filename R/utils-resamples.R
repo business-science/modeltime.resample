@@ -55,3 +55,36 @@ unnest_modeltime_resamples <- function(object) {
         purrr::map( tibble::rowid_to_column, var = ".row_id") %>%
         dplyr::bind_rows()
 }
+
+# UTILITIES ----
+
+#' Gets the target variable as text from unnested resamples
+#'
+#' An internal function used by [unnest_modeltime_resamples()].
+#'
+#' @param data Unnested resample results
+#' @param column_before_target The text column located before the target variable.
+#'  This is ".row".
+#'
+#'
+#' @examples
+#'
+#' # The .resample_results column is deeply nested
+#' m750_training_resamples_fitted
+#'
+#' # Unnest and prepare the resample predictions for evaluation
+#' unnest_modeltime_resamples(m750_training_resamples_fitted) %>%
+#'     get_target_text_from_resamples()
+#'
+#' @export
+get_target_text_from_resamples <- function(data, column_before_target = ".row") {
+
+    names_data <- names(data)
+
+    is_before_target <- names_data %>%
+        stringr::str_detect(stringr::str_glue("^{column_before_target}$"))
+
+    loc <- seq_along(names_data)[is_before_target]
+
+    return(names_data[loc + 1])
+}

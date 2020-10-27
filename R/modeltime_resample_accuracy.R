@@ -67,13 +67,13 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
     if (!".resample_results" %in% names(object)) rlang::abort("object must contain a column, '.resample_results'. Try using `modeltime_fit_resamples()` first.")
 
     # Unnest resamples column
-    predictions_tbl <- unnest_modeltime_resamples(object)
+    resample_results_tbl <- unnest_modeltime_resamples(object)
 
     # Target Variable is the name in the data
-    target_text <- names(predictions_tbl) %>% utils::tail(1)
+    target_text <- resample_results_tbl %>% get_target_text_from_resamples(column_before_target = ".row")
     target_var  <- rlang::sym(target_text)
 
-    ret <- predictions_tbl %>%
+    ret <- resample_results_tbl %>%
         dplyr::mutate(.type = "Resamples") %>%
         dplyr::group_by(.model_id, .model_desc, .resample_id, .type) %>%
         modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set) %>%
@@ -91,6 +91,8 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
 
 
 }
+
+
 
 
 

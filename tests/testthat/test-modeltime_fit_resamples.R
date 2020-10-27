@@ -1,5 +1,19 @@
 context("TEST: modeltime_fit_resamples()")
 
+library(testthat)
+
+# Machine Learning
+library(tidymodels)
+library(modeltime)
+library(modeltime.resample)
+
+# Core Packages
+library(tidyverse)
+library(timetk)
+library(lubridate)
+
+# SETUP ----
+
 resamples_tscv <- training(m750_splits) %>%
     time_series_cv(assess = "2 years", initial = "5 years", skip = "2 years", slice_limit = 2)
 

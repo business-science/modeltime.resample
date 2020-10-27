@@ -47,6 +47,7 @@ Suggests:
     tidymodels,
     tidyverse,
     tidyquant,
+    glmnet,
     lubridate,
     knitr,
     rmarkdown,

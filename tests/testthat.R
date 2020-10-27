@@ -5,6 +5,8 @@ library(tidymodels)
 library(modeltime)
 library(modeltime.resample)
 
+library(glmnet)
+
 # Core Packages
 library(tidyverse)
 library(timetk)

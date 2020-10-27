@@ -39,6 +39,7 @@ reference:
   - title: Helper Functions
     contents:
     - "unnest_modeltime_resamples"
+    - starts_with("get_target")
   - title: Data
     contents:
     - "m750_training_resamples_fitted"

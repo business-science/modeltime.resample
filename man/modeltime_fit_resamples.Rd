@@ -64,6 +64,7 @@ resamples_tscv <- training(m750_splits) \%>\%
         slice_limit = 1
     )
 
+\donttest{
 # Fit and generate resample predictions
 m750_models_resample <- m750_models \%>\%
     modeltime_fit_resamples(
@@ -74,6 +75,6 @@ m750_models_resample <- m750_models \%>\%
 # A new data frame is created from the Modeltime Table
 #  with a column labeled, '.resample_results'
 m750_models_resample
-
+}
 
 }

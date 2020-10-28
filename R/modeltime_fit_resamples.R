@@ -57,6 +57,7 @@
 #'         slice_limit = 1
 #'     )
 #'
+#' \donttest{
 #' # Fit and generate resample predictions
 #' m750_models_resample <- m750_models %>%
 #'     modeltime_fit_resamples(
@@ -67,7 +68,7 @@
 #' # A new data frame is created from the Modeltime Table
 #' #  with a column labeled, '.resample_results'
 #' m750_models_resample
-#'
+#' }
 #'
 #' @export
 modeltime_fit_resamples <- function(object, resamples, control = control_resamples()) {

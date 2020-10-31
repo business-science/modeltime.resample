@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • modeltime.resample</title>
+<title>Gets the target variable as text from unnested resamples — get_target_text_from_resamples • modeltime.resample</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Gets the target variable as text from unnested resamples — get_target_text_from_resamples" />
+<meta property="og:description" content="An internal function used by unnest_modeltime_resamples()." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -76,7 +77,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -148,25 +149,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/business-science/modeltime.resample/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Gets the target variable as text from unnested resamples</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/modeltime.resample/blob/master/R/utils-resamples.R'><code>R/utils-resamples.R</code></a></small>
+    <div class="hidden name"><code>get_target_text_from_resamples.Rd</code></div>
     </div>
 
-    <div id="modeltimeresample-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#modeltimeresample-010" class="anchor"></a>modeltime.resample 0.1.0</h1>
-<ul>
-<li>Initial <code>modeltime.resample</code> Package Release</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>An internal function used by <code><a href='unnest_modeltime_resamples.html'>unnest_modeltime_resamples()</a></code>.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>get_target_text_from_resamples</span><span class='op'>(</span><span class='va'>data</span>, column_before_target <span class='op'>=</span> <span class='st'>".row"</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>Unnested resample results</p></td>
+    </tr>
+    <tr>
+      <th>column_before_target</th>
+      <td><p>The text column located before the target variable.
+This is ".row".</p></td>
+    </tr>
+    </table>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># The .resample_results column is deeply nested</span>
+<span class='va'>m750_training_resamples_fitted</span>
+</div><div class='output co'>#&gt; # Modeltime Table
+#&gt; <span style='color: #555555;'># A tibble: 3 x 4</span><span>
+#&gt;   .model_id .model     .model_desc             .resample_results
+#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
+#&gt; </span><span style='color: #555555;'>1</span><span>         1 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> ARIMA(0,1,1)(0,1,1)[12] </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>2</span><span>         2 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> PROPHET                 </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>3</span><span>         3 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> GLMNET                  </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> </div><div class='input'>
+<span class='co'># Unnest and prepare the resample predictions for evaluation</span>
+<span class='fu'><a href='unnest_modeltime_resamples.html'>unnest_modeltime_resamples</a></span><span class='op'>(</span><span class='va'>m750_training_resamples_fitted</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>get_target_text_from_resamples</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "value"</div><div class='input'>
+</div></span></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

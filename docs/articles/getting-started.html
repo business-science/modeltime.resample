@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">modeltime.resample</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@
 </li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">resamples_tscv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/timetk.html">time_series_cv</a></span><span class="op">(</span>
+<span class="va">resamples_tscv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span>
     data        <span class="op">=</span> <span class="va">m750</span>,
     assess      <span class="op">=</span> <span class="st">"2 years"</span>,
     initial     <span class="op">=</span> <span class="st">"5 years"</span>,
@@ -181,8 +181,8 @@
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="co"># Begin with a Cross Validation Strategy</span>
 <span class="va">resamples_tscv</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/timetk.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/timetk.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="../reference/time_series_cv.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="step-2---make-a-modeltime-table" class="section level3">
@@ -259,7 +259,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#zgqudthgsb .gt_table {
+#jsnsxhgeje .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -284,7 +284,7 @@
   border-left-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_heading {
+#jsnsxhgeje .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -296,7 +296,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_title {
+#jsnsxhgeje .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -306,7 +306,7 @@
   border-bottom-width: 0;
 }
 
-#zgqudthgsb .gt_subtitle {
+#jsnsxhgeje .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -316,13 +316,13 @@
   border-top-width: 0;
 }
 
-#zgqudthgsb .gt_bottom_border {
+#jsnsxhgeje .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_col_headings {
+#jsnsxhgeje .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -337,7 +337,7 @@
   border-right-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_col_heading {
+#jsnsxhgeje .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -357,7 +357,7 @@
   overflow-x: hidden;
 }
 
-#zgqudthgsb .gt_column_spanner_outer {
+#jsnsxhgeje .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -369,15 +369,15 @@
   padding-right: 4px;
 }
 
-#zgqudthgsb .gt_column_spanner_outer:first-child {
+#jsnsxhgeje .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zgqudthgsb .gt_column_spanner_outer:last-child {
+#jsnsxhgeje .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zgqudthgsb .gt_column_spanner {
+#jsnsxhgeje .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -389,7 +389,7 @@
   width: 100%;
 }
 
-#zgqudthgsb .gt_group_heading {
+#jsnsxhgeje .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -411,7 +411,7 @@
   vertical-align: middle;
 }
 
-#zgqudthgsb .gt_empty_group_heading {
+#jsnsxhgeje .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -426,15 +426,15 @@
   vertical-align: middle;
 }
 
-#zgqudthgsb .gt_from_md > :first-child {
+#jsnsxhgeje .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zgqudthgsb .gt_from_md > :last-child {
+#jsnsxhgeje .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zgqudthgsb .gt_row {
+#jsnsxhgeje .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -453,7 +453,7 @@
   overflow-x: hidden;
 }
 
-#zgqudthgsb .gt_stub {
+#jsnsxhgeje .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -465,7 +465,7 @@
   padding-left: 12px;
 }
 
-#zgqudthgsb .gt_summary_row {
+#jsnsxhgeje .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -475,7 +475,7 @@
   padding-right: 5px;
 }
 
-#zgqudthgsb .gt_first_summary_row {
+#jsnsxhgeje .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -485,7 +485,7 @@
   border-top-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_grand_summary_row {
+#jsnsxhgeje .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -495,7 +495,7 @@
   padding-right: 5px;
 }
 
-#zgqudthgsb .gt_first_grand_summary_row {
+#jsnsxhgeje .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -505,11 +505,11 @@
   border-top-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_striped {
+#jsnsxhgeje .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zgqudthgsb .gt_table_body {
+#jsnsxhgeje .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -518,7 +518,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_footnotes {
+#jsnsxhgeje .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -532,13 +532,13 @@
   border-right-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_footnote {
+#jsnsxhgeje .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#zgqudthgsb .gt_sourcenotes {
+#jsnsxhgeje .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -552,46 +552,46 @@
   border-right-color: #D3D3D3;
 }
 
-#zgqudthgsb .gt_sourcenote {
+#jsnsxhgeje .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#zgqudthgsb .gt_left {
+#jsnsxhgeje .gt_left {
   text-align: left;
 }
 
-#zgqudthgsb .gt_center {
+#jsnsxhgeje .gt_center {
   text-align: center;
 }
 
-#zgqudthgsb .gt_right {
+#jsnsxhgeje .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zgqudthgsb .gt_font_normal {
+#jsnsxhgeje .gt_font_normal {
   font-weight: normal;
 }
 
-#zgqudthgsb .gt_font_bold {
+#jsnsxhgeje .gt_font_bold {
   font-weight: bold;
 }
 
-#zgqudthgsb .gt_font_italic {
+#jsnsxhgeje .gt_font_italic {
   font-style: italic;
 }
 
-#zgqudthgsb .gt_super {
+#jsnsxhgeje .gt_super {
   font-size: 65%;
 }
 
-#zgqudthgsb .gt_footnote_marks {
+#jsnsxhgeje .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="zgqudthgsb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="jsnsxhgeje" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
 <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>

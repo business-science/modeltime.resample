@@ -20,7 +20,7 @@ library(modeltime)
 library(modeltime.resample)
 ```
 
-# modeltime.resample <img src='man/figures/logo.png' align="right" height="138.5" />
+# modeltime.resample <img src='man/figures/logo-modeltime-resample.png' align="right" height="138.5" />
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.com/business-science/modeltime.resample.svg?branch=master)](https://travis-ci.com/business-science/modeltime.resample)

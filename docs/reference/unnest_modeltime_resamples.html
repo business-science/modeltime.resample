@@ -190,11 +190,11 @@
 <span class='va'>m750_training_resamples_fitted</span>
 </div><div class='output co'>#&gt; # Modeltime Table
 #&gt; <span style='color: #949494;'># A tibble: 3 x 4</span><span>
-#&gt;   .model_id .model     .model_desc             .resample_results         
-#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>                    
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>         1 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> ARIMA(0,1,1)(0,1,1)[12] </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>         2 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> PROPHET                 </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>         3 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> GLMNET                  </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span></div><div class='input'>
+#&gt;   .model_id .model     .model_desc             .resample_results
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>           
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>         1 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> ARIMA(0,1,1)(0,1,1)[12] </span><span style='color: #949494;'>&lt;rsmp[+]&gt;</span><span>        
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>         2 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> PROPHET                 </span><span style='color: #949494;'>&lt;rsmp[+]&gt;</span><span>        
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>         3 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> GLMNET                  </span><span style='color: #949494;'>&lt;rsmp[+]&gt;</span><span>        </div><div class='input'>
 <span class='co'># Unnest and prepare the resample predictions for evaluation</span>
 <span class='fu'>unnest_modeltime_resamples</span><span class='op'>(</span><span class='va'>m750_training_resamples_fitted</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 432 x 7</span><span>

@@ -48,7 +48,6 @@
 
 <meta property="og:title" content="Unnests the Results of Modeltime Fit Resamples — unnest_modeltime_resamples" />
 <meta property="og:description" content="An internal function used by modeltime_resample_accuracy()." />
-<meta property="og:image" content="/logo.png" />
 
 
 
@@ -90,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">modeltime.resample</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -98,7 +97,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -132,7 +131,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/modeltime.resample">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -190,28 +189,28 @@
 <span class='co'># The .resample_results column is deeply nested</span>
 <span class='va'>m750_training_resamples_fitted</span>
 </div><div class='output co'>#&gt; # Modeltime Table
-#&gt; <span style='color: #555555;'># A tibble: 3 x 4</span><span>
-#&gt;   .model_id .model     .model_desc             .resample_results
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span>         1 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> ARIMA(0,1,1)(0,1,1)[12] </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>2</span><span>         2 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> PROPHET                 </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>3</span><span>         3 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> GLMNET                  </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> </div><div class='input'>
+#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span><span>
+#&gt;   .model_id .model     .model_desc             .resample_results         
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>                    
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>         1 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> ARIMA(0,1,1)(0,1,1)[12] </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>         2 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> PROPHET                 </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>         3 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> GLMNET                  </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span></div><div class='input'>
 <span class='co'># Unnest and prepare the resample predictions for evaluation</span>
 <span class='fu'>unnest_modeltime_resamples</span><span class='op'>(</span><span class='va'>m750_training_resamples_fitted</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 432 x 7</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 432 x 7</span><span>
 #&gt;    .row_id .resample_id .model_id .model_desc              .pred  .row value
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>       1 Slice1               1 ARIMA(0,1,1)(0,1,1)[12]  </span><span style='text-decoration: underline;'>9</span><span>033.   259  </span><span style='text-decoration: underline;'>8</span><span>800
-#&gt; </span><span style='color: #555555;'> 2</span><span>       2 Slice1               1 ARIMA(0,1,1)(0,1,1)[12]  </span><span style='text-decoration: underline;'>9</span><span>329.   260  </span><span style='text-decoration: underline;'>9</span><span>360
-#&gt; </span><span style='color: #555555;'> 3</span><span>       3 Slice1               1 ARIMA(0,1,1)(0,1,1)[12]  </span><span style='text-decoration: underline;'>9</span><span>507.   261  </span><span style='text-decoration: underline;'>9</span><span>650
-#&gt; </span><span style='color: #555555;'> 4</span><span>       4 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>157.   262 </span><span style='text-decoration: underline;'>10</span><span>280
-#&gt; </span><span style='color: #555555;'> 5</span><span>       5 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>308.   263 </span><span style='text-decoration: underline;'>10</span><span>410
-#&gt; </span><span style='color: #555555;'> 6</span><span>       6 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>202.   264 </span><span style='text-decoration: underline;'>10</span><span>240
-#&gt; </span><span style='color: #555555;'> 7</span><span>       7 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>278.   265 </span><span style='text-decoration: underline;'>10</span><span>380
-#&gt; </span><span style='color: #555555;'> 8</span><span>       8 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>277.   266 </span><span style='text-decoration: underline;'>10</span><span>390
-#&gt; </span><span style='color: #555555;'> 9</span><span>       9 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>478.   267 </span><span style='text-decoration: underline;'>10</span><span>580
-#&gt; </span><span style='color: #555555;'>10</span><span>      10 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>500.   268 </span><span style='text-decoration: underline;'>10</span><span>560
-#&gt; </span><span style='color: #555555;'># … with 422 more rows</span><span></div><div class='input'>
+#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>       1 Slice1               1 ARIMA(0,1,1)(0,1,1)[12]  </span><span style='text-decoration: underline;'>9</span><span>033.   259  </span><span style='text-decoration: underline;'>8</span><span>800
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>       2 Slice1               1 ARIMA(0,1,1)(0,1,1)[12]  </span><span style='text-decoration: underline;'>9</span><span>329.   260  </span><span style='text-decoration: underline;'>9</span><span>360
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>       3 Slice1               1 ARIMA(0,1,1)(0,1,1)[12]  </span><span style='text-decoration: underline;'>9</span><span>507.   261  </span><span style='text-decoration: underline;'>9</span><span>650
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>       4 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>157.   262 </span><span style='text-decoration: underline;'>10</span><span>280
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>       5 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>308.   263 </span><span style='text-decoration: underline;'>10</span><span>410
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>       6 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>202.   264 </span><span style='text-decoration: underline;'>10</span><span>240
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>       7 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>278.   265 </span><span style='text-decoration: underline;'>10</span><span>380
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>       8 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>277.   266 </span><span style='text-decoration: underline;'>10</span><span>390
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>       9 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>478.   267 </span><span style='text-decoration: underline;'>10</span><span>580
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>      10 Slice1               1 ARIMA(0,1,1)(0,1,1)[12] </span><span style='text-decoration: underline;'>10</span><span>500.   268 </span><span style='text-decoration: underline;'>10</span><span>560
+#&gt; </span><span style='color: #949494;'># … with 422 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

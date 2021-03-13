@@ -48,7 +48,6 @@
 
 <meta property="og:title" content="Gets the target variable as text from unnested resamples — get_target_text_from_resamples" />
 <meta property="og:description" content="An internal function used by unnest_modeltime_resamples()." />
-<meta property="og:image" content="/logo.png" />
 
 
 
@@ -90,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">modeltime.resample</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -98,7 +97,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -132,7 +131,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/modeltime.resample">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -180,12 +179,12 @@ This is ".row".</p></td>
 <span class='co'># The .resample_results column is deeply nested</span>
 <span class='va'>m750_training_resamples_fitted</span>
 </div><div class='output co'>#&gt; # Modeltime Table
-#&gt; <span style='color: #555555;'># A tibble: 3 x 4</span><span>
-#&gt;   .model_id .model     .model_desc             .resample_results
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span>         1 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> ARIMA(0,1,1)(0,1,1)[12] </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>2</span><span>         2 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> PROPHET                 </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>3</span><span>         3 </span><span style='color: #555555;'>&lt;workflow&gt;</span><span> GLMNET                  </span><span style='color: #555555;'>&lt;tibble [6 × 5]&gt;</span><span> </div><div class='input'>
+#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span><span>
+#&gt;   .model_id .model     .model_desc             .resample_results         
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>                    
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>         1 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> ARIMA(0,1,1)(0,1,1)[12] </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>         2 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> PROPHET                 </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>         3 </span><span style='color: #949494;'>&lt;workflow&gt;</span><span> GLMNET                  </span><span style='color: #949494;'>&lt;resample_results [6 × 5]&gt;</span><span></div><div class='input'>
 <span class='co'># Unnest and prepare the resample predictions for evaluation</span>
 <span class='fu'><a href='unnest_modeltime_resamples.html'>unnest_modeltime_resamples</a></span><span class='op'>(</span><span class='va'>m750_training_resamples_fitted</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>get_target_text_from_resamples</span><span class='op'>(</span><span class='op'>)</span>

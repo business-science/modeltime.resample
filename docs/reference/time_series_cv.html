@@ -54,7 +54,6 @@ timetk::plot_time_series_cv_plan(): Plots a cross validation plan
 timetk::tk_time_series_cv_plan(): Unnests a cross validation plan
 
 " />
-<meta property="og:image" content="/logo.png" />
 
 
 
@@ -96,7 +95,7 @@ timetk::tk_time_series_cv_plan(): Unnests a cross validation plan
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">modeltime.resample</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -104,7 +103,7 @@ timetk::tk_time_series_cv_plan(): Unnests a cross validation plan
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -138,7 +137,7 @@ timetk::tk_time_series_cv_plan(): Unnests a cross validation plan
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/modeltime.resample">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -186,13 +185,13 @@ timetk::tk_time_series_cv_plan(): Unnests a cross validation plan
 </div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
 <span class='va'>resamples_tscv</span>
 </div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span><span>
 #&gt;   splits          id    
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice1
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice2
-#&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice3
-#&gt; </span><span style='color: #555555;'>4</span><span> </span><span style='color: #555555;'>&lt;split [60/24]&gt;</span><span> Slice4</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;split [60/24]&gt;</span><span> Slice1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> </span><span style='color: #949494;'>&lt;split [60/24]&gt;</span><span> Slice2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> </span><span style='color: #949494;'>&lt;split [60/24]&gt;</span><span> Slice3
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> </span><span style='color: #949494;'>&lt;split [60/24]&gt;</span><span> Slice4</div><div class='input'>
 <span class='co'># Visualize the Resample Sets</span>
 <span class='va'>resamples_tscv</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_time_series_cv_plan</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>

@@ -19,7 +19,6 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Resampling Panel Data">
 <meta property="og:description" content="modeltime.resample">
-<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -44,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">modeltime.resample</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -52,7 +51,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -86,7 +85,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/business-science/modeltime.resample">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -100,7 +99,7 @@
 
       
 
-      </header><script src="panel-data_files/header-attrs-2.4/header-attrs.js"></script><script src="panel-data_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="panel-data_files/header-attrs-2.6.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Resampling Panel Data</h1>
@@ -127,22 +126,22 @@
 <h2 class="hasAnchor">
 <a href="#libraries" class="anchor"></a>Libraries</h2>
 <p>Load the following R packages.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime">modeltime</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime.resample">modeltime.resample</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
 <p>We’ll use the <code>walmart_sales_weekly</code> dataset from <code>timetk</code>. This contains 7 time series groups, which correspond to the revenue over time for seven departments in one Walmart Store.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">walmart_sales_weekly</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">walmart_sales_weekly</span> <span class="op">%&gt;%</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-2-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="data-preparation" class="section level2">
@@ -153,8 +152,8 @@
 <li><p><strong>Training Data Set, <code>data_prepared_tbl</code>:</strong> Dataset that contains information on the training region for each time series group</p></li>
 <li><p><strong>Forecast Data Set, <code>future_tbl</code>:</strong> Dataset that contains information on the forecast region for each time series group. We’ll extend each time series group by <code>"3 months"</code> based on the business forecast needs.</p></li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># Full = Training + Forecast Datasets</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Full = Training + Forecast Datasets</span>
 <span class="va">full_data_tbl</span> <span class="op">&lt;-</span> <span class="va">walmart_sales_weekly</span> <span class="op">%&gt;%</span>
   <span class="fu">select</span><span class="op">(</span><span class="va">id</span>, <span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span> <span class="op">%&gt;%</span>
   
@@ -176,7 +175,7 @@
 
 <span class="co"># Forecast Data</span>
 <span class="va">future_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="resampling-panel-data" class="section level2">
 <h2 class="hasAnchor">
@@ -193,8 +192,8 @@
 <strong>slice_limit: 6.</strong> Keep the 6 largest train/test resamples to prevent too few observations. If we go below one full year, we will not be able to take advantage of the week of the year feature.</li>
 </ul>
 <p>This generates 6 resample sets.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">walmart_tscv</span> <span class="op">&lt;-</span> <span class="va">data_prepared_tbl</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">walmart_tscv</span> <span class="op">&lt;-</span> <span class="va">data_prepared_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span>
     date_var    <span class="op">=</span> <span class="va">Date</span>, 
     assess      <span class="op">=</span> <span class="st">"3 months"</span>,
@@ -203,23 +202,23 @@
     slice_limit <span class="op">=</span> <span class="fl">6</span>
   <span class="op">)</span>
 
-<span class="va">walmart_tscv</span></pre></div>
+<span class="va">walmart_tscv</span></code></pre></div>
 <pre><code>## # Time Series Cross Validation Plan 
 ## # A tibble: 6 x 2
 ##   splits           id    
 ##   &lt;list&gt;           &lt;chr&gt; 
-## 1 &lt;split [911/78]&gt; Slice1
-## 2 &lt;split [827/78]&gt; Slice2
-## 3 &lt;split [743/78]&gt; Slice3
-## 4 &lt;split [659/78]&gt; Slice4
-## 5 &lt;split [575/78]&gt; Slice5
-## 6 &lt;split [491/78]&gt; Slice6</code></pre>
+## 1 &lt;split [917/84]&gt; Slice1
+## 2 &lt;split [833/84]&gt; Slice2
+## 3 &lt;split [749/84]&gt; Slice3
+## 4 &lt;split [665/84]&gt; Slice4
+## 5 &lt;split [581/84]&gt; Slice5
+## 6 &lt;split [497/84]&gt; Slice6</code></pre>
 <p>We can visualize the resample sets with <code><a href="../reference/time_series_cv.html">plot_time_series_cv_plan()</a></code>. They look a little crazy because there are multiple time series groups. The important thing is to make sure the red and blue parts line up as expected in relation to our sampling strategy.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">walmart_tscv</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">walmart_tscv</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/time_series_cv.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, 
-                           .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></pre></div>
+                           .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="modeling" class="section level2">
@@ -234,13 +233,13 @@
 <h3 class="hasAnchor">
 <a href="#recipe" class="anchor"></a>Recipe</h3>
 <p>We’ll create a recipe that leverages <code><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html">step_timeseries_signature()</a></code> to generate calendar features.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">recipe_spec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Weekly_Sales</span> <span class="op">~</span> <span class="va">.</span>, 
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">recipe_spec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Weekly_Sales</span> <span class="op">~</span> <span class="va">.</span>, 
                       data <span class="op">=</span> <span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html">step_timeseries_signature</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">step_rm</span><span class="op">(</span><span class="fu">matches</span><span class="op">(</span><span class="st">"(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">step_mutate</span><span class="op">(</span>Date_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Date_week</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal</span><span class="op">(</span><span class="op">)</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal</span><span class="op">(</span><span class="op">)</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="models" class="section level3">
 <h3 class="hasAnchor">
@@ -249,30 +248,30 @@
 <div id="prophet" class="section level4">
 <h4 class="hasAnchor">
 <a href="#prophet" class="anchor"></a>Prophet</h4>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">wflw_fit_prophet</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wflw_fit_prophet</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_model</span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_reg.html">prophet_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet"</span><span class="op">)</span> 
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></pre></div>
+  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="xgboost" class="section level4">
 <h4 class="hasAnchor">
 <a href="#xgboost" class="anchor"></a>XGBoost</h4>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">wflw_fit_xgboost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wflw_fit_xgboost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_model</span><span class="op">(</span>
     <span class="fu">boost_tree</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> 
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span> <span class="op">%&gt;%</span> <span class="fu">step_rm</span><span class="op">(</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></pre></div>
+  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="prophet-boost" class="section level4">
 <h4 class="hasAnchor">
 <a href="#prophet-boost" class="anchor"></a>Prophet Boost</h4>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">wflw_fit_prophet_boost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wflw_fit_prophet_boost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_model</span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/prophet_boost.html">prophet_boost</a></span><span class="op">(</span>
       seasonality_daily  <span class="op">=</span> <span class="cn">FALSE</span>, 
@@ -282,21 +281,21 @@
       <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet_xgboost"</span><span class="op">)</span> 
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></pre></div>
+  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="organize-in-a-modeltime-table" class="section level3">
 <h3 class="hasAnchor">
 <a href="#organize-in-a-modeltime-table" class="anchor"></a>Organize in a Modeltime Table</h3>
 <p>Add the 3 fitted models to a Modeltime Table with <code><a href="https://rdrr.io/pkg/modeltime/man/modeltime_table.html">modeltime_table()</a></code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">model_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_table.html">modeltime_table</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_table.html">modeltime_table</a></span><span class="op">(</span>
   <span class="va">wflw_fit_prophet</span>,
   <span class="va">wflw_fit_xgboost</span>,
   <span class="va">wflw_fit_prophet_boost</span>
 <span class="op">)</span>
 
-<span class="va">model_tbl</span></pre></div>
+<span class="va">model_tbl</span></code></pre></div>
 <pre><code>## # Modeltime Table
 ## # A tibble: 3 x 3
 ##   .model_id .model     .model_desc              
@@ -309,8 +308,8 @@
 <h3 class="hasAnchor">
 <a href="#assess-a-single-resample-split" class="anchor"></a>Assess a Single Resample Split</h3>
 <p><strong>We can make a Panel Data forecast</strong>, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="co"># Calibrate using the Test Sample</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Calibrate using the Test Sample</span>
 <span class="va">calibration_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/modeltime_calibrate.html">modeltime_calibrate</a></span><span class="op">(</span><span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
 
@@ -321,17 +320,17 @@
     actual_data   <span class="op">=</span> <span class="va">data_prepared_tbl</span>,
     <span class="co"># Keep data allows us keep the ID feature for the time series groups</span>
     keep_data <span class="op">=</span> <span class="cn">TRUE</span>
-  <span class="op">)</span> </pre></div>
+  <span class="op">)</span> </code></pre></div>
 <p><strong>We can visualize the Panel Data forecasts on a single split</strong>. It’s a bit difficult to tell how each model is performing.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">forecast_panel_tbl</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">forecast_panel_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/plot_modeltime_forecast.html">plot_modeltime_forecast</a></span><span class="op">(</span>
     .facet_ncol  <span class="op">=</span> <span class="fl">3</span>,
     .y_intercept <span class="op">=</span> <span class="fl">0</span>, 
     .interactive <span class="op">=</span> <span class="cn">FALSE</span>,
     .title       <span class="op">=</span> <span class="st">"Panel Forecasting | 7 Time Series Groups"</span>
-  <span class="op">)</span></pre></div>
+  <span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="panel-data_files/figure-html/unnamed-chunk-12-1.png" alt="Panel Forecasting | 7 Time Series Groups" width="95%"><p class="caption">
 Panel Forecasting | 7 Time Series Groups
@@ -347,22 +346,22 @@ Panel Forecasting | 7 Time Series Groups
 <h3 class="hasAnchor">
 <a href="#apply-models-to-resamples" class="anchor"></a>Apply Models to Resamples</h3>
 <p>With <code>model_tbl</code> (models) and <code>walmart_tscv</code> (resamples) in had, we are ready to iteratively fit and predict each of the models on each of the resampling plan sets, producing resample predictions.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="va">resample_results</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resample_results</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span>
     resamples <span class="op">=</span> <span class="va">walmart_tscv</span>,
     control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  <span class="op">)</span></pre></div>
+  <span class="op">)</span></code></pre></div>
 <p>A new column (“.resample_results”) containing the resample predictions has been added to the original <code>model_tbl</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="va">resample_results</span></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resample_results</span></code></pre></div>
 <pre><code>## # Modeltime Table
 ## # A tibble: 3 x 4
-##   .model_id .model     .model_desc               .resample_results
-##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                     &lt;list&gt;           
-## 1         1 &lt;workflow&gt; PROPHET W/ REGRESSORS     &lt;tibble [6 × 5]&gt; 
-## 2         2 &lt;workflow&gt; XGBOOST                   &lt;tibble [6 × 5]&gt; 
-## 3         3 &lt;workflow&gt; PROPHET W/ XGBOOST ERRORS &lt;tibble [6 × 5]&gt;</code></pre>
+##   .model_id .model     .model_desc               .resample_results         
+##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                     &lt;list&gt;                    
+## 1         1 &lt;workflow&gt; PROPHET W/ REGRESSORS     &lt;resample_results [6 × 5]&gt;
+## 2         2 &lt;workflow&gt; XGBOOST                   &lt;resample_results [6 × 5]&gt;
+## 3         3 &lt;workflow&gt; PROPHET W/ XGBOOST ERRORS &lt;resample_results [6 × 5]&gt;</code></pre>
 </div>
 <div id="evaluate-resample-accuracy" class="section level3">
 <h3 class="hasAnchor">
@@ -372,28 +371,28 @@ Panel Forecasting | 7 Time Series Groups
 <h4 class="hasAnchor">
 <a href="#resample-accuracy-plot" class="anchor"></a>Resample Accuracy Plot</h4>
 <p>We can visually evaluate the accuracy with <code><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples()</a></code>. We can see that Prophet Boost and XGBoost Models have the much lower average RMSE compared to the other Prophet w/ Regressors Model.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="va">resample_results</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resample_results</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>
     .summary_fn  <span class="op">=</span> <span class="va">mean</span>, 
     .point_size  <span class="op">=</span> <span class="fl">3</span>,
     .interactive <span class="op">=</span> <span class="cn">FALSE</span>
-  <span class="op">)</span></pre></div>
+  <span class="op">)</span></code></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="resample-accuracy-table" class="section level4">
 <h4 class="hasAnchor">
 <a href="#resample-accuracy-table" class="anchor"></a>Resample Accuracy Table</h4>
 <p>We can get an interactive or static table using <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. I’m interested not only in the average metric value but also in the variability (standard deviation). I can get both of these by adding multiple summary functions using a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code>.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="va">resample_results</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resample_results</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#hipwnnefoq .gt_table {
+#apxnshyzpq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -418,7 +417,7 @@ Panel Forecasting | 7 Time Series Groups
   border-left-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_heading {
+#apxnshyzpq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -430,7 +429,7 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_title {
+#apxnshyzpq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -440,7 +439,7 @@ Panel Forecasting | 7 Time Series Groups
   border-bottom-width: 0;
 }
 
-#hipwnnefoq .gt_subtitle {
+#apxnshyzpq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -450,13 +449,13 @@ Panel Forecasting | 7 Time Series Groups
   border-top-width: 0;
 }
 
-#hipwnnefoq .gt_bottom_border {
+#apxnshyzpq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_col_headings {
+#apxnshyzpq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -471,7 +470,7 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_col_heading {
+#apxnshyzpq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -491,7 +490,7 @@ Panel Forecasting | 7 Time Series Groups
   overflow-x: hidden;
 }
 
-#hipwnnefoq .gt_column_spanner_outer {
+#apxnshyzpq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -503,15 +502,15 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 4px;
 }
 
-#hipwnnefoq .gt_column_spanner_outer:first-child {
+#apxnshyzpq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hipwnnefoq .gt_column_spanner_outer:last-child {
+#apxnshyzpq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hipwnnefoq .gt_column_spanner {
+#apxnshyzpq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -523,7 +522,7 @@ Panel Forecasting | 7 Time Series Groups
   width: 100%;
 }
 
-#hipwnnefoq .gt_group_heading {
+#apxnshyzpq .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -545,7 +544,7 @@ Panel Forecasting | 7 Time Series Groups
   vertical-align: middle;
 }
 
-#hipwnnefoq .gt_empty_group_heading {
+#apxnshyzpq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -560,15 +559,15 @@ Panel Forecasting | 7 Time Series Groups
   vertical-align: middle;
 }
 
-#hipwnnefoq .gt_from_md > :first-child {
+#apxnshyzpq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hipwnnefoq .gt_from_md > :last-child {
+#apxnshyzpq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hipwnnefoq .gt_row {
+#apxnshyzpq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -587,7 +586,7 @@ Panel Forecasting | 7 Time Series Groups
   overflow-x: hidden;
 }
 
-#hipwnnefoq .gt_stub {
+#apxnshyzpq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -599,7 +598,7 @@ Panel Forecasting | 7 Time Series Groups
   padding-left: 12px;
 }
 
-#hipwnnefoq .gt_summary_row {
+#apxnshyzpq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -609,7 +608,7 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 5px;
 }
 
-#hipwnnefoq .gt_first_summary_row {
+#apxnshyzpq .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -619,7 +618,7 @@ Panel Forecasting | 7 Time Series Groups
   border-top-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_grand_summary_row {
+#apxnshyzpq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -629,7 +628,7 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 5px;
 }
 
-#hipwnnefoq .gt_first_grand_summary_row {
+#apxnshyzpq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -639,11 +638,11 @@ Panel Forecasting | 7 Time Series Groups
   border-top-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_striped {
+#apxnshyzpq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hipwnnefoq .gt_table_body {
+#apxnshyzpq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -652,7 +651,7 @@ Panel Forecasting | 7 Time Series Groups
   border-bottom-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_footnotes {
+#apxnshyzpq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -666,13 +665,13 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_footnote {
+#apxnshyzpq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#hipwnnefoq .gt_sourcenotes {
+#apxnshyzpq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -686,52 +685,52 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#hipwnnefoq .gt_sourcenote {
+#apxnshyzpq .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#hipwnnefoq .gt_left {
+#apxnshyzpq .gt_left {
   text-align: left;
 }
 
-#hipwnnefoq .gt_center {
+#apxnshyzpq .gt_center {
   text-align: center;
 }
 
-#hipwnnefoq .gt_right {
+#apxnshyzpq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hipwnnefoq .gt_font_normal {
+#apxnshyzpq .gt_font_normal {
   font-weight: normal;
 }
 
-#hipwnnefoq .gt_font_bold {
+#apxnshyzpq .gt_font_bold {
   font-weight: bold;
 }
 
-#hipwnnefoq .gt_font_italic {
+#apxnshyzpq .gt_font_italic {
   font-style: italic;
 }
 
-#hipwnnefoq .gt_super {
+#apxnshyzpq .gt_super {
   font-size: 65%;
 }
 
-#hipwnnefoq .gt_footnote_marks {
+#apxnshyzpq .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="hipwnnefoq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="apxnshyzpq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
-<th colspan="16" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
+<th colspan="220" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
     </tr>
 <tr>
-<th colspan="16" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+<th colspan="220" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
     </tr>
 </thead>
 <thead class="gt_col_headings"><tr>
@@ -741,16 +740,220 @@ Panel Forecasting | 7 Time Series Groups
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">n</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_mean</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_1_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_1_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_2_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_2_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_3_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_3_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_4_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_4_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_5_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_5_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_6_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_6_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_7_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_7_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_8_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_8_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_9_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_9_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_10_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_10_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_11_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_11_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_12_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_12_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_13_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_13_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_14_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_14_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_15_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_15_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_16_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_16_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_17_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_17_sd</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_mean</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_1_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_1_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_2_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_2_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_3_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_3_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_4_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_4_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_5_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_5_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_6_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_6_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_7_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_7_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_8_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_8_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_9_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_9_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_10_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_10_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_11_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_11_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_12_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_12_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_13_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_13_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_14_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_14_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_15_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_15_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_16_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_16_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_17_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_17_sd</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_mean</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_1_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_1_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_2_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_2_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_3_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_3_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_4_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_4_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_5_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_5_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_6_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_6_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_7_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_7_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_8_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_8_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_9_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_9_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_10_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_10_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_11_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_11_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_12_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_12_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_13_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_13_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_14_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_14_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_15_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_15_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_16_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_16_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_17_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_17_sd</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_mean</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_1_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_1_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_2_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_2_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_3_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_3_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_4_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_4_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_5_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_5_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_6_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_6_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_7_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_7_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_8_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_8_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_9_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_9_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_10_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_10_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_11_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_11_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_12_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_12_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_13_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_13_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_14_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_14_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_15_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_15_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_16_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_16_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_17_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_17_sd</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_mean</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_1_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_1_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_2_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_2_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_3_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_3_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_4_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_4_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_5_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_5_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_6_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_6_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_7_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_7_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_8_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_8_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_9_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_9_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_10_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_10_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_11_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_11_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_12_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_12_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_13_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_13_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_14_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_14_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_15_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_15_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_16_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_16_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_17_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_17_sd</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_mean</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_1_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_1_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_2_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_2_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_3_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_3_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_4_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_4_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_5_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_5_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_6_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_6_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_7_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_7_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_8_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_8_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_9_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_9_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_10_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_10_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_11_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_11_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_12_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_12_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_13_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_13_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_14_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_14_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_15_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_15_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_16_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_16_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_17_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_17_sd</th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
@@ -758,54 +961,666 @@ Panel Forecasting | 7 Time Series Groups
       <td class="gt_row gt_left">PROPHET W/ REGRESSORS</td>
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_right">6328.68</td>
-      <td class="gt_row gt_right">1168.42</td>
-      <td class="gt_row gt_right">17.26</td>
-      <td class="gt_row gt_right">4.09</td>
-      <td class="gt_row gt_right">0.19</td>
-      <td class="gt_row gt_right">0.04</td>
-      <td class="gt_row gt_right">16.49</td>
-      <td class="gt_row gt_right">3.68</td>
-      <td class="gt_row gt_right">8792.52</td>
-      <td class="gt_row gt_right">1322.96</td>
-      <td class="gt_row gt_right">0.95</td>
-      <td class="gt_row gt_right">0.02</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">2</td>
       <td class="gt_row gt_left">XGBOOST</td>
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_right">4854.34</td>
-      <td class="gt_row gt_right">519.97</td>
-      <td class="gt_row gt_right">12.58</td>
-      <td class="gt_row gt_right">3.50</td>
-      <td class="gt_row gt_right">0.14</td>
-      <td class="gt_row gt_right">0.02</td>
-      <td class="gt_row gt_right">11.87</td>
-      <td class="gt_row gt_right">2.44</td>
-      <td class="gt_row gt_right">6969.84</td>
-      <td class="gt_row gt_right">970.69</td>
-      <td class="gt_row gt_right">0.97</td>
-      <td class="gt_row gt_right">0.02</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">3</td>
       <td class="gt_row gt_left">PROPHET W/ XGBOOST ERRORS</td>
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_right">4677.63</td>
-      <td class="gt_row gt_right">747.38</td>
-      <td class="gt_row gt_right">13.73</td>
-      <td class="gt_row gt_right">4.96</td>
-      <td class="gt_row gt_right">0.14</td>
-      <td class="gt_row gt_right">0.02</td>
-      <td class="gt_row gt_right">12.12</td>
-      <td class="gt_row gt_right">3.14</td>
-      <td class="gt_row gt_right">6724.22</td>
-      <td class="gt_row gt_right">1221.71</td>
-      <td class="gt_row gt_right">0.97</td>
-      <td class="gt_row gt_right">0.02</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
     </tr>
 </tbody>
 </table></div>

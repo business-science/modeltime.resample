@@ -19,7 +19,6 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started with Modeltime Resample">
 <meta property="og:description" content="modeltime.resample">
-<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -44,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">modeltime.resample</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -52,7 +51,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -86,7 +85,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/business-science/modeltime.resample">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -100,7 +99,7 @@
 
       
 
-      </header><script src="getting-started_files/header-attrs-2.4/header-attrs.js"></script><script src="getting-started_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="getting-started_files/header-attrs-2.6.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting Started with Modeltime Resample</h1>
@@ -133,16 +132,16 @@
 <h3 class="hasAnchor">
 <a href="#getting-started-setup" class="anchor"></a>Getting Started Setup</h3>
 <p>Load the following R packages.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime">modeltime</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime.resample">modeltime.resample</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></code></pre></div>
 <p>We’ll work with the <code>m750</code> data set.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">m750</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m750</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="step-1---make-a-cross-validation-training-plan" class="section level3">
@@ -159,8 +158,8 @@
 <li>Slice Limit is how many resamples to generate: <code>4</code>
 </li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">resamples_tscv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resamples_tscv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span>
     data        <span class="op">=</span> <span class="va">m750</span>,
     assess      <span class="op">=</span> <span class="st">"2 years"</span>,
     initial     <span class="op">=</span> <span class="st">"5 years"</span>,
@@ -168,7 +167,7 @@
     slice_limit <span class="op">=</span> <span class="fl">4</span>
 <span class="op">)</span>
 
-<span class="va">resamples_tscv</span></pre></div>
+<span class="va">resamples_tscv</span></code></pre></div>
 <pre><code>## # Time Series Cross Validation Plan 
 ## # A tibble: 4 x 2
 ##   splits          id    
@@ -178,19 +177,19 @@
 ## 3 &lt;split [60/24]&gt; Slice3
 ## 4 &lt;split [60/24]&gt; Slice4</code></pre>
 <p>Next, visualize the resample strategy to make sure we’re happy with our choices.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co"># Begin with a Cross Validation Strategy</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Begin with a Cross Validation Strategy</span>
 <span class="va">resamples_tscv</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/time_series_cv.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="step-2---make-a-modeltime-table" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step-2---make-a-modeltime-table" class="anchor"></a>Step 2 - Make a Modeltime Table</h3>
 <p>Create models and add them to a <em>Modeltime Table</em> with <a href="https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html"><strong>Modeltime.</strong></a> I’ve already created 3 models (ARIMA, Prophet, and GLMNET) and saved the results as part of the <code>modeltime</code> package <code>m750_models</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">m750_models</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m750_models</span></code></pre></div>
 <pre><code>## # Modeltime Table
 ## # A tibble: 3 x 3
 ##   .model_id .model     .model_desc            
@@ -209,21 +208,21 @@
 <li>Internally, each model is refit to each training set of the resamples</li>
 <li>A column is added to the <em>Modeltime Table</em>: <code>.resample_results</code> contains the resample predictions</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">resamples_fitted</span> <span class="op">&lt;-</span> <span class="va">m750_models</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resamples_fitted</span> <span class="op">&lt;-</span> <span class="va">m750_models</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span>
         resamples <span class="op">=</span> <span class="va">resamples_tscv</span>,
         control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
     <span class="op">)</span>
 
-<span class="va">resamples_fitted</span></pre></div>
+<span class="va">resamples_fitted</span></code></pre></div>
 <pre><code>## # Modeltime Table
 ## # A tibble: 3 x 4
-##   .model_id .model     .model_desc             .resample_results
-##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                   &lt;list&gt;           
-## 1         1 &lt;workflow&gt; ARIMA(0,1,1)(0,1,1)[12] &lt;tibble [4 × 5]&gt; 
-## 2         2 &lt;workflow&gt; PROPHET                 &lt;tibble [4 × 5]&gt; 
-## 3         3 &lt;workflow&gt; GLMNET                  &lt;tibble [4 × 5]&gt;</code></pre>
+##   .model_id .model     .model_desc             .resample_results         
+##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                   &lt;list&gt;                    
+## 1         1 &lt;workflow&gt; ARIMA(0,1,1)(0,1,1)[12] &lt;resample_results [4 × 5]&gt;
+## 2         2 &lt;workflow&gt; PROPHET                 &lt;resample_results [4 × 5]&gt;
+## 3         3 &lt;workflow&gt; GLMNET                  &lt;resample_results [4 × 5]&gt;</code></pre>
 </div>
 <div id="step-4---evaluate-the-results" class="section level3">
 <h3 class="hasAnchor">
@@ -238,28 +237,28 @@
 <li>
 <strong>Slice 4:</strong> We can see that Slice 4 seems to be giving the models the most issue. The GLMNET model is relatively robust to Slice 4. Prophet gets thrown for a loop.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">resamples_fitted</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resamples_fitted</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>
       .point_size  <span class="op">=</span> <span class="fl">3</span>, 
       .point_alpha <span class="op">=</span> <span class="fl">0.8</span>,
       .interactive <span class="op">=</span> <span class="cn">FALSE</span>
-    <span class="op">)</span></pre></div>
+    <span class="op">)</span></code></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="accuracy-table" class="section level4">
 <h4 class="hasAnchor">
 <a href="#accuracy-table" class="anchor"></a>Accuracy Table</h4>
 <p>We can compare the overall modeling approaches by evaluating the results with <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. The default is to report the average <code>summary_fns = mean</code>, but this can be changed to any summary function or a list containing multiple summary functions (e.g. <code>summary_fns = list(mean = mean, sd = sd)</code>). From the table below, ARIMA has a 6% lower RMSE, indicating it’s the best choice for consistent performance on this dataset.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">resamples_fitted</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resamples_fitted</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#jsnsxhgeje .gt_table {
+#wxbjdgnpjh .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -284,7 +283,7 @@
   border-left-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_heading {
+#wxbjdgnpjh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -296,7 +295,7 @@
   border-right-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_title {
+#wxbjdgnpjh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -306,7 +305,7 @@
   border-bottom-width: 0;
 }
 
-#jsnsxhgeje .gt_subtitle {
+#wxbjdgnpjh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -316,13 +315,13 @@
   border-top-width: 0;
 }
 
-#jsnsxhgeje .gt_bottom_border {
+#wxbjdgnpjh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_col_headings {
+#wxbjdgnpjh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -337,7 +336,7 @@
   border-right-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_col_heading {
+#wxbjdgnpjh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -357,7 +356,7 @@
   overflow-x: hidden;
 }
 
-#jsnsxhgeje .gt_column_spanner_outer {
+#wxbjdgnpjh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -369,15 +368,15 @@
   padding-right: 4px;
 }
 
-#jsnsxhgeje .gt_column_spanner_outer:first-child {
+#wxbjdgnpjh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jsnsxhgeje .gt_column_spanner_outer:last-child {
+#wxbjdgnpjh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jsnsxhgeje .gt_column_spanner {
+#wxbjdgnpjh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -389,7 +388,7 @@
   width: 100%;
 }
 
-#jsnsxhgeje .gt_group_heading {
+#wxbjdgnpjh .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -411,7 +410,7 @@
   vertical-align: middle;
 }
 
-#jsnsxhgeje .gt_empty_group_heading {
+#wxbjdgnpjh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -426,15 +425,15 @@
   vertical-align: middle;
 }
 
-#jsnsxhgeje .gt_from_md > :first-child {
+#wxbjdgnpjh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jsnsxhgeje .gt_from_md > :last-child {
+#wxbjdgnpjh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jsnsxhgeje .gt_row {
+#wxbjdgnpjh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -453,7 +452,7 @@
   overflow-x: hidden;
 }
 
-#jsnsxhgeje .gt_stub {
+#wxbjdgnpjh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -465,7 +464,7 @@
   padding-left: 12px;
 }
 
-#jsnsxhgeje .gt_summary_row {
+#wxbjdgnpjh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -475,7 +474,7 @@
   padding-right: 5px;
 }
 
-#jsnsxhgeje .gt_first_summary_row {
+#wxbjdgnpjh .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -485,7 +484,7 @@
   border-top-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_grand_summary_row {
+#wxbjdgnpjh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -495,7 +494,7 @@
   padding-right: 5px;
 }
 
-#jsnsxhgeje .gt_first_grand_summary_row {
+#wxbjdgnpjh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -505,11 +504,11 @@
   border-top-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_striped {
+#wxbjdgnpjh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jsnsxhgeje .gt_table_body {
+#wxbjdgnpjh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -518,7 +517,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_footnotes {
+#wxbjdgnpjh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -532,13 +531,13 @@
   border-right-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_footnote {
+#wxbjdgnpjh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#jsnsxhgeje .gt_sourcenotes {
+#wxbjdgnpjh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -552,52 +551,52 @@
   border-right-color: #D3D3D3;
 }
 
-#jsnsxhgeje .gt_sourcenote {
+#wxbjdgnpjh .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#jsnsxhgeje .gt_left {
+#wxbjdgnpjh .gt_left {
   text-align: left;
 }
 
-#jsnsxhgeje .gt_center {
+#wxbjdgnpjh .gt_center {
   text-align: center;
 }
 
-#jsnsxhgeje .gt_right {
+#wxbjdgnpjh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jsnsxhgeje .gt_font_normal {
+#wxbjdgnpjh .gt_font_normal {
   font-weight: normal;
 }
 
-#jsnsxhgeje .gt_font_bold {
+#wxbjdgnpjh .gt_font_bold {
   font-weight: bold;
 }
 
-#jsnsxhgeje .gt_font_italic {
+#wxbjdgnpjh .gt_font_italic {
   font-style: italic;
 }
 
-#jsnsxhgeje .gt_super {
+#wxbjdgnpjh .gt_super {
   font-size: 65%;
 }
 
-#jsnsxhgeje .gt_footnote_marks {
+#wxbjdgnpjh .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="jsnsxhgeje" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
+<div id="wxbjdgnpjh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="table gt_table">
 <thead class="gt_header">
 <tr>
-<th colspan="10" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
+<th colspan="76" class="gt_heading gt_title gt_font_normal" style>Accuracy Table</th>
     </tr>
 <tr>
-<th colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+<th colspan="76" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
     </tr>
 </thead>
 <thead class="gt_col_headings"><tr>
@@ -606,11 +605,77 @@
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">.type</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">n</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_11</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_11</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_11</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_11</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_11</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_11</th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
@@ -618,36 +683,234 @@
       <td class="gt_row gt_left">ARIMA(0,1,1)(0,1,1)[12]</td>
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_right">421.78</td>
-      <td class="gt_row gt_right">4.11</td>
-      <td class="gt_row gt_right">1.64</td>
-      <td class="gt_row gt_right">4.15</td>
-      <td class="gt_row gt_right">490.88</td>
-      <td class="gt_row gt_right">0.77</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">2</td>
       <td class="gt_row gt_left">PROPHET</td>
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_right">443.09</td>
-      <td class="gt_row gt_right">4.34</td>
-      <td class="gt_row gt_right">1.77</td>
-      <td class="gt_row gt_right">4.41</td>
-      <td class="gt_row gt_right">520.80</td>
-      <td class="gt_row gt_right">0.71</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
     </tr>
 <tr>
 <td class="gt_row gt_center">3</td>
       <td class="gt_row gt_left">GLMNET</td>
       <td class="gt_row gt_left">Resamples</td>
       <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_right">451.48</td>
-      <td class="gt_row gt_right">4.42</td>
-      <td class="gt_row gt_right">1.71</td>
-      <td class="gt_row gt_right">4.48</td>
-      <td class="gt_row gt_right">522.40</td>
-      <td class="gt_row gt_right">0.81</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
+      <td class="gt_row gt_right">NA</td>
     </tr>
 </tbody>
 </table></div>

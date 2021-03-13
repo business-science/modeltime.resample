@@ -5,14 +5,13 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/business-science/modeltime.resample.svg?branch=master)](https://travis-ci.com/business-science/modeltime.resample)
-[![Codecov test
-coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/modeltime.resample?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R-project.org/package=modeltime.resample)
 ![](http://cranlogs.r-pkg.org/badges/modeltime.resample?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
+[![R-CMD-check](https://github.com/business-science/modeltime.resample/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/modeltime.resample/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/modeltime.resample?branch=master)
 <!-- badges: end -->
 
 > **Model Performance and Stability Assessment Tools** for Single Time

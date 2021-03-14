@@ -19,7 +19,7 @@ navbar:
         - text: 'Multiple Time Series'
         - text: "Resampling Panel Data"
           href: articles/panel-data.html
-    - text: "Key Functions"
+    - text: "API Functions"
       href: reference/index.html
     - text: "News"
       href: news/index.html

@@ -125,7 +125,7 @@ modeltime_fit_resamples()." />
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Key Functions</a>
+  <a href="../reference/index.html">API Functions</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -166,7 +166,8 @@ a Modeltime Table that has been resampled and fitted using
     <pre class="usage"><span class='fu'>modeltime_resample_accuracy</span><span class='op'>(</span>
   <span class='va'>object</span>,
   summary_fns <span class='op'>=</span> <span class='va'>mean</span>,
-  metric_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/default_forecast_accuracy_metric_set.html'>default_forecast_accuracy_metric_set</a></span><span class='op'>(</span><span class='op'>)</span>
+  metric_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/default_forecast_accuracy_metric_set.html'>default_forecast_accuracy_metric_set</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -191,6 +192,10 @@ Possible values are:</p><ul>
       <td><p>A <code><a href='https://yardstick.tidymodels.org/reference/metric_set.html'>yardstick::metric_set()</a></code> that is used to summarize one or more
 forecast accuracy (regression) metrics.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to the function calls in <code>summary_fns</code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -211,6 +216,8 @@ the <em>average</em> accuracy metrics for each resample prediction.</p>
 <p>The user can change this default behavior using <code>summary_fns</code>.
 Simply pass one or more Summary Functions. Internally, the functions are passed to
 <code><a href='https://dplyr.tidyverse.org/reference/across.html'>dplyr::across(.fns)</a></code>, which applies the summary functions.</p>
+<p><strong>Returning Unsummarized Results</strong></p>
+<p>You can pass <code>summary_fns = NULL</code> to return unsummarized results by <code>.resample_id</code>.</p>
 <p><strong>Professional Tables (Interactive &amp; Static)</strong></p>
 <p>Use <code><a href='https://rdrr.io/pkg/modeltime/man/table_modeltime_accuracy.html'>modeltime::table_modeltime_accuracy()</a></code> to format the results for reporting in
 <code>reactable</code> (interactive) or <code>gt</code> (static) formats, which are perfect for
@@ -1053,7 +1060,33 @@ Shiny Apps (interactive) and PDF Reports (static).</p>
 #&gt;   
 #&gt;   
 #&gt; &lt;/table&gt;&lt;/div&gt;</div><div class='input'>
-</div></pre>
+<span class='co'># When summary_fns = NULL, returns the unsummarized resample results</span>
+<span class='va'>m750_training_resamples_fitted</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>modeltime_resample_accuracy</span><span class='op'>(</span>
+        summary_fns <span class='op'>=</span> <span class='cn'>NULL</span>
+    <span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 18 x 10</span><span>
+#&gt;    .model_id .model_desc  .resample_id .type   mae  mape  mase smape  rmse   rsq
+#&gt;        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>         1 ARIMA(0,1,1… Slice1       Resa…  182.  1.79 0.637  1.80  212. 0.950
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>         1 ARIMA(0,1,1… Slice2       Resa…  330.  3.24 1.30   3.17  406. 0.729
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>         1 ARIMA(0,1,1… Slice3       Resa…  359.  3.57 1.55   3.64  415. 0.859
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>         1 ARIMA(0,1,1… Slice4       Resa…  456.  4.76 2.01   4.61  530. 0.561
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>         1 ARIMA(0,1,1… Slice5       Resa…  122.  1.23 0.524  1.22  165. 0.926
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>         1 ARIMA(0,1,1… Slice6       Resa…  317.  3.12 1.05   3.20  407. 0.763
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>         2 PROPHET      Slice1       Resa…  450.  4.54 1.57   4.40  509. 0.869
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>         2 PROPHET      Slice2       Resa…  449.  4.34 1.76   4.45  494. 0.745
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>         2 PROPHET      Slice3       Resa…  475.  4.72 2.05   4.85  556. 0.660
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>         2 PROPHET      Slice4       Resa…  317.  3.33 1.39   3.26  362. 0.781
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span>         2 PROPHET      Slice5       Resa…  813.  8.22 3.49   7.89  829. 0.897
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span>         2 PROPHET      Slice6       Resa…  244.  2.40 0.808  2.45  344. 0.755
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span>         3 GLMNET       Slice1       Resa…  893.  8.90 3.12   8.48  926. 0.845
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span>         3 GLMNET       Slice2       Resa…  583.  5.73 2.29   5.53  647. 0.654
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span>         3 GLMNET       Slice3       Resa…  874.  9.07 3.77   8.62  917. 0.901
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span>         3 GLMNET       Slice4       Resa…  964. 10.1  4.24   9.53 </span><span style='text-decoration: underline;'>1</span><span>022. 0.494
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span>         3 GLMNET       Slice5       Resa…  313.  3.17 1.34   3.11  339. 0.918
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span>         3 GLMNET       Slice6       Resa…  609.  6.03 2.02   6.26  667. 0.783</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -7,7 +7,8 @@
 modeltime_resample_accuracy(
   object,
   summary_fns = mean,
-  metric_set = default_forecast_accuracy_metric_set()
+  metric_set = default_forecast_accuracy_metric_set(),
+  ...
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ Possible values are:
 
 \item{metric_set}{A \code{yardstick::metric_set()} that is used to summarize one or more
 forecast accuracy (regression) metrics.}
+
+\item{...}{Additional arguments passed to the function calls in \code{summary_fns}.}
 }
 \description{
 This is a wrapper for \code{yardstick} that simplifies time
@@ -53,6 +56,10 @@ The user can change this default behavior using \code{summary_fns}.
 Simply pass one or more Summary Functions. Internally, the functions are passed to
 \code{dplyr::across(.fns)}, which applies the summary functions.
 
+\strong{Returning Unsummarized Results}
+
+You can pass \code{summary_fns = NULL} to return unsummarized results by \code{.resample_id}.
+
 \strong{Professional Tables (Interactive & Static)}
 
 Use \code{\link[modeltime:table_modeltime_accuracy]{modeltime::table_modeltime_accuracy()}} to format the results for reporting in
@@ -73,5 +80,11 @@ m750_training_resamples_fitted \%>\%
         summary_fns = list(mean = mean, sd = sd)
     ) \%>\%
     table_modeltime_accuracy(.interactive = FALSE)
+
+# When summary_fns = NULL, returns the unsummarized resample results
+m750_training_resamples_fitted \%>\%
+    modeltime_resample_accuracy(
+        summary_fns = NULL
+    )
 
 }

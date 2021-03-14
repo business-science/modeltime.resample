@@ -15,6 +15,7 @@
 #'  * A function, e.g. mean.
 #'  * A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
 #'  * A list of functions/lambdas, e.g. list(mean = mean, sd = sd)
+#' @param ... Additional arguments passed to the function calls in `summary_fns`.
 #'
 #' @details
 #'
@@ -38,6 +39,10 @@
 #' Simply pass one or more Summary Functions. Internally, the functions are passed to
 #' `dplyr::across(.fns)`, which applies the summary functions.
 #'
+#' __Returning Unsummarized Results__
+#'
+#' You can pass `summary_fns = NULL` to return unsummarized results by `.resample_id`.
+#'
 #' __Professional Tables (Interactive & Static)__
 #'
 #' Use [modeltime::table_modeltime_accuracy()] to format the results for reporting in
@@ -59,8 +64,14 @@
 #'     ) %>%
 #'     table_modeltime_accuracy(.interactive = FALSE)
 #'
+#' # When summary_fns = NULL, returns the unsummarized resample results
+#' m750_training_resamples_fitted %>%
+#'     modeltime_resample_accuracy(
+#'         summary_fns = NULL
+#'     )
+#'
 #' @export
-modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set = default_forecast_accuracy_metric_set()) {
+modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set = default_forecast_accuracy_metric_set(), ...) {
 
     # Checks
     if (!inherits(object, "data.frame")) rlang::abort("object must be a data.frame")
@@ -73,31 +84,37 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
     target_text <- resample_results_tbl %>% get_target_text_from_resamples(column_before_target = ".row")
     target_var  <- rlang::sym(target_text)
 
-    suppressWarnings({
-        # Warning messages:
-        #     1: In mean.default(.resample_id) :
-        #     argument is not numeric or logical: returning NA
+    if (is.null(summary_fns)) {
+
+        ret <- resample_results_tbl %>%
+            dplyr::mutate(.type = "Resamples") %>%
+            dplyr::group_by(.model_id, .model_desc, .resample_id, .type) %>%
+            modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set)
+            # dplyr::select(-.resample_id) %>%
+            # dplyr::group_by(.model_id, .model_desc, .type) %>%
+            # dplyr::mutate(n = dplyr::n()) %>%
+            # dplyr::group_by(.model_id, .model_desc, .type, n) %>%
+            # dplyr::summarise(
+            #     dplyr::across(.fns = summary_fns),
+            #     .groups = "drop"
+            # ) %>%
+            # dplyr::ungroup()
+
+    } else {
 
         ret <- resample_results_tbl %>%
             dplyr::mutate(.type = "Resamples") %>%
             dplyr::group_by(.model_id, .model_desc, .resample_id, .type) %>%
             modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set) %>%
-            #dplyr::select(-.resample_id) %>%
+            dplyr::select(-.resample_id) %>%
             dplyr::group_by(.model_id, .model_desc, .type) %>%
             dplyr::mutate(n = dplyr::n()) %>%
             dplyr::group_by(.model_id, .model_desc, .type, n) %>%
             dplyr::summarise(
-                dplyr::across(.fns = summary_fns),
+                dplyr::across(.fns = summary_fns, ...),
                 .groups = "drop"
             ) %>%
             dplyr::ungroup()
-
-    })
-
-    if (!is.null(summary_fns)) {
-
-        ret <- ret %>%
-               dplyr::select(-.resample_id)
 
     }
 

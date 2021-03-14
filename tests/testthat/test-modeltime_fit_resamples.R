@@ -17,7 +17,16 @@ library(lubridate)
 resamples_tscv <- training(m750_splits) %>%
     time_series_cv(assess = "2 years", initial = "5 years", skip = "2 years", slice_limit = 2)
 
+# Workflow
 m750_models_resample <- m750_models %>%
+    modeltime_fit_resamples(resamples_tscv, control = control_resamples(verbose = F))
+
+# Parsnip
+prophet_fit <- prophet_reg() %>%
+    set_engine("prophet") %>%
+    fit(value ~ date, training(m750_splits))
+
+m750_prophet_resample <- modeltime_table(prophet_fit) %>%
     modeltime_fit_resamples(resamples_tscv, control = control_resamples(verbose = F))
 
 # MODELTIME FIT RESAMPLES ----
@@ -27,9 +36,16 @@ test_that("Structure: modeltime_fit_resamples()", {
     # Structure
 
     expect_true(".resample_results" %in% names(m750_models_resample))
+    expect_true(".resample_results" %in% names(m750_prophet_resample))
 
+    # Workflow
     resamples_unnested <- unnest_modeltime_resamples(m750_models_resample)
     expect_true(all(c(".model_id", ".model_desc", ".pred") %in% names(resamples_unnested)))
+
+    # Parsnip
+    resamples_unnested <- unnest_modeltime_resamples(m750_prophet_resample)
+    expect_true(all(c(".model_id", ".model_desc", ".pred") %in% names(resamples_unnested)))
+
 
 })
 

@@ -84,28 +84,16 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
     target_text <- resample_results_tbl %>% get_target_text_from_resamples(column_before_target = ".row")
     target_var  <- rlang::sym(target_text)
 
-    if (is.null(summary_fns)) {
+    # Apply accuracy metrics to resamples
+    ret <- resample_results_tbl %>%
+        dplyr::mutate(.type = "Resamples") %>%
+        dplyr::group_by(.model_id, .model_desc, .resample_id, .type) %>%
+        modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set)
 
-        ret <- resample_results_tbl %>%
-            dplyr::mutate(.type = "Resamples") %>%
-            dplyr::group_by(.model_id, .model_desc, .resample_id, .type) %>%
-            modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set)
-            # dplyr::select(-.resample_id) %>%
-            # dplyr::group_by(.model_id, .model_desc, .type) %>%
-            # dplyr::mutate(n = dplyr::n()) %>%
-            # dplyr::group_by(.model_id, .model_desc, .type, n) %>%
-            # dplyr::summarise(
-            #     dplyr::across(.fns = summary_fns),
-            #     .groups = "drop"
-            # ) %>%
-            # dplyr::ungroup()
+    # If summary functions provided, apply summary functions
+    if (!is.null(summary_fns)) {
 
-    } else {
-
-        ret <- resample_results_tbl %>%
-            dplyr::mutate(.type = "Resamples") %>%
-            dplyr::group_by(.model_id, .model_desc, .resample_id, .type) %>%
-            modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set) %>%
+        ret <- ret %>%
             dplyr::select(-.resample_id) %>%
             dplyr::group_by(.model_id, .model_desc, .type) %>%
             dplyr::mutate(n = dplyr::n()) %>%

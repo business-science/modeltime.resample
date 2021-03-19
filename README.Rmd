@@ -41,7 +41,21 @@ A `modeltime` extension that implements ___forecast resampling tools___ that ass
 knitr::include_graphics("man/figures/cross_validation_plan.jpg")
 ```
 
-## Benefits: What Modeltime Resample Does
+## Installation
+
+CRAN version:
+
+``` r
+install.packages("modeltime.resample")
+```
+
+Development version (latest features):
+
+``` r
+remotes::install_github("business-science/modeltime.resample")
+```
+
+## Why Modeltime Resample?
 
 Resampling time series is an important strategy to __evaluate the stability of models over time.__ However, it's a pain to do this because it requires multiple for-loops to generate the predictions for multiple models and potentially multiple time series groups. __Modeltime Resample simplifies the iterative forecasting process taking the pain away.__
 
@@ -60,20 +74,7 @@ knitr::include_graphics("man/figures/plotly_resample_error_plot.jpg")
 knitr::include_graphics("man/figures/gt_accuracy_table.jpg")
 ```
 
-## Installation
 
-Install the CRAN version:
-
-``` r
-# Not on CRAN yet
-# install.packages("modeltime.resample")
-```
-
-Or, install the development version:
-
-``` r
-remotes::install_github("business-science/modeltime.resample")
-```
 
 ## Getting Started
 

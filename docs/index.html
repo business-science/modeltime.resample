@@ -115,9 +115,19 @@
 </blockquote>
 <p>A <code>modeltime</code> extension that implements <strong><em>forecast resampling tools</em></strong> that assess <strong>time-based model performance and stability</strong> for a single time series, panel data, and cross-sectional time series analysis.</p>
 <p><img src="reference/figures/cross_validation_plan.jpg" width="100%" style="display: block; margin: auto;"></p>
-<div id="benefits-what-modeltime-resample-does" class="section level2">
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#benefits-what-modeltime-resample-does" class="anchor"></a>Benefits: What Modeltime Resample Does</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>CRAN version:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"modeltime.resample"</span><span class="op">)</span></code></pre></div>
+<p>Development version (latest features):</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"business-science/modeltime.resample"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="why-modeltime-resample" class="section level2">
+<h2 class="hasAnchor">
+<a href="#why-modeltime-resample" class="anchor"></a>Why Modeltime Resample?</h2>
 <p>Resampling time series is an important strategy to <strong>evaluate the stability of models over time.</strong> However, it’s a pain to do this because it requires multiple for-loops to generate the predictions for multiple models and potentially multiple time series groups. <strong>Modeltime Resample simplifies the iterative forecasting process taking the pain away.</strong></p>
 <p>Modeltime Resample makes it easy to:</p>
 <ol>
@@ -137,17 +147,6 @@ Model Accuracy for 6 Time Series Resamples
 Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)
 </p>
 </div>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install the CRAN version:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Not on CRAN yet</span>
-<span class="co"># install.packages("modeltime.resample")</span></code></pre></div>
-<p>Or, install the development version:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"business-science/modeltime.resample"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">

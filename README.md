@@ -23,7 +23,21 @@ time series, panel data, and cross-sectional time series analysis.
 
 <img src="man/figures/cross_validation_plan.jpg" width="100%" style="display: block; margin: auto;" />
 
-## Benefits: What Modeltime Resample Does
+## Installation
+
+CRAN version:
+
+``` r
+install.packages("modeltime.resample")
+```
+
+Development version (latest features):
+
+``` r
+remotes::install_github("business-science/modeltime.resample")
+```
+
+## Why Modeltime Resample?
 
 Resampling time series is an important strategy to **evaluate the
 stability of models over time.** However, it’s a pain to do this because
@@ -61,21 +75,6 @@ Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)
 </p>
 
 </div>
-
-## Installation
-
-Install the CRAN version:
-
-``` r
-# Not on CRAN yet
-# install.packages("modeltime.resample")
-```
-
-Or, install the development version:
-
-``` r
-remotes::install_github("business-science/modeltime.resample")
-```
 
 ## Getting Started
 

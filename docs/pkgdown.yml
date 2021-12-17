@@ -1,8 +1,8 @@
-pandoc: 2.11.4
-pkgdown: 1.6.1
+pandoc: '2.13'
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   getting-started: getting-started.html
   panel-data: panel-data.html
-last_built: 2021-03-22T15:24Z
+last_built: 2021-12-17T03:02Z
 

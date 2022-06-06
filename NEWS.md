@@ -1,3 +1,5 @@
+# modeltime.resample 0.2.0.9000
+
 # modeltime.resample 0.2.0
 
 - `modeltime_resample_accuracy()` (#1): When user specifies `summary_fns = NULL`, returns unsummarized resample metrics with ".resample_id"

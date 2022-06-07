@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 [![R-CMD-check](https://github.com/business-science/modeltime.resample/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/modeltime.resample/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/modeltime.resample?branch=master)
+coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://app.codecov.io/gh/business-science/modeltime.resample?branch=master)
 <!-- badges: end -->
 
 > **Model Performance and Stability Assessment Tools** for Single Time
@@ -58,23 +58,9 @@ where we can see that Prophet Boost and XGBoost Models outperform
 Prophet with Regressors for the Walmart Time Series Panel Dataset using
 the 6-Slice Time Series Cross Validation plan shown above.
 
-<div class="figure" style="text-align: center">
+<img src="man/figures/plotly_resample_error_plot.jpg" title="Model Accuracy for 6 Time Series Resamples" alt="Model Accuracy for 6 Time Series Resamples" width="100%" style="display: block; margin: auto;" />
 
-<img src="man/figures/plotly_resample_error_plot.jpg" alt="Model Accuracy for 6 Time Series Resamples" width="100%" />
-<p class="caption">
-Model Accuracy for 6 Time Series Resamples
-</p>
-
-</div>
-
-<div class="figure" style="text-align: center">
-
-<img src="man/figures/gt_accuracy_table.jpg" alt="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)" width="80%" />
-<p class="caption">
-Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)
-</p>
-
-</div>
+<img src="man/figures/gt_accuracy_table.jpg" title="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)" alt="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)" width="80%" style="display: block; margin: auto;" />
 
 ## Getting Started
 
@@ -93,14 +79,7 @@ Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)
 
 > Learn a growing ecosystem of forecasting packages
 
-<div class="figure" style="text-align: center">
-
-<img src="man/figures/modeltime_ecosystem.jpg" alt="The modeltime ecosystem is growing" width="100%" />
-<p class="caption">
-The modeltime ecosystem is growing
-</p>
-
-</div>
+<img src="man/figures/modeltime_ecosystem.jpg" title="The modeltime ecosystem is growing" alt="The modeltime ecosystem is growing" width="100%" style="display: block; margin: auto;" />
 
 Modeltime is part of a **growing ecosystem** of Modeltime forecasting
 packages.

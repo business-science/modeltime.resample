@@ -27,7 +27,7 @@ library(modeltime.resample)
 ![](http://cranlogs.r-pkg.org/badges/modeltime.resample?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
 [![R-CMD-check](https://github.com/business-science/modeltime.resample/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/modeltime.resample/actions)
-[![Codecov test coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/modeltime.resample?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://app.codecov.io/gh/business-science/modeltime.resample?branch=master)
 <!-- badges: end -->
 
 > __Model Performance and Stability Assessment Tools__ for Single Time Series, Panel Data, & Cross-Sectional Time Series Analysis

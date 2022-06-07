@@ -1,8 +1,8 @@
-# modeltime.resample 0.2.0.9000
+# modeltime.resample 0.2.1
 
 ### Fixes
 
-- Updates for `hardhat 1.0.0` #182
+- Updates for `hardhat 1.0.0` #11
 
 # modeltime.resample 0.2.0
 

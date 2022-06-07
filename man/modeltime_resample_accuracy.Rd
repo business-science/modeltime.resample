@@ -37,7 +37,7 @@ a Modeltime Table that has been resampled and fitted using
 \details{
 #' \strong{Default Accuracy Metrics}
 
-The following accuracy metrics are included by default via \code{\link[modeltime:default_forecast_accuracy_metric_set]{modeltime::default_forecast_accuracy_metric_set()}}:
+The following accuracy metrics are included by default via \code{\link[modeltime:metric_sets]{modeltime::default_forecast_accuracy_metric_set()}}:
 \itemize{
 \item MAE - Mean absolute error, \code{\link[yardstick:mae]{yardstick::mae()}}
 \item MAPE - Mean absolute percentage error, \code{\link[yardstick:mape]{yardstick::mape()}}

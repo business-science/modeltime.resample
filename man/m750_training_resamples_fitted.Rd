@@ -14,7 +14,7 @@ m750_training_resamples_fitted
 Time Series Cross Validation Resample Predictions (Results) from the M750 Data (Training Set)
 }
 \details{
-\if{html}{\out{<div class="{r eval = FALSE}#'">}}\preformatted{m750_training_resamples_fitted <- m750_models \%>\%
+\if{html}{\out{<div class="sourceCode {r eval = FALSE}#'">}}\preformatted{m750_training_resamples_fitted <- m750_models \%>\%
     modeltime_fit_resamples(
         resamples = m750_training_resamples,
         control   = control_resamples(verbose = T)

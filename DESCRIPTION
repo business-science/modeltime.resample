@@ -40,7 +40,8 @@ Imports:
     magrittr,
     rlang (>= 0.1.2),
     progressr,
-    tictoc
+    tictoc,
+    hardhat
 Suggests: 
     roxygen2,
     testthat,
@@ -54,7 +55,7 @@ Suggests:
     covr, 
     remotes
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 
 

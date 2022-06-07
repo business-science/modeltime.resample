@@ -181,6 +181,13 @@ mdl_time_fit_resamples <- function(object, resamples, control = control_resample
 #' @importFrom yardstick rmse
 mdl_time_fit_resamples.workflow <- function(object, resamples, control = control_resamples()) {
 
+    # UPDATES FOR HARDHAT 1.0.0
+    preprocessor    <- workflows::extract_preprocessor(object)
+    mld             <- hardhat::mold(preprocessor, preprocessor$template)
+    object$pre$mold <- mld
+
+    object$pre$actions$recipe$blueprint <- mld$blueprint
+
     tune::fit_resamples(
         object    = object,
         resamples = resamples,

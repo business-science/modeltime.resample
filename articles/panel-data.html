@@ -14,9 +14,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Roboto-0.4.1/font.css" rel="stylesheet">
-<link href="../deps/_Montserrat-0.4.1/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/Montserrat-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">modeltime.resample</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,7 +128,7 @@
 
 
 <script src="panel-data_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Resampling Panel Data</h1>
             
       
@@ -153,21 +153,21 @@
 </h3>
 <p>Load the following R packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime" class="external-link">modeltime</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime.resample" class="external-link">modeltime.resample</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime" class="external-link">modeltime</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime.resample" class="external-link">modeltime.resample</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h3>
 <p>We’ll use the <code>walmart_sales_weekly</code> dataset from <code>timetk</code>. This contains 7 time series groups, which correspond to the revenue over time for seven departments in one Walmart Store.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">walmart_sales_weekly</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/timetk/reference/plot_time_series.html" class="external-link">plot_time_series</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">walmart_sales_weekly</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/timetk/reference/plot_time_series.html" class="external-link">plot_time_series</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-2-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -179,29 +179,29 @@
 <li><p><strong>Forecast Data Set, <code>future_tbl</code>:</strong> Dataset that contains information on the forecast region for each time series group. We’ll extend each time series group by <code>"3 months"</code> based on the business forecast needs.</p></li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Full = Training + Forecast Datasets</span>
-<span class="va">full_data_tbl</span> <span class="op">&lt;-</span> <span class="va">walmart_sales_weekly</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  
-  <span class="co"># Apply Group-wise Time Series Manipulations</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/timetk/reference/future_frame.html" class="external-link">future_frame</a></span><span class="op">(</span>
-    .date_var   <span class="op">=</span> <span class="va">Date</span>,
-    .length_out <span class="op">=</span> <span class="st">"3 months"</span>,
-    .bind_data  <span class="op">=</span> <span class="cn">TRUE</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  
-  <span class="co"># Consolidate IDs</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">fct_drop</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Training Data</span>
-<span class="va">data_prepared_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Forecast Data</span>
-<span class="va">future_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Full = Training + Forecast Datasets</span></span>
+<span><span class="va">full_data_tbl</span> <span class="op">&lt;-</span> <span class="va">walmart_sales_weekly</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># Apply Group-wise Time Series Manipulations</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/timetk/reference/future_frame.html" class="external-link">future_frame</a></span><span class="op">(</span></span>
+<span>    .date_var   <span class="op">=</span> <span class="va">Date</span>,</span>
+<span>    .length_out <span class="op">=</span> <span class="st">"3 months"</span>,</span>
+<span>    .bind_data  <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># Consolidate IDs</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_drop.html" class="external-link">fct_drop</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Training Data</span></span>
+<span><span class="va">data_prepared_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Forecast Data</span></span>
+<span><span class="va">future_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="resampling-panel-data">Resampling Panel Data<a class="anchor" aria-label="anchor" href="#resampling-panel-data"></a>
@@ -219,32 +219,32 @@
 </ul>
 <p>This generates 6 resample sets.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">walmart_tscv</span> <span class="op">&lt;-</span> <span class="va">data_prepared_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span>
-    date_var    <span class="op">=</span> <span class="va">Date</span>, 
-    assess      <span class="op">=</span> <span class="st">"3 months"</span>,
-    skip        <span class="op">=</span> <span class="st">"3 months"</span>,
-    cumulative  <span class="op">=</span> <span class="cn">TRUE</span>,
-    slice_limit <span class="op">=</span> <span class="fl">6</span>
-  <span class="op">)</span>
-
-<span class="va">walmart_tscv</span></code></pre></div>
-<pre><code><span class="co">## # Time Series Cross Validation Plan </span>
-<span class="co">## <span style="color: #949494;"># A tibble: 6 × 2</span></span>
-<span class="co">##   splits           id    </span>
-<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">&lt;split [917/84]&gt;</span> Slice1</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> <span style="color: #949494;">&lt;split [833/84]&gt;</span> Slice2</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> <span style="color: #949494;">&lt;split [749/84]&gt;</span> Slice3</span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> <span style="color: #949494;">&lt;split [665/84]&gt;</span> Slice4</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> <span style="color: #949494;">&lt;split [581/84]&gt;</span> Slice5</span>
-<span class="co">## <span style="color: #BCBCBC;">6</span> <span style="color: #949494;">&lt;split [497/84]&gt;</span> Slice6</span></code></pre>
+<code class="sourceCode R"><span><span class="va">walmart_tscv</span> <span class="op">&lt;-</span> <span class="va">data_prepared_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span></span>
+<span>    date_var    <span class="op">=</span> <span class="va">Date</span>, </span>
+<span>    assess      <span class="op">=</span> <span class="st">"3 months"</span>,</span>
+<span>    skip        <span class="op">=</span> <span class="st">"3 months"</span>,</span>
+<span>    cumulative  <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    slice_limit <span class="op">=</span> <span class="fl">6</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">walmart_tscv</span></span></code></pre></div>
+<pre><code><span><span class="co">## # Time Series Cross Validation Plan </span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
+<span><span class="co">##   splits           id    </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">&lt;split [917/84]&gt;</span> Slice1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> <span style="color: #949494;">&lt;split [833/84]&gt;</span> Slice2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> <span style="color: #949494;">&lt;split [749/84]&gt;</span> Slice3</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> <span style="color: #949494;">&lt;split [665/84]&gt;</span> Slice4</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> <span style="color: #949494;">&lt;split [581/84]&gt;</span> Slice5</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> <span style="color: #949494;">&lt;split [497/84]&gt;</span> Slice6</span></span></code></pre>
 <p>We can visualize the resample sets with <code><a href="../reference/time_series_cv.html">plot_time_series_cv_plan()</a></code>. They look a little crazy because there are multiple time series groups. The important thing is to make sure the red and blue parts line up as expected in relation to our sampling strategy.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">walmart_tscv</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/time_series_cv.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, 
-                           .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">walmart_tscv</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/time_series_cv.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, </span>
+<span>                           .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -260,12 +260,12 @@
 </h4>
 <p>We’ll create a recipe that leverages <code><a href="https://business-science.github.io/timetk/reference/step_timeseries_signature.html" class="external-link">step_timeseries_signature()</a></code> to generate calendar features.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">recipe_spec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Weekly_Sales</span> <span class="op">~</span> <span class="va">.</span>, 
-                      data <span class="op">=</span> <span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/timetk/reference/step_timeseries_signature.html" class="external-link">step_timeseries_signature</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">step_rm</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">step_mutate</span><span class="op">(</span>Date_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Date_week</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal</span><span class="op">(</span><span class="op">)</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">recipe_spec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Weekly_Sales</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                      data <span class="op">=</span> <span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/timetk/reference/step_timeseries_signature.html" class="external-link">step_timeseries_signature</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_rm</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_mutate</span><span class="op">(</span>Date_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Date_week</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal</span><span class="op">(</span><span class="op">)</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
@@ -275,39 +275,39 @@
 <h5 id="prophet">Prophet<a class="anchor" aria-label="anchor" href="#prophet"></a>
 </h5>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">wflw_fit_prophet</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_model</span><span class="op">(</span>
-    <span class="fu"><a href="https://business-science.github.io/modeltime/reference/prophet_reg.html" class="external-link">prophet_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet"</span><span class="op">)</span> 
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wflw_fit_prophet</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">add_model</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://business-science.github.io/modeltime/reference/prophet_reg.html" class="external-link">prophet_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet"</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="xgboost">XGBoost<a class="anchor" aria-label="anchor" href="#xgboost"></a>
 </h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">wflw_fit_xgboost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_model</span><span class="op">(</span>
-    <span class="fu">boost_tree</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> 
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">step_rm</span><span class="op">(</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wflw_fit_xgboost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">add_model</span><span class="op">(</span></span>
+<span>    <span class="fu">boost_tree</span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">set_engine</span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">step_rm</span><span class="op">(</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="prophet-boost">Prophet Boost<a class="anchor" aria-label="anchor" href="#prophet-boost"></a>
 </h5>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">wflw_fit_prophet_boost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_model</span><span class="op">(</span>
-    <span class="fu"><a href="https://business-science.github.io/modeltime/reference/prophet_boost.html" class="external-link">prophet_boost</a></span><span class="op">(</span>
-      seasonality_daily  <span class="op">=</span> <span class="cn">FALSE</span>, 
-      seasonality_weekly <span class="op">=</span> <span class="cn">FALSE</span>,
-      seasonality_yearly <span class="op">=</span> <span class="cn">FALSE</span>
-    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-      <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet_xgboost"</span><span class="op">)</span> 
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wflw_fit_prophet_boost</span> <span class="op">&lt;-</span> <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">add_model</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://business-science.github.io/modeltime/reference/prophet_boost.html" class="external-link">prophet_boost</a></span><span class="op">(</span></span>
+<span>      seasonality_daily  <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>      seasonality_weekly <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>      seasonality_yearly <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu">set_engine</span><span class="op">(</span><span class="st">"prophet_xgboost"</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">recipe_spec</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">fit</span><span class="op">(</span><span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
@@ -315,48 +315,48 @@
 </h4>
 <p>Add the 3 fitted models to a Modeltime Table with <code><a href="https://business-science.github.io/modeltime/reference/modeltime_table.html" class="external-link">modeltime_table()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://business-science.github.io/modeltime/reference/modeltime_table.html" class="external-link">modeltime_table</a></span><span class="op">(</span>
-  <span class="va">wflw_fit_prophet</span>,
-  <span class="va">wflw_fit_xgboost</span>,
-  <span class="va">wflw_fit_prophet_boost</span>
-<span class="op">)</span>
-
-<span class="va">model_tbl</span></code></pre></div>
-<pre><code><span class="co">## # Modeltime Table</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 3 × 3</span></span>
-<span class="co">##   .model_id .model     .model_desc              </span>
-<span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ REGRESSORS    </span>
-<span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> XGBOOST                  </span>
-<span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ XGBOOST ERRORS</span></code></pre>
+<code class="sourceCode R"><span><span class="va">model_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://business-science.github.io/modeltime/reference/modeltime_table.html" class="external-link">modeltime_table</a></span><span class="op">(</span></span>
+<span>  <span class="va">wflw_fit_prophet</span>,</span>
+<span>  <span class="va">wflw_fit_xgboost</span>,</span>
+<span>  <span class="va">wflw_fit_prophet_boost</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model_tbl</span></span></code></pre></div>
+<pre><code><span><span class="co">## # Modeltime Table</span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
+<span><span class="co">##   .model_id .model     .model_desc              </span></span>
+<span><span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ REGRESSORS    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> XGBOOST                  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ XGBOOST ERRORS</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="assess-a-single-resample-split">Assess a Single Resample Split<a class="anchor" aria-label="anchor" href="#assess-a-single-resample-split"></a>
 </h4>
 <p><strong>We can make a Panel Data forecast</strong>, which forecasts all of the time series groups at once. This method is much more efficient than iteratively performing predictions. However, not all time series models respond well to this approach.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Calibrate using the Test Sample</span>
-<span class="va">calibration_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/modeltime_calibrate.html" class="external-link">modeltime_calibrate</a></span><span class="op">(</span><span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Forecast the Test Sample</span>
-<span class="va">forecast_panel_tbl</span> <span class="op">&lt;-</span> <span class="va">calibration_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/modeltime_forecast.html" class="external-link">modeltime_forecast</a></span><span class="op">(</span>
-    new_data      <span class="op">=</span> <span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,
-    actual_data   <span class="op">=</span> <span class="va">data_prepared_tbl</span>,
-    <span class="co"># Keep data allows us keep the ID feature for the time series groups</span>
-    keep_data <span class="op">=</span> <span class="cn">TRUE</span>
-  <span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Calibrate using the Test Sample</span></span>
+<span><span class="va">calibration_tbl</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/modeltime_calibrate.html" class="external-link">modeltime_calibrate</a></span><span class="op">(</span><span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Forecast the Test Sample</span></span>
+<span><span class="va">forecast_panel_tbl</span> <span class="op">&lt;-</span> <span class="va">calibration_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/modeltime_forecast.html" class="external-link">modeltime_forecast</a></span><span class="op">(</span></span>
+<span>    new_data      <span class="op">=</span> <span class="fu">testing</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    actual_data   <span class="op">=</span> <span class="va">data_prepared_tbl</span>,</span>
+<span>    <span class="co"># Keep data allows us keep the ID feature for the time series groups</span></span>
+<span>    keep_data <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> </span></code></pre></div>
 <p><strong>We can visualize the Panel Data forecasts on a single split</strong>. It’s a bit difficult to tell how each model is performing.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">forecast_panel_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/plot_modeltime_forecast.html" class="external-link">plot_modeltime_forecast</a></span><span class="op">(</span>
-    .facet_ncol  <span class="op">=</span> <span class="fl">3</span>,
-    .y_intercept <span class="op">=</span> <span class="fl">0</span>, 
-    .interactive <span class="op">=</span> <span class="cn">FALSE</span>,
-    .title       <span class="op">=</span> <span class="st">"Panel Forecasting | 7 Time Series Groups"</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">forecast_panel_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/plot_modeltime_forecast.html" class="external-link">plot_modeltime_forecast</a></span><span class="op">(</span></span>
+<span>    .facet_ncol  <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    .y_intercept <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>    .interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    .title       <span class="op">=</span> <span class="st">"Panel Forecasting | 7 Time Series Groups"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="panel-data_files/figure-html/unnamed-chunk-12-1.png" alt="Panel Forecasting | 7 Time Series Groups" width="95%"><p class="caption">
 Panel Forecasting | 7 Time Series Groups
@@ -373,21 +373,21 @@ Panel Forecasting | 7 Time Series Groups
 </h4>
 <p>With <code>model_tbl</code> (models) and <code>walmart_tscv</code> (resamples) in had, we are ready to iteratively fit and predict each of the models on each of the resampling plan sets, producing resample predictions.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resample_results</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span>
-    resamples <span class="op">=</span> <span class="va">walmart_tscv</span>,
-    control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">resample_results</span> <span class="op">&lt;-</span> <span class="va">model_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span></span>
+<span>    resamples <span class="op">=</span> <span class="va">walmart_tscv</span>,</span>
+<span>    control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>A new column (“.resample_results”) containing the resample predictions has been added to the original <code>model_tbl</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resample_results</span></code></pre></div>
-<pre><code><span class="co">## # Modeltime Table</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 3 × 4</span></span>
-<span class="co">##   .model_id .model     .model_desc               .resample_results</span>
-<span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ REGRESSORS     <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span>
-<span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> XGBOOST                   <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span>
-<span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ XGBOOST ERRORS <span style="color: #949494;">&lt;rsmp[+]&gt;</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">resample_results</span></span></code></pre></div>
+<pre><code><span><span class="co">## # Modeltime Table</span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
+<span><span class="co">##   .model_id .model     .model_desc               .resample_results</span></span>
+<span><span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ REGRESSORS     <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> XGBOOST                   <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ XGBOOST ERRORS <span style="color: #949494;">&lt;rsmp[+]&gt;</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="evaluate-resample-accuracy">Evaluate Resample Accuracy<a class="anchor" aria-label="anchor" href="#evaluate-resample-accuracy"></a>
@@ -398,12 +398,12 @@ Panel Forecasting | 7 Time Series Groups
 </h5>
 <p>We can visually evaluate the accuracy with <code><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples()</a></code>. We can see that Prophet Boost and XGBoost Models have the much lower average RMSE compared to the other Prophet w/ Regressors Model.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resample_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>
-    .summary_fn  <span class="op">=</span> <span class="va">mean</span>, 
-    .point_size  <span class="op">=</span> <span class="fl">3</span>,
-    .interactive <span class="op">=</span> <span class="cn">FALSE</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">resample_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span></span>
+<span>    .summary_fn  <span class="op">=</span> <span class="va">mean</span>, </span>
+<span>    .point_size  <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    .interactive <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level5">
@@ -411,15 +411,15 @@ Panel Forecasting | 7 Time Series Groups
 </h5>
 <p>We can get an interactive or static table using <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. I’m interested not only in the average metric value but also in the variability (standard deviation). I can get both of these by adding multiple summary functions using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resample_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/table_modeltime_accuracy.html" class="external-link">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<div id="sfglxymhst" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="va">resample_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/table_modeltime_accuracy.html" class="external-link">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div id="uupkoacbny" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#sfglxymhst .gt_table {
+#uupkoacbny .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -444,7 +444,7 @@ Panel Forecasting | 7 Time Series Groups
   border-left-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_heading {
+#uupkoacbny .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -456,7 +456,7 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_title {
+#uupkoacbny .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -468,7 +468,7 @@ Panel Forecasting | 7 Time Series Groups
   border-bottom-width: 0;
 }
 
-#sfglxymhst .gt_subtitle {
+#uupkoacbny .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -480,13 +480,13 @@ Panel Forecasting | 7 Time Series Groups
   border-top-width: 0;
 }
 
-#sfglxymhst .gt_bottom_border {
+#uupkoacbny .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_col_headings {
+#uupkoacbny .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -501,7 +501,7 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_col_heading {
+#uupkoacbny .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -521,7 +521,7 @@ Panel Forecasting | 7 Time Series Groups
   overflow-x: hidden;
 }
 
-#sfglxymhst .gt_column_spanner_outer {
+#uupkoacbny .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -533,15 +533,15 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 4px;
 }
 
-#sfglxymhst .gt_column_spanner_outer:first-child {
+#uupkoacbny .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sfglxymhst .gt_column_spanner_outer:last-child {
+#uupkoacbny .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sfglxymhst .gt_column_spanner {
+#uupkoacbny .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -553,7 +553,7 @@ Panel Forecasting | 7 Time Series Groups
   width: 100%;
 }
 
-#sfglxymhst .gt_group_heading {
+#uupkoacbny .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -578,7 +578,7 @@ Panel Forecasting | 7 Time Series Groups
   vertical-align: middle;
 }
 
-#sfglxymhst .gt_empty_group_heading {
+#uupkoacbny .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -593,15 +593,15 @@ Panel Forecasting | 7 Time Series Groups
   vertical-align: middle;
 }
 
-#sfglxymhst .gt_from_md > :first-child {
+#uupkoacbny .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sfglxymhst .gt_from_md > :last-child {
+#uupkoacbny .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sfglxymhst .gt_row {
+#uupkoacbny .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -620,7 +620,7 @@ Panel Forecasting | 7 Time Series Groups
   overflow-x: hidden;
 }
 
-#sfglxymhst .gt_stub {
+#uupkoacbny .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -633,7 +633,7 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 5px;
 }
 
-#sfglxymhst .gt_stub_row_group {
+#uupkoacbny .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -647,11 +647,11 @@ Panel Forecasting | 7 Time Series Groups
   vertical-align: top;
 }
 
-#sfglxymhst .gt_row_group_first td {
+#uupkoacbny .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sfglxymhst .gt_summary_row {
+#uupkoacbny .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -661,16 +661,16 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 5px;
 }
 
-#sfglxymhst .gt_first_summary_row {
+#uupkoacbny .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_first_summary_row.thick {
+#uupkoacbny .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sfglxymhst .gt_last_summary_row {
+#uupkoacbny .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -680,7 +680,7 @@ Panel Forecasting | 7 Time Series Groups
   border-bottom-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_grand_summary_row {
+#uupkoacbny .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -690,7 +690,7 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 5px;
 }
 
-#sfglxymhst .gt_first_grand_summary_row {
+#uupkoacbny .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -700,11 +700,11 @@ Panel Forecasting | 7 Time Series Groups
   border-top-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_striped {
+#uupkoacbny .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sfglxymhst .gt_table_body {
+#uupkoacbny .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -713,7 +713,7 @@ Panel Forecasting | 7 Time Series Groups
   border-bottom-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_footnotes {
+#uupkoacbny .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -727,7 +727,7 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_footnote {
+#uupkoacbny .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -736,7 +736,7 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 5px;
 }
 
-#sfglxymhst .gt_sourcenotes {
+#uupkoacbny .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -750,7 +750,7 @@ Panel Forecasting | 7 Time Series Groups
   border-right-color: #D3D3D3;
 }
 
-#sfglxymhst .gt_sourcenote {
+#uupkoacbny .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -758,95 +758,88 @@ Panel Forecasting | 7 Time Series Groups
   padding-right: 5px;
 }
 
-#sfglxymhst .gt_left {
+#uupkoacbny .gt_left {
   text-align: left;
 }
 
-#sfglxymhst .gt_center {
+#uupkoacbny .gt_center {
   text-align: center;
 }
 
-#sfglxymhst .gt_right {
+#uupkoacbny .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sfglxymhst .gt_font_normal {
+#uupkoacbny .gt_font_normal {
   font-weight: normal;
 }
 
-#sfglxymhst .gt_font_bold {
+#uupkoacbny .gt_font_bold {
   font-weight: bold;
 }
 
-#sfglxymhst .gt_font_italic {
+#uupkoacbny .gt_font_italic {
   font-style: italic;
 }
 
-#sfglxymhst .gt_super {
+#uupkoacbny .gt_super {
   font-size: 65%;
 }
 
-#sfglxymhst .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
-#sfglxymhst .gt_footnote_marks {
+#uupkoacbny .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#sfglxymhst .gt_asterisk {
+#uupkoacbny .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sfglxymhst .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#uupkoacbny .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#sfglxymhst .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#uupkoacbny .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#sfglxymhst .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#uupkoacbny .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#uupkoacbny .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#uupkoacbny .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 <table class="table gt_table">
 <thead class="gt_header"><tr>
-<th colspan="16" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Accuracy Table</th>
+<td colspan="16" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Accuracy Table</td>
     </tr></thead>
 <thead class="gt_col_headings"><tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">.model_id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">.model_desc</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">.type</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae_sd</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape_sd</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase_sd</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape_sd</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse_sd</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq_sd</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">.model_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">.model_desc</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">.type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mae_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mae_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mape_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mape_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mase_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mase_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">smape_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">smape_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">rmse_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">rmse_sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">rsq_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">rsq_sd</th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
@@ -934,7 +927,7 @@ Panel Forecasting | 7 Time Series Groups
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

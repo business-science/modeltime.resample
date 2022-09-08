@@ -14,9 +14,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Roboto-0.4.1/font.css" rel="stylesheet">
-<link href="../deps/_Montserrat-0.4.1/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/Montserrat-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">modeltime.resample</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,7 +128,7 @@
 
 
 <script src="getting-started_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Getting Started with Modeltime Resample</h1>
             
       
@@ -159,15 +159,15 @@
 </h4>
 <p>Load the following R packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime" class="external-link">modeltime</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime.resample" class="external-link">modeltime.resample</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime" class="external-link">modeltime</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/modeltime.resample" class="external-link">modeltime.resample</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></code></pre></div>
 <p>We’ll work with the <code>m750</code> data set.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m750</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://business-science.github.io/timetk/reference/plot_time_series.html" class="external-link">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m750</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/timetk/reference/plot_time_series.html" class="external-link">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
@@ -185,29 +185,29 @@
 </li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resamples_tscv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span>
-    data        <span class="op">=</span> <span class="va">m750</span>,
-    assess      <span class="op">=</span> <span class="st">"2 years"</span>,
-    initial     <span class="op">=</span> <span class="st">"5 years"</span>,
-    skip        <span class="op">=</span> <span class="st">"2 years"</span>,
-    slice_limit <span class="op">=</span> <span class="fl">4</span>
-<span class="op">)</span>
-
-<span class="va">resamples_tscv</span></code></pre></div>
-<pre><code><span class="co">## # Time Series Cross Validation Plan </span>
-<span class="co">## <span style="color: #949494;"># A tibble: 4 × 2</span></span>
-<span class="co">##   splits          id    </span>
-<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice1</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice2</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice3</span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice4</span></code></pre>
+<code class="sourceCode R"><span><span class="va">resamples_tscv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/time_series_cv.html">time_series_cv</a></span><span class="op">(</span></span>
+<span>    data        <span class="op">=</span> <span class="va">m750</span>,</span>
+<span>    assess      <span class="op">=</span> <span class="st">"2 years"</span>,</span>
+<span>    initial     <span class="op">=</span> <span class="st">"5 years"</span>,</span>
+<span>    skip        <span class="op">=</span> <span class="st">"2 years"</span>,</span>
+<span>    slice_limit <span class="op">=</span> <span class="fl">4</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">resamples_tscv</span></span></code></pre></div>
+<pre><code><span><span class="co">## # Time Series Cross Validation Plan </span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
+<span><span class="co">##   splits          id    </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice3</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> <span style="color: #949494;">&lt;split [60/24]&gt;</span> Slice4</span></span></code></pre>
 <p>Next, visualize the resample strategy to make sure we’re happy with our choices.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Begin with a Cross Validation Strategy</span>
-<span class="va">resamples_tscv</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/time_series_cv.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Begin with a Cross Validation Strategy</span></span>
+<span><span class="va">resamples_tscv</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/time_series_cv.html">tk_time_series_cv_plan</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/time_series_cv.html">plot_time_series_cv_plan</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
@@ -215,14 +215,14 @@
 </h4>
 <p>Create models and add them to a <em>Modeltime Table</em> with <a href="https://business-science.github.io/modeltime/articles/getting-started-with-modeltime.html" class="external-link"><strong>Modeltime.</strong></a> I’ve already created 3 models (ARIMA, Prophet, and GLMNET) and saved the results as part of the <code>modeltime</code> package <code>m750_models</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m750_models</span></code></pre></div>
-<pre><code><span class="co">## # Modeltime Table</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 3 × 3</span></span>
-<span class="co">##   .model_id .model     .model_desc            </span>
-<span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12]</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                </span>
-<span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET</span></code></pre>
+<code class="sourceCode R"><span><span class="va">m750_models</span></span></code></pre></div>
+<pre><code><span><span class="co">## # Modeltime Table</span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
+<span><span class="co">##   .model_id .model     .model_desc            </span></span>
+<span><span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12]</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="step-3---generate-resample-predictions">Step 3 - Generate Resample Predictions<a class="anchor" aria-label="anchor" href="#step-3---generate-resample-predictions"></a>
@@ -235,20 +235,20 @@
 <li>A column is added to the <em>Modeltime Table</em>: <code>.resample_results</code> contains the resample predictions</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resamples_fitted</span> <span class="op">&lt;-</span> <span class="va">m750_models</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span>
-        resamples <span class="op">=</span> <span class="va">resamples_tscv</span>,
-        control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-    <span class="op">)</span>
-
-<span class="va">resamples_fitted</span></code></pre></div>
-<pre><code><span class="co">## # Modeltime Table</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 3 × 4</span></span>
-<span class="co">##   .model_id .model     .model_desc             .resample_results</span>
-<span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12] <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span>
-<span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                 <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span>
-<span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET                  <span style="color: #949494;">&lt;rsmp[+]&gt;</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">resamples_fitted</span> <span class="op">&lt;-</span> <span class="va">m750_models</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples</a></span><span class="op">(</span></span>
+<span>        resamples <span class="op">=</span> <span class="va">resamples_tscv</span>,</span>
+<span>        control   <span class="op">=</span> <span class="fu">control_resamples</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="va">resamples_fitted</span></span></code></pre></div>
+<pre><code><span><span class="co">## # Modeltime Table</span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
+<span><span class="co">##   .model_id .model     .model_desc             .resample_results</span></span>
+<span><span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12] <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                 <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET                  <span style="color: #949494;">&lt;rsmp[+]&gt;</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="step-4---evaluate-the-results">Step 4 - Evaluate the Results<a class="anchor" aria-label="anchor" href="#step-4---evaluate-the-results"></a>
@@ -264,12 +264,12 @@
 <strong>Slice 4:</strong> We can see that Slice 4 seems to be giving the models the most issue. The GLMNET model is relatively robust to Slice 4. Prophet gets thrown for a loop.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resamples_fitted</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span>
-      .point_size  <span class="op">=</span> <span class="fl">3</span>, 
-      .point_alpha <span class="op">=</span> <span class="fl">0.8</span>,
-      .interactive <span class="op">=</span> <span class="cn">FALSE</span>
-    <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">resamples_fitted</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples</a></span><span class="op">(</span></span>
+<span>      .point_size  <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>      .point_alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>      .interactive <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level5">
@@ -277,15 +277,15 @@
 </h5>
 <p>We can compare the overall modeling approaches by evaluating the results with <code><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy()</a></code>. The default is to report the average <code>summary_fns = mean</code>, but this can be changed to any summary function or a list containing multiple summary functions (e.g. <code>summary_fns = list(mean = mean, sd = sd)</code>). From the table below, ARIMA has a 6% lower RMSE, indicating it’s the best choice for consistent performance on this dataset.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">resamples_fitted</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="https://business-science.github.io/modeltime/reference/table_modeltime_accuracy.html" class="external-link">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<div id="pvovdfbtqh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="va">resamples_fitted</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://business-science.github.io/modeltime/reference/table_modeltime_accuracy.html" class="external-link">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div id="opdppoyzwj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#pvovdfbtqh .gt_table {
+#opdppoyzwj .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -310,7 +310,7 @@
   border-left-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_heading {
+#opdppoyzwj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -322,7 +322,7 @@
   border-right-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_title {
+#opdppoyzwj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -334,7 +334,7 @@
   border-bottom-width: 0;
 }
 
-#pvovdfbtqh .gt_subtitle {
+#opdppoyzwj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -346,13 +346,13 @@
   border-top-width: 0;
 }
 
-#pvovdfbtqh .gt_bottom_border {
+#opdppoyzwj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_col_headings {
+#opdppoyzwj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -367,7 +367,7 @@
   border-right-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_col_heading {
+#opdppoyzwj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -387,7 +387,7 @@
   overflow-x: hidden;
 }
 
-#pvovdfbtqh .gt_column_spanner_outer {
+#opdppoyzwj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -399,15 +399,15 @@
   padding-right: 4px;
 }
 
-#pvovdfbtqh .gt_column_spanner_outer:first-child {
+#opdppoyzwj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pvovdfbtqh .gt_column_spanner_outer:last-child {
+#opdppoyzwj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pvovdfbtqh .gt_column_spanner {
+#opdppoyzwj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -419,7 +419,7 @@
   width: 100%;
 }
 
-#pvovdfbtqh .gt_group_heading {
+#opdppoyzwj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -444,7 +444,7 @@
   vertical-align: middle;
 }
 
-#pvovdfbtqh .gt_empty_group_heading {
+#opdppoyzwj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -459,15 +459,15 @@
   vertical-align: middle;
 }
 
-#pvovdfbtqh .gt_from_md > :first-child {
+#opdppoyzwj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pvovdfbtqh .gt_from_md > :last-child {
+#opdppoyzwj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pvovdfbtqh .gt_row {
+#opdppoyzwj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -486,7 +486,7 @@
   overflow-x: hidden;
 }
 
-#pvovdfbtqh .gt_stub {
+#opdppoyzwj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -499,7 +499,7 @@
   padding-right: 5px;
 }
 
-#pvovdfbtqh .gt_stub_row_group {
+#opdppoyzwj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -513,11 +513,11 @@
   vertical-align: top;
 }
 
-#pvovdfbtqh .gt_row_group_first td {
+#opdppoyzwj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pvovdfbtqh .gt_summary_row {
+#opdppoyzwj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -527,16 +527,16 @@
   padding-right: 5px;
 }
 
-#pvovdfbtqh .gt_first_summary_row {
+#opdppoyzwj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_first_summary_row.thick {
+#opdppoyzwj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pvovdfbtqh .gt_last_summary_row {
+#opdppoyzwj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -546,7 +546,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_grand_summary_row {
+#opdppoyzwj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -556,7 +556,7 @@
   padding-right: 5px;
 }
 
-#pvovdfbtqh .gt_first_grand_summary_row {
+#opdppoyzwj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -566,11 +566,11 @@
   border-top-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_striped {
+#opdppoyzwj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pvovdfbtqh .gt_table_body {
+#opdppoyzwj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -579,7 +579,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_footnotes {
+#opdppoyzwj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -593,7 +593,7 @@
   border-right-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_footnote {
+#opdppoyzwj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -602,7 +602,7 @@
   padding-right: 5px;
 }
 
-#pvovdfbtqh .gt_sourcenotes {
+#opdppoyzwj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -616,7 +616,7 @@
   border-right-color: #D3D3D3;
 }
 
-#pvovdfbtqh .gt_sourcenote {
+#opdppoyzwj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -624,89 +624,82 @@
   padding-right: 5px;
 }
 
-#pvovdfbtqh .gt_left {
+#opdppoyzwj .gt_left {
   text-align: left;
 }
 
-#pvovdfbtqh .gt_center {
+#opdppoyzwj .gt_center {
   text-align: center;
 }
 
-#pvovdfbtqh .gt_right {
+#opdppoyzwj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pvovdfbtqh .gt_font_normal {
+#opdppoyzwj .gt_font_normal {
   font-weight: normal;
 }
 
-#pvovdfbtqh .gt_font_bold {
+#opdppoyzwj .gt_font_bold {
   font-weight: bold;
 }
 
-#pvovdfbtqh .gt_font_italic {
+#opdppoyzwj .gt_font_italic {
   font-style: italic;
 }
 
-#pvovdfbtqh .gt_super {
+#opdppoyzwj .gt_super {
   font-size: 65%;
 }
 
-#pvovdfbtqh .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
-#pvovdfbtqh .gt_footnote_marks {
+#opdppoyzwj .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#pvovdfbtqh .gt_asterisk {
+#opdppoyzwj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pvovdfbtqh .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#opdppoyzwj .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#pvovdfbtqh .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#opdppoyzwj .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#pvovdfbtqh .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#opdppoyzwj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#opdppoyzwj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#opdppoyzwj .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
 <table class="table gt_table">
 <thead class="gt_header"><tr>
-<th colspan="10" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Accuracy Table</th>
+<td colspan="10" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Accuracy Table</td>
     </tr></thead>
 <thead class="gt_col_headings"><tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">.model_id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">.model_desc</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">.type</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mae</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mape</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">mase</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">smape</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rmse</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rsq</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">.model_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">.model_desc</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">.type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mae</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mape</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">mase</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">smape</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">rmse</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">rsq</th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
@@ -770,7 +763,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

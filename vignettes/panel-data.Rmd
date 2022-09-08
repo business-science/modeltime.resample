@@ -162,7 +162,7 @@ wflw_fit_prophet <- workflow() %>%
 ```{r}
 wflw_fit_xgboost <- workflow() %>%
   add_model(
-    boost_tree() %>% set_engine("xgboost") 
+    boost_tree("regression") %>% set_engine("xgboost") 
   ) %>%
   add_recipe(recipe_spec %>% step_rm(Date)) %>%
   fit(training(walmart_tscv$splits[[1]]))

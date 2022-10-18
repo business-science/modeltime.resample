@@ -1,4 +1,4 @@
-# modeltime.resample 0.2.1.9000
+# modeltime.resample 0.2.2
 
 - Fix for `workflows` mode = "regression"
 

@@ -1,5 +1,7 @@
 # modeltime.resample 0.2.2.9000 (Development Version)
 
+- Resubmit to CRAN (timetk issue)
+
 # modeltime.resample 0.2.2
 
 - Fix for `workflows` mode = "regression"

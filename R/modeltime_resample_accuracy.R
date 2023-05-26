@@ -15,7 +15,9 @@
 #'  * A function, e.g. mean.
 #'  * A purrr-style lambda, e.g. ~ mean(.x, na.rm = TRUE)
 #'  * A list of functions/lambdas, e.g. list(mean = mean, sd = sd)
+#' @param horizon either a numeric vector or "all" specifying for which forecasting horizons `summary_fns` are calculated.
 #' @param ... Additional arguments passed to the function calls in `summary_fns`.
+#'
 #'
 #' @details
 #'
@@ -70,8 +72,14 @@
 #'         summary_fns = NULL
 #'     )
 #'
+#' m750_training_resamples_fitted %>%
+#'     modeltime_resample_accuracy(
+#'         summary_fns = NULL
+#'         horizon = 1:3
+#'     )
+#'
 #' @export
-modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set = default_forecast_accuracy_metric_set(), ...) {
+modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set = default_forecast_accuracy_metric_set(), horizon="all", ...) {
 
     # Checks
     if (!inherits(object, "data.frame")) rlang::abort("object must be a data.frame")
@@ -79,15 +87,42 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
 
     # Unnest resamples column
     resample_results_tbl <- unnest_modeltime_resamples(object)
+    max_horizon <- nrow(object$.resample_results[[1]]$.predictions[[1]])
 
     # Target Variable is the name in the data
     target_text <- resample_results_tbl %>% get_target_text_from_resamples(column_before_target = ".row")
     target_var  <- rlang::sym(target_text)
 
-    # Apply accuracy metrics to resamples
+    if (is.numeric(horizon)) {
+        # Checks
+        if (max_horizon < max(horizon)) rlang::abort("horizon can not be larger than specified 'asses' periods.")
+
+        # Apply accuracy metrics to resamples
+        ret <- resample_results_tbl %>%
+            dplyr::mutate(.type = "Resamples",
+                          .horizon = rep(1:max_horizon, nrow(resample_results_tbl)/max_horizon)) %>%
+            dplyr::filter(.horizon %in% horizon) %>%
+            dplyr::group_by(.model_id,.model_desc,.type,.horizon) %>%
+            modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set)
+
+        # If summary functions provided, apply summary functions
+        if (!is.null(summary_fns)) {
+
+            ret <- ret %>% select(-.horizon)%>%
+                    dplyr::group_by(.model_id, .model_desc, .type) %>%
+                    dplyr::mutate(n = dplyr::n()) %>%
+                    dplyr::group_by(.model_id, .model_desc, .type, n) %>%
+                    dplyr::summarise(
+                        dplyr::across(.fns = summary_fns),
+                    .groups = "drop"
+                        ) %>%
+                    dplyr::ungroup()
+        }
+
+    } else if (horizon == "all"){
     ret <- resample_results_tbl %>%
         dplyr::mutate(.type = "Resamples") %>%
-        dplyr::group_by(.model_id, .model_desc, .resample_id, .type) %>%
+        dplyr::group_by(.model_id, .model_desc, .resample_id, .type ) %>%
         modeltime::summarize_accuracy_metrics(!! target_var, .pred, metric_set = metric_set)
 
     # If summary functions provided, apply summary functions
@@ -103,12 +138,12 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
                 .groups = "drop"
             ) %>%
             dplyr::ungroup()
-
     }
 
+    } else {
+        abort("horizon must be set to 'all' or a numeric vector.")
+    }
     return(ret)
-
-
 }
 
 

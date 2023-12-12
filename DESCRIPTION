@@ -1,6 +1,6 @@
 Package: modeltime.resample
 Title: Resampling Tools for Time Series Forecasting
-Version: 0.2.3
+Version: 0.2.3.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Business Science", role = "cph")
@@ -12,7 +12,7 @@ Description:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/business-science/modeltime.resample
+URL: https://business-science.github.io/modeltime.resample/, https://github.com/business-science/modeltime.resample
 BugReports: https://github.com/business-science/modeltime.resample/issues
 Depends:
     modeltime (>= 0.3.0),
@@ -27,11 +27,11 @@ Imports:
     yardstick,
     timetk (>= 2.5.0),
     tibble,
-    dplyr,
+    dplyr (>= 1.0.0),
     tidyr,
     purrr,
     stringr,
-    ggplot2,
+    ggplot2 (>= 3.4.0),
     plotly,
     cli,
     magrittr,

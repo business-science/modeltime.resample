@@ -22,12 +22,12 @@
 #' @param .point_shape Controls the point shape. Default: 16.
 #' @param .point_alpha Controls the opacity of the points. Default: 1 (full opacity).
 #' @param .summary_line_show Whether or not to show the summary lines. Default: `TRUE`.
-#' @param .summary_line_size  Controls the summary line size. Default: 0.5.
+#' @param .summary_line_size  Controls the summary line width. Default: 0.5.
 #' @param .summary_line_type  Controls the summary line type. Default: 1.
 #' @param .summary_line_alpha Controls the summary line opacity. Default: 1 (full opacity).
 #' @param .x_intercept        Numeric. Adds an x-intercept at a location (e.g. 0). Default: NULL.
 #' @param .x_intercept_color  Controls the x-intercept color. Default: "red".
-#' @param .x_intercept_size   Controls the x-intercept size. Default: 0.5.
+#' @param .x_intercept_size   Controls the x-intercept linewidth. Default: 0.5.
 #'
 #' @details
 #'
@@ -147,9 +147,9 @@ plot_modeltime_resamples <- function(.data,
     if (.summary_line_show) {
         g <- g +
             ggplot2::geom_vline(ggplot2::aes(xintercept = ..summary_fn, color = .model_desc),
-                                size     = .summary_line_size,
-                                alpha    = .summary_line_alpha,
-                                linetype = .summary_line_type)
+                                linewidth = .summary_line_size,
+                                alpha     = .summary_line_alpha,
+                                linetype  = .summary_line_type)
     }
 
     # Add a X-Intercept if desired
@@ -157,7 +157,7 @@ plot_modeltime_resamples <- function(.data,
         g <- g +
             ggplot2::geom_vline(xintercept = .x_intercept,
                                 color      = .x_intercept_color,
-                                size       = .x_intercept_size)
+                                linewidth  = .x_intercept_size)
     }
 
     # Add theme & labs

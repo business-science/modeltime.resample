@@ -93,6 +93,8 @@ modeltime_fit_resamples.mdl_time_tbl <- function(object, resamples, control = co
 
     if (!control$save_pred) control$save_pred <- TRUE
 
+    # TODO Consider removing tictoc and progressr dep in favor
+    # of cli::cli_progress_step()
     if (control$verbose) {
         tictoc::tic()
         print(cli::rule("Fitting Resamples", width = 65))

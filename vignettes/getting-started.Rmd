@@ -37,13 +37,22 @@ In this tutorial, we'll get you up to speed by evaluating multiple models using 
 
 Load the following R packages. 
 
-```{r}
+```r
 library(tidymodels)
 library(modeltime)
 library(modeltime.resample)
 library(tidyverse)
 library(timetk)
 ```
+
+```{r, echo=FALSE,include=FALSE}
+library(tidymodels)
+library(modeltime)
+library(modeltime.resample)
+library(dplyr)
+library(timetk)
+```
+
 
 We'll work with the `m750` data set. 
 

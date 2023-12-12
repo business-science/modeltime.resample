@@ -110,17 +110,17 @@ plot_modeltime_resamples <- function(.data,
 
     # Prepare Data for Plot
     data_prepared <- resample_results_tbl  %>%
-        dplyr::rename(.value = !! target_var) %>%
+        dplyr::rename(.value = !!target_var) %>%
 
         dplyr::mutate(.model_desc = ifelse(!is.na(.model_id), stringr::str_c(.model_id, "_", .model_desc), .model_desc)) %>%
         dplyr::mutate(.model_desc = .model_desc %>% stringr::str_trunc(width = .legend_max_width)) %>%
-        dplyr::mutate(.model_desc = forcats::as_factor(.model_desc)) %>%
+        dplyr::mutate(.model_desc = as.factor(.model_desc)) %>%
 
         dplyr::group_by(.resample_id, .model_desc) %>%
         .metric_set(.value, .pred) %>%
         dplyr::ungroup() %>%
 
-        dplyr::mutate(.metric = forcats::as_factor(.metric)) %>%
+        dplyr::mutate(.metric = as.factor(.metric)) %>%
 
         dplyr::group_by(.model_desc, .metric) %>%
         dplyr::mutate(..summary_fn = summary_fn_partial(.estimate)) %>%

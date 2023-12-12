@@ -30,30 +30,23 @@ Imports:
     dplyr,
     tidyr,
     purrr,
-    forcats,
-    glue,
     stringr,
     ggplot2,
     plotly,
     cli,
-    crayon,
     magrittr,
     rlang (>= 0.1.2),
     progressr,
     tictoc,
     hardhat
 Suggests: 
-    roxygen2,
     testthat,
     tidymodels,
-    tidyverse,
     tidyquant,
     glmnet,
     lubridate,
     knitr,
-    rmarkdown,
-    covr, 
-    remotes
+    rmarkdown
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr

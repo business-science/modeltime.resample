@@ -45,7 +45,7 @@
 #' library(tidymodels)
 #' library(modeltime)
 #' library(timetk)
-#' library(tidyverse)
+#' library(magrittr)
 #'
 #' # Make resamples
 #' resamples_tscv <- training(m750_splits) %>%

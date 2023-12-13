@@ -58,7 +58,7 @@ of models and metrics. Default: \code{TRUE}.}
 
 \item{.summary_line_show}{Whether or not to show the summary lines. Default: \code{TRUE}.}
 
-\item{.summary_line_size}{Controls the summary line size. Default: 0.5.}
+\item{.summary_line_size}{Controls the summary line width. Default: 0.5.}
 
 \item{.summary_line_type}{Controls the summary line type. Default: 1.}
 
@@ -68,7 +68,7 @@ of models and metrics. Default: \code{TRUE}.}
 
 \item{.x_intercept_color}{Controls the x-intercept color. Default: "red".}
 
-\item{.x_intercept_size}{Controls the x-intercept size. Default: 0.5.}
+\item{.x_intercept_size}{Controls the x-intercept linewidth. Default: 0.5.}
 
 \item{.legend_show}{Logical. Whether or not to show the legend.
 Can save space with long model descriptions.}

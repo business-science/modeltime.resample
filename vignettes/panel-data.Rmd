@@ -34,12 +34,21 @@ __This is an advanced tutorial.__ Working with Panel Data requires working with 
 
 Load the following R packages. 
 
-```{r setup}
+```r
 library(tidymodels)
 library(modeltime)
 library(modeltime.resample)
 library(timetk)
 library(tidyverse)
+library(tidyquant)
+```
+
+```{r setup,echo=FALSE,include=FALSE}
+library(tidymodels)
+library(modeltime)
+library(modeltime.resample)
+library(timetk)
+library(dplyr)
 library(tidyquant)
 ```
 
@@ -76,7 +85,7 @@ full_data_tbl <- walmart_sales_weekly %>%
   ungroup() %>%
   
   # Consolidate IDs
-  mutate(id = fct_drop(id))
+  mutate(id = droplevels(id))
 
 # Training Data
 data_prepared_tbl <- full_data_tbl %>%
@@ -250,8 +259,8 @@ resample_results <- model_tbl %>%
 ```
 
 ```{r, echo=FALSE}
-# write_rds(resample_results, "resample_results.rds")
-resample_results <- read_rds("resample_results.rds")
+# saveRDS(resample_results, "resample_results.rds")
+resample_results <- readRDS("resample_results.rds")
 ```
 
 A new column (".resample_results") containing the resample predictions has been added to the original `model_tbl`. 

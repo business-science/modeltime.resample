@@ -1,4 +1,10 @@
-# modeltime.resample 0.2.2.9000 (Development Version)
+# modeltime.resample (development version)
+
+- Update for better compatibility with dplyr 1.1.0 and ggplot2 3.4.4 (@olivroy, #16)
+
+- Remove dependency on tidyverse (@olivroy, #16)
+
+# modeltime.resample 0.2.3
 
 - Resubmit to CRAN (timetk issue)
 

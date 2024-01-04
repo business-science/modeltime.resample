@@ -20,7 +20,7 @@ library(modeltime)
 library(modeltime.resample)
 ```
 
-# modeltime.resample <img src='man/figures/logo-modeltime-resample.png' align="right" height="138.5" />
+# modeltime.resample <a href="https://business-science.github.io/modeltime.resample/"><img src="man/figures/logo.png" align="right" height="138" alt="modeltime.resample website" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R-project.org/package=modeltime.resample)

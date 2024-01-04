@@ -9,7 +9,7 @@
 status](https://www.r-pkg.org/badges/version/modeltime.resample)](https://CRAN.R-project.org/package=modeltime.resample)
 ![](http://cranlogs.r-pkg.org/badges/modeltime.resample?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/modeltime.resample?color=brightgreen)
-[![R-CMD-check](https://github.com/business-science/modeltime.resample/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/modeltime.resample/actions)
+[![R-CMD-check](https://github.com/business-science/modeltime.resample/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/business-science/modeltime.resample/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/business-science/modeltime.resample/branch/master/graph/badge.svg)](https://app.codecov.io/gh/business-science/modeltime.resample?branch=master)
 <!-- badges: end -->
@@ -58,9 +58,23 @@ where we can see that Prophet Boost and XGBoost Models outperform
 Prophet with Regressors for the Walmart Time Series Panel Dataset using
 the 6-Slice Time Series Cross Validation plan shown above.
 
-<img src="man/figures/plotly_resample_error_plot.jpg" title="Model Accuracy for 6 Time Series Resamples" alt="Model Accuracy for 6 Time Series Resamples" width="100%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
 
-<img src="man/figures/gt_accuracy_table.jpg" title="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)" alt="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/plotly_resample_error_plot.jpg" alt="Model Accuracy for 6 Time Series Resamples" width="100%" />
+<p class="caption">
+Model Accuracy for 6 Time Series Resamples
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="man/figures/gt_accuracy_table.jpg" alt="Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)" width="80%" />
+<p class="caption">
+Resampled Model Accuracy (3 Models, 6 Resamples, 7 Time Series Groups)
+</p>
+
+</div>
 
 ## Getting Started
 
@@ -79,28 +93,35 @@ the 6-Slice Time Series Cross Validation plan shown above.
 
 > Learn a growing ecosystem of forecasting packages
 
-<img src="man/figures/modeltime_ecosystem.jpg" title="The modeltime ecosystem is growing" alt="The modeltime ecosystem is growing" width="100%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="man/figures/modeltime_ecosystem.jpg" alt="The modeltime ecosystem is growing" width="100%" />
+<p class="caption">
+The modeltime ecosystem is growing
+</p>
+
+</div>
 
 Modeltime is part of a **growing ecosystem** of Modeltime forecasting
 packages.
 
--   [Modeltime (Machine
-    Learning)](https://business-science.github.io/modeltime/)
+- [Modeltime (Machine
+  Learning)](https://business-science.github.io/modeltime/)
 
--   [Modeltime H2O
-    (AutoML)](https://business-science.github.io/modeltime.h2o/)
+- [Modeltime H2O
+  (AutoML)](https://business-science.github.io/modeltime.h2o/)
 
--   [Modeltime GluonTS (Deep
-    Learning)](https://business-science.github.io/modeltime.gluonts/)
+- [Modeltime GluonTS (Deep
+  Learning)](https://business-science.github.io/modeltime.gluonts/)
 
--   [Modeltime Ensemble (Blending
-    Forecasts)](https://business-science.github.io/modeltime.ensemble/)
+- [Modeltime Ensemble (Blending
+  Forecasts)](https://business-science.github.io/modeltime.ensemble/)
 
--   [Modeltime Resample
-    (Backtesting)](https://business-science.github.io/modeltime.resample/)
+- [Modeltime Resample
+  (Backtesting)](https://business-science.github.io/modeltime.resample/)
 
--   [Timetk (Feature Engineering, Data Wrangling, Time Series
-    Visualization)](https://business-science.github.io/timetk/)
+- [Timetk (Feature Engineering, Data Wrangling, Time Series
+  Visualization)](https://business-science.github.io/timetk/)
 
 ## Take the High-Performance Forecasting Course
 
@@ -130,17 +151,17 @@ Series Forecasting
 Course**](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting).
 You will learn:
 
--   **Time Series Machine Learning** (cutting-edge) with `Modeltime` -
-    30+ Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
--   **Deep Learning** with `GluonTS` (Competition Winners)
--   **Time Series Preprocessing**, Noise Reduction, & Anomaly Detection
--   **Feature engineering** using lagged variables & external regressors
--   **Hyperparameter Tuning**
--   **Time series cross-validation**
--   **Ensembling** Multiple Machine Learning & Univariate Modeling
-    Techniques (Competition Winner)
--   **Scalable Forecasting** - Forecast 1000+ time series in parallel
--   and more.
+- **Time Series Machine Learning** (cutting-edge) with `Modeltime` - 30+
+  Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
+- **Deep Learning** with `GluonTS` (Competition Winners)
+- **Time Series Preprocessing**, Noise Reduction, & Anomaly Detection
+- **Feature engineering** using lagged variables & external regressors
+- **Hyperparameter Tuning**
+- **Time series cross-validation**
+- **Ensembling** Multiple Machine Learning & Univariate Modeling
+  Techniques (Competition Winner)
+- **Scalable Forecasting** - Forecast 1000+ time series in parallel
+- and more.
 
 <p class="text-center" style="font-size:24px;">
 Become the Time Series Expert for your organization.

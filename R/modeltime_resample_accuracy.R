@@ -99,10 +99,9 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
             dplyr::mutate(n = dplyr::n()) %>%
             dplyr::group_by(.model_id, .model_desc, .type, n) %>%
             dplyr::summarise(
-                dplyr::across(.fns = summary_fns, ...),
+                dplyr::across(.cols = dplyr::everything(), .fns = summary_fns, ...),
                 .groups = "drop"
-            ) %>%
-            dplyr::ungroup()
+            )
 
     }
 

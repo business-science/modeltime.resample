@@ -52,7 +52,7 @@ The sub-model cross-validation predictions are used as the input to the meta-lea
 library(tidymodels)
 library(modeltime)
 library(timetk)
-library(tidyverse)
+library(magrittr)
 
 # Make resamples
 resamples_tscv <- training(m750_splits) \%>\%

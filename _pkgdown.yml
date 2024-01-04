@@ -1,17 +1,12 @@
+url: https://business-science.github.io/modeltime.resample/
 template:
   bootstrap: 5
-  bslib:
-    base_font:
-      google: Roboto
-    heading_font:
-      google: Montserrat
-    # code_font:
-    #   google: "JetBrains Mono"
+  bootswatch: lux
   params:
-    bootswatch: flatly
-    ganalytics: UA-76139189-2
+    ganalytics: G-20GDZ5LL77
 
 navbar:
+  bg: primary
   title: "modeltime.resample"
   left:
     - icon: fa-home

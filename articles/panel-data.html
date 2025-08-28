@@ -5,26 +5,19 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="modeltime.resample">
 <title>Resampling Panel Data • modeltime.resample</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Resampling Panel Data">
-<meta property="og:description" content="modeltime.resample">
-<meta property="og:image" content="https://business-science.github.io/modeltime.resample/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-20GDZ5LL77"></script><script>
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-20GDZ5LL77"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -34,100 +27,74 @@
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">modeltime.resample</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3.9000</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../index.html">
-    <span class="fa fa-home"></span>
-     
-  </a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../articles/getting-started.html">Getting Started</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../index.html"><span class="fa fa-home"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Getting Started</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <h6 class="dropdown-header" data-toc-skip>Single Time Series</h6>
-    <a class="dropdown-item" href="../articles/getting-started.html">Resampling Single Time Series</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Multiple Time Series</h6>
-    <a class="dropdown-item" href="../articles/panel-data.html">Resampling Panel Data</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><h6 class="dropdown-header" data-toc-skip>Single Time Series</h6></li>
+    <li><a class="dropdown-item" href="../articles/getting-started.html">Resampling Single Time Series</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Multiple Time Series</h6></li>
+    <li><a class="dropdown-item" href="../articles/panel-data.html">Resampling Panel Data</a></li>
+  </ul>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-api">API</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-api">
-    <h6 class="dropdown-header" data-toc-skip>API Functions</h6>
-    <a class="dropdown-item" href="../reference/index.html">
-      <span class="fa fa-home"></span>
-       
-      Function Reference
-    </a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Change History</h6>
-    <a class="dropdown-item" href="../news/index.html">News</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-api" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">API</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-api">
+<li><h6 class="dropdown-header" data-toc-skip>API Functions</h6></li>
+    <li><a class="dropdown-item" href="../reference/index.html"><span class="fa fa-home"></span> Function Reference</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Change History</h6></li>
+    <li><a class="dropdown-item" href="../news/index.html">News</a></li>
+  </ul>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-ecosystem">Ecosystem</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-ecosystem">
-    <h6 class="dropdown-header" data-toc-skip>Forecast</h6>
-    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a>
-    <a class="external-link dropdown-item" href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Improve</h6>
-    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
-    <a class="dropdown-item" href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Scale</h6>
-    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
-    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-ecosystem" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Ecosystem</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-ecosystem">
+<li><h6 class="dropdown-header" data-toc-skip>Forecast</h6></li>
+    <li><a class="external-link dropdown-item" href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a></li>
+    <li><a class="external-link dropdown-item" href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Improve</h6></li>
+    <li><a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a></li>
+    <li><a class="dropdown-item" href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Scale</h6></li>
+    <li><a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a></li>
+    <li><a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a></li>
+  </ul>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-python">Python</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-python">
-    <h6 class="dropdown-header" data-toc-skip>Forecast</h6>
-    <a class="external-link dropdown-item" href="https://business-science.github.io/pytimetk/">Timetk for Python (Time Series Analysis)</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-python" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Python</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-python">
+<li><h6 class="dropdown-header" data-toc-skip>Forecast</h6></li>
+    <li><a class="external-link dropdown-item" href="https://business-science.github.io/pytimetk/">Timetk for Python (Time Series Analysis)</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">
-    <span class="fas fa fas fa-graduation-cap"></span>
-     
-    Learn
-  </a>
-</li>
+<li class="nav-item"><a class="external-link nav-link" href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/"><span class="fa fas fa-graduation-cap"></span> Learn</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/business-science/modeltime.resample">
-    <span class="fab fa fab fa-github"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/business-science/modeltime.resample"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -184,7 +151,7 @@ Time Series Course.</a></p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://business-science.github.io/modeltime.resample/">modeltime.resample</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://business-science.github.io/tidyquant/" class="external-link">tidyquant</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
@@ -195,8 +162,8 @@ correspond to the revenue over time for seven departments in one Walmart
 Store.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">walmart_sales_weekly</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/plot_time_series.html" class="external-link">plot_time_series</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/timetk/reference/plot_time_series.html" class="external-link">plot_time_series</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="panel-data_files/figure-html/unnamed-chunk-2-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -215,27 +182,27 @@ series group. We’ll extend each time series group by
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Full = Training + Forecast Datasets</span></span>
 <span><span class="va">full_data_tbl</span> <span class="op">&lt;-</span> <span class="va">walmart_sales_weekly</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">id</span>, <span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
 <span>  <span class="co"># Apply Group-wise Time Series Manipulations</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/future_frame.html" class="external-link">future_frame</a></span><span class="op">(</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/timetk/reference/future_frame.html" class="external-link">future_frame</a></span><span class="op">(</span></span>
 <span>    .date_var   <span class="op">=</span> <span class="va">Date</span>,</span>
 <span>    .length_out <span class="op">=</span> <span class="st">"3 months"</span>,</span>
 <span>    .bind_data  <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
 <span>  <span class="co"># Consolidate IDs</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Training Data</span></span>
 <span><span class="va">data_prepared_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Forecast Data</span></span>
 <span><span class="va">future_tbl</span> <span class="op">&lt;-</span> <span class="va">full_data_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Weekly_Sales</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="resampling-panel-data">Resampling Panel Data<a class="anchor" aria-label="anchor" href="#resampling-panel-data"></a>
@@ -308,13 +275,13 @@ Boost fitted on the <code>data_prepared_tbl</code> dataset</p></li>
 <h4 id="recipe">Recipe<a class="anchor" aria-label="anchor" href="#recipe"></a>
 </h4>
 <p>We’ll create a recipe that leverages
-<code><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html" class="external-link">step_timeseries_signature()</a></code> to generate calendar
+<code><a href="https://business-science.github.io/timetk/reference/step_timeseries_signature.html" class="external-link">step_timeseries_signature()</a></code> to generate calendar
 features.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">recipe_spec</span> <span class="op">&lt;-</span> <span class="fu">recipe</span><span class="op">(</span><span class="va">Weekly_Sales</span> <span class="op">~</span> <span class="va">.</span>, </span>
 <span>                      data <span class="op">=</span> <span class="fu">training</span><span class="op">(</span><span class="va">walmart_tscv</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/step_timeseries_signature.html" class="external-link">step_timeseries_signature</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">step_rm</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://business-science.github.io/timetk/reference/step_timeseries_signature.html" class="external-link">step_timeseries_signature</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">step_rm</span><span class="op">(</span><span class="fu">matches</span><span class="op">(</span><span class="st">"(.iso$)|(.xts$)|(day)|(hour)|(minute)|(second)|(am.pm)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">step_mutate</span><span class="op">(</span>Date_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Date_week</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="fu">all_nominal</span><span class="op">(</span><span class="op">)</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -407,7 +374,7 @@ split</strong>. It’s a bit difficult to tell how each model is
 performing.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">forecast_panel_tbl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/plot_modeltime_forecast.html" class="external-link">plot_modeltime_forecast</a></span><span class="op">(</span></span>
 <span>    .facet_ncol  <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>    .y_intercept <span class="op">=</span> <span class="fl">0</span>, </span>
@@ -490,23 +457,23 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
 <code class="sourceCode R"><span><span class="va">resample_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://business-science.github.io/modeltime/reference/table_modeltime_accuracy.html" class="external-link">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<div id="xjvqyzezze" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xjvqyzezze table {
+<div id="wkzjbqedzf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wkzjbqedzf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xjvqyzezze thead, #xjvqyzezze tbody, #xjvqyzezze tfoot, #xjvqyzezze tr, #xjvqyzezze td, #xjvqyzezze th {
+#wkzjbqedzf thead, #wkzjbqedzf tbody, #wkzjbqedzf tfoot, #wkzjbqedzf tr, #wkzjbqedzf td, #wkzjbqedzf th {
   border-style: none;
 }
 
-#xjvqyzezze p {
+#wkzjbqedzf p {
   margin: 0;
   padding: 0;
 }
 
-#xjvqyzezze .gt_table {
+#wkzjbqedzf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -532,12 +499,12 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-left-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_caption {
+#wkzjbqedzf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xjvqyzezze .gt_title {
+#wkzjbqedzf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -549,7 +516,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-bottom-width: 0;
 }
 
-#xjvqyzezze .gt_subtitle {
+#wkzjbqedzf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -561,7 +528,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-top-width: 0;
 }
 
-#xjvqyzezze .gt_heading {
+#wkzjbqedzf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -573,13 +540,13 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-right-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_bottom_border {
+#wkzjbqedzf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_col_headings {
+#wkzjbqedzf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -594,7 +561,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-right-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_col_heading {
+#wkzjbqedzf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -614,7 +581,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   overflow-x: hidden;
 }
 
-#xjvqyzezze .gt_column_spanner_outer {
+#wkzjbqedzf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -626,15 +593,15 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   padding-right: 4px;
 }
 
-#xjvqyzezze .gt_column_spanner_outer:first-child {
+#wkzjbqedzf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xjvqyzezze .gt_column_spanner_outer:last-child {
+#wkzjbqedzf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xjvqyzezze .gt_column_spanner {
+#wkzjbqedzf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -646,11 +613,11 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   width: 100%;
 }
 
-#xjvqyzezze .gt_spanner_row {
+#wkzjbqedzf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xjvqyzezze .gt_group_heading {
+#wkzjbqedzf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -676,7 +643,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   text-align: left;
 }
 
-#xjvqyzezze .gt_empty_group_heading {
+#wkzjbqedzf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -691,15 +658,15 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   vertical-align: middle;
 }
 
-#xjvqyzezze .gt_from_md > :first-child {
+#wkzjbqedzf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xjvqyzezze .gt_from_md > :last-child {
+#wkzjbqedzf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xjvqyzezze .gt_row {
+#wkzjbqedzf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -718,7 +685,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   overflow-x: hidden;
 }
 
-#xjvqyzezze .gt_stub {
+#wkzjbqedzf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -731,7 +698,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   padding-right: 5px;
 }
 
-#xjvqyzezze .gt_stub_row_group {
+#wkzjbqedzf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -745,15 +712,15 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   vertical-align: top;
 }
 
-#xjvqyzezze .gt_row_group_first td {
+#wkzjbqedzf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xjvqyzezze .gt_row_group_first th {
+#wkzjbqedzf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xjvqyzezze .gt_summary_row {
+#wkzjbqedzf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -763,16 +730,16 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   padding-right: 5px;
 }
 
-#xjvqyzezze .gt_first_summary_row {
+#wkzjbqedzf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_first_summary_row.thick {
+#wkzjbqedzf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xjvqyzezze .gt_last_summary_row {
+#wkzjbqedzf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -782,7 +749,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-bottom-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_grand_summary_row {
+#wkzjbqedzf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -792,7 +759,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   padding-right: 5px;
 }
 
-#xjvqyzezze .gt_first_grand_summary_row {
+#wkzjbqedzf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -802,7 +769,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-top-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_last_grand_summary_row_top {
+#wkzjbqedzf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -812,11 +779,11 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-bottom-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_striped {
+#wkzjbqedzf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xjvqyzezze .gt_table_body {
+#wkzjbqedzf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -825,7 +792,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-bottom-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_footnotes {
+#wkzjbqedzf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -839,7 +806,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-right-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_footnote {
+#wkzjbqedzf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -848,7 +815,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   padding-right: 5px;
 }
 
-#xjvqyzezze .gt_sourcenotes {
+#wkzjbqedzf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -862,7 +829,7 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   border-right-color: #D3D3D3;
 }
 
-#xjvqyzezze .gt_sourcenote {
+#wkzjbqedzf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -870,64 +837,73 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
   padding-right: 5px;
 }
 
-#xjvqyzezze .gt_left {
+#wkzjbqedzf .gt_left {
   text-align: left;
 }
 
-#xjvqyzezze .gt_center {
+#wkzjbqedzf .gt_center {
   text-align: center;
 }
 
-#xjvqyzezze .gt_right {
+#wkzjbqedzf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xjvqyzezze .gt_font_normal {
+#wkzjbqedzf .gt_font_normal {
   font-weight: normal;
 }
 
-#xjvqyzezze .gt_font_bold {
+#wkzjbqedzf .gt_font_bold {
   font-weight: bold;
 }
 
-#xjvqyzezze .gt_font_italic {
+#wkzjbqedzf .gt_font_italic {
   font-style: italic;
 }
 
-#xjvqyzezze .gt_super {
+#wkzjbqedzf .gt_super {
   font-size: 65%;
 }
 
-#xjvqyzezze .gt_footnote_marks {
+#wkzjbqedzf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xjvqyzezze .gt_asterisk {
+#wkzjbqedzf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xjvqyzezze .gt_indent_1 {
+#wkzjbqedzf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xjvqyzezze .gt_indent_2 {
+#wkzjbqedzf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xjvqyzezze .gt_indent_3 {
+#wkzjbqedzf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xjvqyzezze .gt_indent_4 {
+#wkzjbqedzf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xjvqyzezze .gt_indent_5 {
+#wkzjbqedzf .gt_indent_5 {
   text-indent: 25px;
+}
+
+#wkzjbqedzf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#wkzjbqedzf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
@@ -936,9 +912,9 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
 <td colspan="16" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Accuracy Table</td>
     </tr>
 <tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id=".model_id">.model_id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=".model_desc">.model_desc</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=".type">.type</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="a.model_id">.model_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="a.model_desc">.model_desc</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="a.type">.type</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="n">n</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="mae_mean">mae_mean</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="mae_sd">mae_sd</th>
@@ -1035,28 +1011,26 @@ the XGBoost or Prophet Boost models were best for this data.</p>
 evaluate Panel Data in-depth, take my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" class="external-link">High-Performance
 Time Series Course.</a></p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Matt Dancho.</p>
+  <p>Developed by Matt Dancho.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

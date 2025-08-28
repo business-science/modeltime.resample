@@ -81,7 +81,13 @@ modeltime_resample_accuracy <- function(object, summary_fns = mean, metric_set =
     resample_results_tbl <- unnest_modeltime_resamples(object)
 
     # Target Variable is the name in the data
-    target_text <- resample_results_tbl %>% get_target_text_from_resamples(column_before_target = ".row")
+    if (utils::packageVersion("tune") >= "1.3.0.9006") {
+        target_text <- resample_results_tbl %>%
+            get_target_text_from_resamples(column_before_target = ".model_desc")
+    } else {
+        target_text <- resample_results_tbl %>%
+            get_target_text_from_resamples(column_before_target = ".row")
+    }
     target_var  <- rlang::sym(target_text)
 
     # Apply accuracy metrics to resamples

@@ -1,8 +1,12 @@
-# modeltime.resample (development version)
+# modeltime.resample (0.2.4.9000, development version)
+
+# modeltime.resample (0.2.4)
 
 - Update for better compatibility with dplyr 1.1.0 and ggplot2 3.4.4 (@olivroy, #16)
 
 - Remove dependency on tidyverse (@olivroy, #16)
+
+- Update for the next version of tune (@hfrik, #18)
 
 # modeltime.resample 0.2.3
 

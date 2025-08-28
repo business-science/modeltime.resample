@@ -1,6 +1,6 @@
 Package: modeltime.resample
 Title: Resampling Tools for Time Series Forecasting
-Version: 0.2.4
+Version: 0.2.4.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Business Science", role = "cph")

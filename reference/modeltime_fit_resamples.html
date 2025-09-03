@@ -141,9 +141,9 @@ The sub-model cross-validation predictions are used as the input to the meta-lea
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dials       </span> 1.4.1     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.3.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.1.4     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble      </span> 3.3.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">ggplot2     </span> 3.5.2     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.3.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.9     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 1.3.0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.9     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 2.0.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.5.1     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.3.0</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 1.3.2     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.1.1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 1.3.3     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 1.1.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.3.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Conflicts</span> ───────────────────────────────────────── tidymodels_conflicts() ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">purrr</span>::<span style="color: #00BB00;">discard()</span> masks <span style="color: #0000BB;">scales</span>::discard()</span>
@@ -184,38 +184,33 @@ The sub-model cross-validation predictions are used as the input to the meta-lea
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Model ID: <span style="color: #0000BB;">1</span> <span style="color: #0000BB;">ARIMA(0,1,1)(0,1,1)[12]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #BBBB00;">Slice1: preprocessor 1/1:</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">  `keep_original_cols` was added to `step_dummy()` after this r...</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">  </span><span style="color: #00BBBB;">ℹ</span><span style="color: #BBBB00;"> Regenerate your recipe to avoid this warning.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Slice1: preprocessor 1/1</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="color: #BBBB00; font-weight: bold;">A</span> | <span style="color: #BBBB00;">warning</span>: `keep_original_cols` was added to `step_dummy()` after this recipe was created.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                <span style="color: #00BBBB;">ℹ</span> Regenerate your recipe to avoid this warning.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> frequency = 12 observations per 1 year</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1 (extracts)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1 (predictions)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Model ID: <span style="color: #0000BB;">2</span> <span style="color: #0000BB;">PROPHET</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #BBBB00;">Slice1: preprocessor 1/1:</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">  `keep_original_cols` was added to `step_dummy()` after this r...</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">  </span><span style="color: #00BBBB;">ℹ</span><span style="color: #BBBB00;"> Regenerate your recipe to avoid this warning.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Slice1: preprocessor 1/1</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="color: #BBBB00; font-weight: bold;">A</span> | <span style="color: #BBBB00;">warning</span>: `keep_original_cols` was added to `step_dummy()` after this recipe was created.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                <span style="color: #00BBBB;">ℹ</span> Regenerate your recipe to avoid this warning.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Disabling weekly seasonality. Run prophet with weekly.seasonality=TRUE to override this.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Disabling daily seasonality. Run prophet with daily.seasonality=TRUE to override this.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1 (extracts)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1 (predictions)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Model ID: <span style="color: #0000BB;">3</span> <span style="color: #0000BB;">GLMNET</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #BBBB00;">Slice1: preprocessor 1/1:</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">  `keep_original_cols` was added to `step_dummy()` after this r...</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">  </span><span style="color: #00BBBB;">ℹ</span><span style="color: #BBBB00;"> Regenerate your recipe to avoid this warning.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Slice1: preprocessor 1/1</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="color: #BBBB00; font-weight: bold;">A</span> | <span style="color: #BBBB00;">warning</span>: `keep_original_cols` was added to `step_dummy()` after this recipe was created.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                <span style="color: #00BBBB;">ℹ</span> Regenerate your recipe to avoid this warning.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✓</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1 (extracts)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">i</span> <span style="color: #000000;">Slice1: preprocessor 1/1, model 1/1 (predictions)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4.932 sec elapsed</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There were 9 warnings in `dplyr::mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> The first warning was:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `.resample_results = purrr::pmap(...)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> `keep_original_cols` was added to `step_dummy()` after this recipe was created.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Regenerate your recipe to avoid this warning.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Run `dplyr::last_dplyr_warnings()` to see the 8 remaining warnings.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.884 sec elapsed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A new data frame is created from the Modeltime Table</span></span></span>
@@ -225,9 +220,9 @@ The sub-model cross-validation predictions are used as the input to the meta-lea
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .model_id .model     .model_desc             .resample_results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12] <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                 <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET                  <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12] <span style="color: #949494;">&lt;tibble [1 × 4]&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                 <span style="color: #949494;">&lt;tibble [1 × 4]&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET                  <span style="color: #949494;">&lt;tibble [1 × 4]&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

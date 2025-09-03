@@ -418,9 +418,9 @@ predictions has been added to the original <code>model_tbl</code>.</p>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
 <span><span class="co">##   .model_id .model     .model_desc               .resample_results</span></span>
 <span><span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ REGRESSORS     <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> XGBOOST                   <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ XGBOOST ERRORS <span style="color: #949494;">&lt;rsmp[+]&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ REGRESSORS     <span style="color: #949494;">&lt;tibble [6 × 4]&gt;</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> XGBOOST                   <span style="color: #949494;">&lt;tibble [6 × 4]&gt;</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET W/ XGBOOST ERRORS <span style="color: #949494;">&lt;tibble [6 × 4]&gt;</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="evaluate-resample-accuracy">Evaluate Resample Accuracy<a class="anchor" aria-label="anchor" href="#evaluate-resample-accuracy"></a>
@@ -443,7 +443,7 @@ other Prophet w/ Regressors Model.</p>
 <span>    .point_size  <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>    .interactive <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="panel-data_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="panel-data_files/figure-html/unnamed-chunk-15-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level5">
 <h5 id="resample-accuracy-table">Resample Accuracy Table<a class="anchor" aria-label="anchor" href="#resample-accuracy-table"></a>
@@ -936,16 +936,16 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
 <td headers=".model_desc" class="gt_row gt_left">PROPHET W/ REGRESSORS</td>
 <td headers=".type" class="gt_row gt_left">Resamples</td>
 <td headers="n" class="gt_row gt_right">6</td>
-<td headers="mae_mean" class="gt_row gt_right">6328.68</td>
-<td headers="mae_sd" class="gt_row gt_right">1168.42</td>
-<td headers="mape_mean" class="gt_row gt_right">17.26</td>
-<td headers="mape_sd" class="gt_row gt_right">4.09</td>
+<td headers="mae_mean" class="gt_row gt_right">6277.09</td>
+<td headers="mae_sd" class="gt_row gt_right">995.25</td>
+<td headers="mape_mean" class="gt_row gt_right">16.98</td>
+<td headers="mape_sd" class="gt_row gt_right">4.05</td>
 <td headers="mase_mean" class="gt_row gt_right">0.19</td>
-<td headers="mase_sd" class="gt_row gt_right">0.04</td>
-<td headers="smape_mean" class="gt_row gt_right">16.49</td>
-<td headers="smape_sd" class="gt_row gt_right">3.68</td>
-<td headers="rmse_mean" class="gt_row gt_right">8792.52</td>
-<td headers="rmse_sd" class="gt_row gt_right">1322.96</td>
+<td headers="mase_sd" class="gt_row gt_right">0.03</td>
+<td headers="smape_mean" class="gt_row gt_right">16.12</td>
+<td headers="smape_sd" class="gt_row gt_right">3.35</td>
+<td headers="rmse_mean" class="gt_row gt_right">8748.63</td>
+<td headers="rmse_sd" class="gt_row gt_right">1122.20</td>
 <td headers="rsq_mean" class="gt_row gt_right">0.95</td>
 <td headers="rsq_sd" class="gt_row gt_right">0.02</td>
 </tr>
@@ -954,36 +954,36 @@ using a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">l
 <td headers=".model_desc" class="gt_row gt_left">XGBOOST</td>
 <td headers=".type" class="gt_row gt_left">Resamples</td>
 <td headers="n" class="gt_row gt_right">6</td>
-<td headers="mae_mean" class="gt_row gt_right">4854.34</td>
-<td headers="mae_sd" class="gt_row gt_right">519.97</td>
-<td headers="mape_mean" class="gt_row gt_right">12.58</td>
-<td headers="mape_sd" class="gt_row gt_right">3.50</td>
+<td headers="mae_mean" class="gt_row gt_right">4533.09</td>
+<td headers="mae_sd" class="gt_row gt_right">692.57</td>
+<td headers="mape_mean" class="gt_row gt_right">11.72</td>
+<td headers="mape_sd" class="gt_row gt_right">2.27</td>
 <td headers="mase_mean" class="gt_row gt_right">0.14</td>
-<td headers="mase_sd" class="gt_row gt_right">0.02</td>
-<td headers="smape_mean" class="gt_row gt_right">11.87</td>
-<td headers="smape_sd" class="gt_row gt_right">2.44</td>
-<td headers="rmse_mean" class="gt_row gt_right">6969.84</td>
-<td headers="rmse_sd" class="gt_row gt_right">970.69</td>
+<td headers="mase_sd" class="gt_row gt_right">0.03</td>
+<td headers="smape_mean" class="gt_row gt_right">11.11</td>
+<td headers="smape_sd" class="gt_row gt_right">1.87</td>
+<td headers="rmse_mean" class="gt_row gt_right">6531.58</td>
+<td headers="rmse_sd" class="gt_row gt_right">1087.24</td>
 <td headers="rsq_mean" class="gt_row gt_right">0.97</td>
-<td headers="rsq_sd" class="gt_row gt_right">0.02</td>
+<td headers="rsq_sd" class="gt_row gt_right">0.01</td>
 </tr>
 <tr>
 <td headers=".model_id" class="gt_row gt_right">3</td>
 <td headers=".model_desc" class="gt_row gt_left">PROPHET W/ XGBOOST ERRORS</td>
 <td headers=".type" class="gt_row gt_left">Resamples</td>
 <td headers="n" class="gt_row gt_right">6</td>
-<td headers="mae_mean" class="gt_row gt_right">4677.63</td>
-<td headers="mae_sd" class="gt_row gt_right">747.38</td>
-<td headers="mape_mean" class="gt_row gt_right">13.73</td>
-<td headers="mape_sd" class="gt_row gt_right">4.96</td>
+<td headers="mae_mean" class="gt_row gt_right">4495.43</td>
+<td headers="mae_sd" class="gt_row gt_right">661.49</td>
+<td headers="mape_mean" class="gt_row gt_right">12.25</td>
+<td headers="mape_sd" class="gt_row gt_right">3.79</td>
 <td headers="mase_mean" class="gt_row gt_right">0.14</td>
 <td headers="mase_sd" class="gt_row gt_right">0.02</td>
-<td headers="smape_mean" class="gt_row gt_right">12.12</td>
-<td headers="smape_sd" class="gt_row gt_right">3.14</td>
-<td headers="rmse_mean" class="gt_row gt_right">6724.22</td>
-<td headers="rmse_sd" class="gt_row gt_right">1221.71</td>
+<td headers="smape_mean" class="gt_row gt_right">11.19</td>
+<td headers="smape_sd" class="gt_row gt_right">2.67</td>
+<td headers="rmse_mean" class="gt_row gt_right">6483.49</td>
+<td headers="rmse_sd" class="gt_row gt_right">1106.38</td>
 <td headers="rsq_mean" class="gt_row gt_right">0.97</td>
-<td headers="rsq_sd" class="gt_row gt_right">0.02</td>
+<td headers="rsq_sd" class="gt_row gt_right">0.01</td>
 </tr>
 </tbody>
 </table>

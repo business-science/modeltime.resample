@@ -216,27 +216,16 @@ Can save space with long model descriptions.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><strong>Default Accuracy Metrics</strong></p>
-<p>The following accuracy metrics are included by default via <code><a href="https://business-science.github.io/modeltime/reference/metric_sets.html" class="external-link">modeltime::default_forecast_accuracy_metric_set()</a></code>:</p><ul><li><p>MAE - Mean absolute error, <code><a href="https://yardstick.tidymodels.org/reference/mae.html" class="external-link">yardstick::mae()</a></code></p></li>
-<li><p>MAPE - Mean absolute percentage error, <code><a href="https://yardstick.tidymodels.org/reference/mape.html" class="external-link">yardstick::mape()</a></code></p></li>
-<li><p>MASE  - Mean absolute scaled error, <code><a href="https://yardstick.tidymodels.org/reference/mase.html" class="external-link">yardstick::mase()</a></code></p></li>
-<li><p>SMAPE - Symmetric mean absolute percentage error, <code><a href="https://yardstick.tidymodels.org/reference/smape.html" class="external-link">yardstick::smape()</a></code></p></li>
-<li><p>RMSE  - Root mean squared error, <code><a href="https://yardstick.tidymodels.org/reference/rmse.html" class="external-link">yardstick::rmse()</a></code></p></li>
-<li><p>RSQ   - R-squared, <code><a href="https://yardstick.tidymodels.org/reference/rsq.html" class="external-link">yardstick::rsq()</a></code></p></li>
-</ul><p><strong>Summary Function</strong></p>
-<p>Users can supply a single summary function (e.g. <code>mean</code>) to summarize the
-resample metrics by each model.</p>
+    <p>See <code><a href="https://business-science.github.io/modeltime/reference/metric_sets.html" class="external-link">modeltime::default_forecast_accuracy_metric_set()</a></code> for defaults.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">m750_training_resamples_fitted</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">m750_training_resamples_fitted</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu">plot_modeltime_resamples</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        .interactive <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_modeltime_resamples-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

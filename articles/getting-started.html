@@ -240,9 +240,9 @@ resamples</li>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
 <span><span class="co">##   .model_id .model     .model_desc             .resample_results</span></span>
 <span><span class="co">##       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12] <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                 <span style="color: #949494;">&lt;rsmp[+]&gt;</span>        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET                  <span style="color: #949494;">&lt;rsmp[+]&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>         1 <span style="color: #949494;">&lt;workflow&gt;</span> ARIMA(0,1,1)(0,1,1)[12] <span style="color: #949494;">&lt;tibble [4 × 4]&gt;</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>         2 <span style="color: #949494;">&lt;workflow&gt;</span> PROPHET                 <span style="color: #949494;">&lt;tibble [4 × 4]&gt;</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>         3 <span style="color: #949494;">&lt;workflow&gt;</span> GLMNET                  <span style="color: #949494;">&lt;tibble [4 × 4]&gt;</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="step-4---evaluate-the-results">Step 4 - Evaluate the Results<a class="anchor" aria-label="anchor" href="#step-4---evaluate-the-results"></a>
@@ -284,23 +284,23 @@ best choice for consistent performance on this dataset.</p>
 <code class="sourceCode R"><span><span class="va">resamples_fitted</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/modeltime_resample_accuracy.html">modeltime_resample_accuracy</a></span><span class="op">(</span>summary_fns <span class="op">=</span> <span class="va">mean</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://business-science.github.io/modeltime/reference/table_modeltime_accuracy.html" class="external-link">table_modeltime_accuracy</a></span><span class="op">(</span>.interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<div id="ykbjnymqsw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ykbjnymqsw table {
+<div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ykbjnymqsw thead, #ykbjnymqsw tbody, #ykbjnymqsw tfoot, #ykbjnymqsw tr, #ykbjnymqsw td, #ykbjnymqsw th {
+#mwlefoodfi thead, #mwlefoodfi tbody, #mwlefoodfi tfoot, #mwlefoodfi tr, #mwlefoodfi td, #mwlefoodfi th {
   border-style: none;
 }
 
-#ykbjnymqsw p {
+#mwlefoodfi p {
   margin: 0;
   padding: 0;
 }
 
-#ykbjnymqsw .gt_table {
+#mwlefoodfi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -326,12 +326,12 @@ best choice for consistent performance on this dataset.</p>
   border-left-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_caption {
+#mwlefoodfi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ykbjnymqsw .gt_title {
+#mwlefoodfi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -343,7 +343,7 @@ best choice for consistent performance on this dataset.</p>
   border-bottom-width: 0;
 }
 
-#ykbjnymqsw .gt_subtitle {
+#mwlefoodfi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -355,7 +355,7 @@ best choice for consistent performance on this dataset.</p>
   border-top-width: 0;
 }
 
-#ykbjnymqsw .gt_heading {
+#mwlefoodfi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -367,13 +367,13 @@ best choice for consistent performance on this dataset.</p>
   border-right-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_bottom_border {
+#mwlefoodfi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_col_headings {
+#mwlefoodfi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -388,7 +388,7 @@ best choice for consistent performance on this dataset.</p>
   border-right-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_col_heading {
+#mwlefoodfi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -408,7 +408,7 @@ best choice for consistent performance on this dataset.</p>
   overflow-x: hidden;
 }
 
-#ykbjnymqsw .gt_column_spanner_outer {
+#mwlefoodfi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -420,15 +420,15 @@ best choice for consistent performance on this dataset.</p>
   padding-right: 4px;
 }
 
-#ykbjnymqsw .gt_column_spanner_outer:first-child {
+#mwlefoodfi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ykbjnymqsw .gt_column_spanner_outer:last-child {
+#mwlefoodfi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ykbjnymqsw .gt_column_spanner {
+#mwlefoodfi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -440,11 +440,11 @@ best choice for consistent performance on this dataset.</p>
   width: 100%;
 }
 
-#ykbjnymqsw .gt_spanner_row {
+#mwlefoodfi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ykbjnymqsw .gt_group_heading {
+#mwlefoodfi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -470,7 +470,7 @@ best choice for consistent performance on this dataset.</p>
   text-align: left;
 }
 
-#ykbjnymqsw .gt_empty_group_heading {
+#mwlefoodfi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -485,15 +485,15 @@ best choice for consistent performance on this dataset.</p>
   vertical-align: middle;
 }
 
-#ykbjnymqsw .gt_from_md > :first-child {
+#mwlefoodfi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ykbjnymqsw .gt_from_md > :last-child {
+#mwlefoodfi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ykbjnymqsw .gt_row {
+#mwlefoodfi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -512,7 +512,7 @@ best choice for consistent performance on this dataset.</p>
   overflow-x: hidden;
 }
 
-#ykbjnymqsw .gt_stub {
+#mwlefoodfi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -525,7 +525,7 @@ best choice for consistent performance on this dataset.</p>
   padding-right: 5px;
 }
 
-#ykbjnymqsw .gt_stub_row_group {
+#mwlefoodfi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -539,15 +539,15 @@ best choice for consistent performance on this dataset.</p>
   vertical-align: top;
 }
 
-#ykbjnymqsw .gt_row_group_first td {
+#mwlefoodfi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ykbjnymqsw .gt_row_group_first th {
+#mwlefoodfi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ykbjnymqsw .gt_summary_row {
+#mwlefoodfi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -557,16 +557,16 @@ best choice for consistent performance on this dataset.</p>
   padding-right: 5px;
 }
 
-#ykbjnymqsw .gt_first_summary_row {
+#mwlefoodfi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_first_summary_row.thick {
+#mwlefoodfi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ykbjnymqsw .gt_last_summary_row {
+#mwlefoodfi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -576,7 +576,7 @@ best choice for consistent performance on this dataset.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_grand_summary_row {
+#mwlefoodfi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -586,7 +586,7 @@ best choice for consistent performance on this dataset.</p>
   padding-right: 5px;
 }
 
-#ykbjnymqsw .gt_first_grand_summary_row {
+#mwlefoodfi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -596,7 +596,7 @@ best choice for consistent performance on this dataset.</p>
   border-top-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_last_grand_summary_row_top {
+#mwlefoodfi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -606,11 +606,11 @@ best choice for consistent performance on this dataset.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_striped {
+#mwlefoodfi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ykbjnymqsw .gt_table_body {
+#mwlefoodfi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -619,7 +619,7 @@ best choice for consistent performance on this dataset.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_footnotes {
+#mwlefoodfi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -633,7 +633,7 @@ best choice for consistent performance on this dataset.</p>
   border-right-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_footnote {
+#mwlefoodfi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -642,7 +642,7 @@ best choice for consistent performance on this dataset.</p>
   padding-right: 5px;
 }
 
-#ykbjnymqsw .gt_sourcenotes {
+#mwlefoodfi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -656,7 +656,7 @@ best choice for consistent performance on this dataset.</p>
   border-right-color: #D3D3D3;
 }
 
-#ykbjnymqsw .gt_sourcenote {
+#mwlefoodfi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -664,72 +664,72 @@ best choice for consistent performance on this dataset.</p>
   padding-right: 5px;
 }
 
-#ykbjnymqsw .gt_left {
+#mwlefoodfi .gt_left {
   text-align: left;
 }
 
-#ykbjnymqsw .gt_center {
+#mwlefoodfi .gt_center {
   text-align: center;
 }
 
-#ykbjnymqsw .gt_right {
+#mwlefoodfi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ykbjnymqsw .gt_font_normal {
+#mwlefoodfi .gt_font_normal {
   font-weight: normal;
 }
 
-#ykbjnymqsw .gt_font_bold {
+#mwlefoodfi .gt_font_bold {
   font-weight: bold;
 }
 
-#ykbjnymqsw .gt_font_italic {
+#mwlefoodfi .gt_font_italic {
   font-style: italic;
 }
 
-#ykbjnymqsw .gt_super {
+#mwlefoodfi .gt_super {
   font-size: 65%;
 }
 
-#ykbjnymqsw .gt_footnote_marks {
+#mwlefoodfi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ykbjnymqsw .gt_asterisk {
+#mwlefoodfi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ykbjnymqsw .gt_indent_1 {
+#mwlefoodfi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ykbjnymqsw .gt_indent_2 {
+#mwlefoodfi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ykbjnymqsw .gt_indent_3 {
+#mwlefoodfi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ykbjnymqsw .gt_indent_4 {
+#mwlefoodfi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ykbjnymqsw .gt_indent_5 {
+#mwlefoodfi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ykbjnymqsw .katex-display {
+#mwlefoodfi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ykbjnymqsw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mwlefoodfi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

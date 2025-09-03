@@ -36,7 +36,8 @@ plot_modeltime_resamples(
 the resample results. See \code{\link[=modeltime_fit_resamples]{modeltime_fit_resamples()}} for more information.}
 
 \item{.metric_set}{A \code{yardstick::metric_set()} that is used to summarize
-one or more forecast accuracy (regression) metrics.}
+one or more forecast accuracy (regression) metrics.
+See \code{\link[modeltime:metric_sets]{modeltime::default_forecast_accuracy_metric_set()}} for defaults.}
 
 \item{.summary_fn}{A single summary function that is applied to aggregate the
 metrics across resample sets. Default: \code{mean}.}

@@ -250,17 +250,12 @@ __We've made predictions, but this doesn't tell us how the models will do over t
 
 With `model_tbl` (models) and `walmart_tscv` (resamples) in had, we are ready to iteratively fit and predict each of the models on each of the resampling plan sets, producing resample predictions. 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 resample_results <- model_tbl %>%
   modeltime_fit_resamples(
     resamples = walmart_tscv,
     control   = control_resamples(verbose = FALSE)
   )
-```
-
-```{r, echo=FALSE}
-# saveRDS(resample_results, "resample_results.rds")
-resample_results <- readRDS("resample_results.rds")
 ```
 
 A new column (".resample_results") containing the resample predictions has been added to the original `model_tbl`. 

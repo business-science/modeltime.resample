@@ -90,29 +90,12 @@ A convenient plotting function for visualizing resampling accuracy by
 resample set for each model in a Modeltime Table.
 }
 \details{
-\strong{Default Accuracy Metrics}
-
-The following accuracy metrics are included by default via \code{\link[modeltime:metric_sets]{modeltime::default_forecast_accuracy_metric_set()}}:
-\itemize{
-\item MAE - Mean absolute error, \code{\link[yardstick:mae]{yardstick::mae()}}
-\item MAPE - Mean absolute percentage error, \code{\link[yardstick:mape]{yardstick::mape()}}
-\item MASE  - Mean absolute scaled error, \code{\link[yardstick:mase]{yardstick::mase()}}
-\item SMAPE - Symmetric mean absolute percentage error, \code{\link[yardstick:smape]{yardstick::smape()}}
-\item RMSE  - Root mean squared error, \code{\link[yardstick:rmse]{yardstick::rmse()}}
-\item RSQ   - R-squared, \code{\link[yardstick:rsq]{yardstick::rsq()}}
-}
-
-\strong{Summary Function}
-
-Users can supply a single summary function (e.g. \code{mean}) to summarize the
-resample metrics by each model.
+See \code{\link[modeltime:metric_sets]{modeltime::default_forecast_accuracy_metric_set()}} for defaults.
 }
 \examples{
-
 m750_training_resamples_fitted \%>\%
     plot_modeltime_resamples(
         .interactive = FALSE
     )
-
 
 }

@@ -32,29 +32,125 @@
 #' @export
 unnest_modeltime_resamples <- function(object) {
 
-    # Checks
-    if (!inherits(object, "data.frame")) rlang::abort("object must be a data.frame")
-    if (!".resample_results" %in% names(object)) rlang::abort("object must contain a column, '.resample_results'. Try using `modeltime_fit_resamples()` first. ")
+    # ---- checks ----
+    if (!inherits(object, "data.frame")) {
+        rlang::abort(message = "object must be a data.frame")
+    }
+    if (!(".resample_results" %in% names(object))) {
+        rlang::abort(message = "object must contain a column, '.resample_results'. Try using `modeltime_fit_resamples()` first.")
+    }
 
-    # Unnest
-    object %>%
-        dplyr::select(-.model) %>%
-        tidyr::unnest(.resample_results) %>%
-        dplyr::select(id, .model_id, .model_desc, .predictions) %>%
+    # helpers
+    pick_first <- function(candidates, nms) {
+        f <- candidates[candidates %in% nms]
+        if (length(f)) f[[1]] else NA_character_
+    }
 
-        dplyr::rename(.resample_id = id) %>%
+    ensure_predictions <- function(x) {
+        if (!is.data.frame(x)) return(x)
+        if (".predictions" %in% names(x)) return(x)
 
-        # # Add .resample_id
-        # dplyr::group_split(.model_id) %>%
-        # purrr::map(tibble::rowid_to_column, var = ".resample_id") %>%
-        # dplyr::bind_rows() %>%
+        preds <- try(tune::collect_predictions(x), silent = TRUE)
+        if (!inherits(preds, "try-error") && is.data.frame(preds) && nrow(preds) > 0) {
+            idcol <- pick_first(c("id", ".id", ".resample_id"), names(preds))
+            if (!is.na(idcol)) {
+                nested <- preds %>%
+                    dplyr::group_by(!!rlang::sym(idcol)) %>%
+                    tidyr::nest() %>%
+                    dplyr::rename(.predictions = data)
 
-        # Add .row_id - Needed to compare observations between models
-        tidyr::unnest(.predictions) %>%
-        dplyr::group_split(.model_id) %>%
-        purrr::map( tibble::rowid_to_column, var = ".row_id") %>%
-        dplyr::bind_rows()
+                x <- x %>% dplyr::left_join(nested, by = stats::setNames(idcol, idcol))
+            }
+        }
+        x
+    }
+
+    # ---- try to ensure predictions model-by-model first (so we can drop failures cleanly) ----
+    object2 <- object %>%
+        dplyr::mutate(.resample_results = purrr::map(.resample_results, ensure_predictions))
+
+    # mark which rows have predictions
+    has_preds <- purrr::map_lgl(
+        object2$.resample_results,
+        ~ is.data.frame(.x) && any(c(".predictions", ".preds", ".prediction") %in% names(.x))
+    )
+
+    # keep successful rows, but keep failed ones aside for messaging
+    failed_rows <- object2[!has_preds, c(".model_id", ".model_desc", ".resample_results"), drop = FALSE]
+    object2 <- object2[has_preds, , drop = FALSE]
+
+    # if nothing succeeded, emit a single actionable error listing the failures/notes
+    if (nrow(object2) == 0) {
+        notes <- try({
+            purrr::map_chr(failed_rows$.resample_results, function(x) {
+                if (is.data.frame(x) && ".notes" %in% names(x)) paste0(x$.notes, collapse = "; ") else "No details"
+            })
+        }, silent = TRUE)
+        notes <- if (inherits(notes, "try-error")) "No details" else notes
+        msg <- paste0(
+            "No resample predictions are available for any models.\n\n",
+            "Models and notes:\n",
+            paste0("- [", failed_rows$.model_id, "] ", failed_rows$.model_desc, ": ", notes, collapse = "\n"), "\n\n",
+            "Hints:\n",
+            "- Ensure engines are installed (e.g., prophet),\n",
+            "- Use control = tune::control_resamples(save_pred = TRUE), and\n",
+            "- Verify `modeltime_fit_resamples()` forwards `control` to `tune::fit_resamples()`."
+        )
+        rlang::abort(message = msg)
+    }
+
+    # ---- unnest the successful subset ----
+    outer <- object2 %>%
+        dplyr::select(-dplyr::any_of(".model")) %>%
+        tidyr::unnest(.resample_results, keep_empty = TRUE)
+
+    id_outer  <- pick_first(c("id", ".id", ".resample_id"), names(outer))
+    pred_col  <- pick_first(c(".predictions", ".preds", ".prediction"), names(outer))
+
+    cols_outer <- c(id_outer, ".model_id", ".model_desc", pred_col)
+    cols_outer <- cols_outer[!is.na(cols_outer)]
+
+    outer <- outer %>%
+        dplyr::select(dplyr::any_of(cols_outer))
+
+    if (!is.na(id_outer) && id_outer != ".resample_id") {
+        outer <- outer %>% dplyr::rename(.resample_id = !!rlang::sym(id_outer))
+    }
+
+    if (is.na(pred_col)) {
+        rlang::abort(message = "Unexpected: successful rows still lack predictions after unnesting.")
+    }
+
+    res <- outer %>%
+        tidyr::unnest(!!rlang::sym(pred_col), keep_empty = TRUE)
+
+    if (!(".resample_id" %in% names(res))) {
+        id_inner <- pick_first(c("id", ".id", ".resample_id"), names(res))
+        if (!is.na(id_inner) && id_inner != ".resample_id") {
+            res <- res %>% dplyr::rename(.resample_id = !!rlang::sym(id_inner))
+        }
+    }
+
+    if (!(".resample_id" %in% names(res))) {
+        res <- res %>%
+            dplyr::group_by(.model_id, .model_desc) %>%
+            dplyr::mutate(.resample_id = dplyr::cur_group_id()) %>%
+            dplyr::ungroup()
+    }
+
+    res <- res %>%
+        dplyr::group_by(.model_id, .model_desc, .resample_id) %>%
+        dplyr::mutate(.row_id = dplyr::row_number()) %>%
+        dplyr::ungroup()
+
+    res
 }
+
+
+
+
+
+
 
 # UTILITIES ----
 

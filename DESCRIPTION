@@ -18,12 +18,10 @@ Depends:
     modeltime (>= 0.3.0),
     R (>= 3.5)
 Imports: 
-    tune,
+    tune (>= 2.0.0),
     rsample,
     workflows,
-    parsnip (>= 0.1.4),
     recipes,
-    dials,
     yardstick,
     timetk (>= 2.5.0),
     tibble,
@@ -38,7 +36,8 @@ Imports:
     rlang (>= 0.1.2),
     progressr,
     tictoc,
-    hardhat
+    hardhat,
+    withr
 Suggests: 
     testthat,
     tidymodels,

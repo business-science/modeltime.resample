@@ -20,7 +20,7 @@ control over the resampling process.}
 A tibble with forecast features
 }
 \description{
-Used for low-level resample fitting of modeltime, parnsip and workflow models
+Used for low-level resample fitting of modeltime, parsnip, and workflow models.
 These functions are not intended for user use.
 }
 \keyword{internal}

@@ -1,6 +1,5 @@
 # PLOT MODELTIME RESAMPLES ----
 
-
 #' Interactive Resampling Accuracy Plots
 #'
 #' A convenient plotting function for visualizing resampling accuracy by
@@ -11,6 +10,7 @@
 #'  the resample results. See [modeltime_fit_resamples()] for more information.
 #' @param .metric_set  A `yardstick::metric_set()` that is used to summarize
 #'  one or more forecast accuracy (regression) metrics.
+#'  See [modeltime::default_forecast_accuracy_metric_set()] for defaults.
 #' @param .summary_fn A single summary function that is applied to aggregate the
 #'  metrics across resample sets. Default: `mean`.
 #' @param ... Additional arguments passed to the `.summary_fn`.
@@ -30,30 +30,13 @@
 #' @param .x_intercept_size   Controls the x-intercept linewidth. Default: 0.5.
 #'
 #' @details
-#'
-#' __Default Accuracy Metrics__
-#'
-#' The following accuracy metrics are included by default via [modeltime::default_forecast_accuracy_metric_set()]:
-#'
-#' - MAE - Mean absolute error, [yardstick::mae()]
-#' - MAPE - Mean absolute percentage error, [yardstick::mape()]
-#' - MASE  - Mean absolute scaled error, [yardstick::mase()]
-#' - SMAPE - Symmetric mean absolute percentage error, [yardstick::smape()]
-#' - RMSE  - Root mean squared error, [yardstick::rmse()]
-#' - RSQ   - R-squared, [yardstick::rsq()]
-#'
-#' __Summary Function__
-#'
-#' Users can supply a single summary function (e.g. `mean`) to summarize the
-#' resample metrics by each model.
+#' See [modeltime::default_forecast_accuracy_metric_set()] for defaults.
 #'
 #' @examples
-#'
 #' m750_training_resamples_fitted %>%
 #'     plot_modeltime_resamples(
 #'         .interactive = FALSE
 #'     )
-#'
 #'
 #' @export
 plot_modeltime_resamples <- function(.data,
@@ -86,104 +69,121 @@ plot_modeltime_resamples <- function(.data,
                                      .color_lab = "Legend",
                                      .interactive = TRUE) {
 
-    # Checks
+    # ---- checks ----
     if (!inherits(.data, "data.frame")) {
-        rlang::abort(stringr::str_glue("No method for {class(.data)[1]}. Expecting the output of 'modeltime_fit_resamples()'."))
+        rlang::abort(message = stringr::str_glue("No method for {class(.data)[1]}. Expecting the output of 'modeltime_fit_resamples()'."))
     }
-
-    if (!all(c(".resample_results") %in% names(.data))) {
-        rlang::abort("Expecting '.resample_results' to be in the data frame. Try using 'modeltime_fit_resamples()' to return a data frame with the appropriate structure.")
+    if (!(".resample_results" %in% names(.data))) {
+        rlang::abort(message = "Expecting '.resample_results' to be in the data frame. Try using 'modeltime_fit_resamples()' first.")
     }
 
     summary_fn_partial <- purrr::partial(.f = .summary_fn, ...)
 
-    # Data ----
+    # helpers -----------------------------------------------------------------
+    pick_first <- function(candidates, nms) {
+        f <- candidates[candidates %in% nms]
+        if (length(f)) f[[1]] else NA_character_
+    }
 
-    # Unnest resamples column
+    normalize_truth_estimate <- function(df) {
+        # Try common names first
+        truth_cands <- c(".actual", ".value", "value", "y", "truth", "target")
+        pred_cands  <- c(".pred", ".prediction", ".fitted", ".estimate")
+
+        truth_col <- pick_first(truth_cands, names(df))
+        pred_col  <- pick_first(pred_cands,  names(df))
+
+        # If still missing truth, infer heuristically:
+        if (is.na(truth_col)) {
+            reserved <- c(".model_id",".model_desc",".resample_id",".row_id",".config",
+                          "id",".id",".resample_results",".predictions",".notes",
+                          pred_cands)
+            # choose the first non-reserved, non-list column that is numeric
+            candidates <- setdiff(names(df), reserved)
+            if (length(candidates)) {
+                # prefer a column literally named "value" if present in the remainder
+                if ("value" %in% candidates) truth_col <- "value"
+                else {
+                    # pick first numeric column among candidates
+                    num_cands <- candidates[vapply(df[candidates], is.numeric, logical(1))]
+                    if (length(num_cands)) truth_col <- num_cands[[1]]
+                }
+            }
+        }
+
+        if (is.na(truth_col) || is.na(pred_col)) {
+            rlang::abort(message = paste0(
+                "Could not identify truth/estimate columns for yardstick metrics.\n",
+                "Looked for truth in {", paste(truth_cands, collapse = ", "), "} and ",
+                "estimate in {", paste(pred_cands, collapse = ", "), "}.\n",
+                "Columns present were: ", paste(names(df), collapse = ", ")
+            ))
+        }
+
+        df %>%
+            dplyr::rename(.actual = !!rlang::sym(truth_col),
+                          .pred   = !!rlang::sym(pred_col))
+    }
+
+    # data --------------------------------------------------------------------
     resample_results_tbl <- .data %>%
         dplyr::ungroup() %>%
         unnest_modeltime_resamples()
 
-    # Target Variable is the name in the data
-    if (utils::packageVersion("tune") >= "1.3.0.9006") {
-        target_text <- resample_results_tbl %>%
-            get_target_text_from_resamples(column_before_target = ".model_desc")
-    } else {
-        target_text <- resample_results_tbl %>%
-            get_target_text_from_resamples(column_before_target = ".row")
-    }
-    target_var  <- rlang::sym(target_text)
+    data_prepared <- resample_results_tbl %>%
+        normalize_truth_estimate() %>%
+        dplyr::mutate(
+            .model_desc = ifelse(!is.na(.model_id),
+                                 stringr::str_c(.model_id, "_", .model_desc),
+                                 .model_desc),
+            .model_desc = stringr::str_trunc(.model_desc, width = .legend_max_width),
+            .model_desc = as.factor(.model_desc)
+        )
 
-    # Prepare Data for Plot
-    data_prepared <- resample_results_tbl  %>%
-        dplyr::rename(.value = !!target_var) %>%
+    # compute metrics per resample, then summarise across resamples -----------
+    mset <- .metric_set
 
-        dplyr::mutate(.model_desc = ifelse(!is.na(.model_id), stringr::str_c(.model_id, "_", .model_desc), .model_desc)) %>%
-        dplyr::mutate(.model_desc = .model_desc %>% stringr::str_trunc(width = .legend_max_width)) %>%
-        dplyr::mutate(.model_desc = as.factor(.model_desc)) %>%
-
+    metrics_long <- data_prepared %>%
         dplyr::group_by(.resample_id, .model_desc) %>%
-        .metric_set(.value, .pred) %>%
+        mset(truth = .actual, estimate = .pred) %>%
         dplyr::ungroup() %>%
-
         dplyr::mutate(.metric = as.factor(.metric)) %>%
-
         dplyr::group_by(.model_desc, .metric) %>%
         dplyr::mutate(..summary_fn = summary_fn_partial(.estimate)) %>%
         dplyr::ungroup()
 
-
-    # Plot ----
-    g <- data_prepared %>%
-        ggplot2::ggplot(ggplot2::aes(x = .estimate, y = .resample_id, color = .model_desc))
-
-    # Add facets
-    g <- g +
+    # plot --------------------------------------------------------------------
+    g <- ggplot2::ggplot(metrics_long, ggplot2::aes(x = .estimate, y = .resample_id, color = .model_desc)) +
         ggplot2::facet_wrap(~ .metric, scales = .facet_scales, ncol = .facet_ncol)
 
-    # Add points?
     if (.point_show) {
-        g <- g +
-            ggplot2::geom_point(size  = .point_size,
-                                alpha = .point_alpha,
-                                shape = .point_shape)
+        g <- g + ggplot2::geom_point(size = .point_size, alpha = .point_alpha, shape = .point_shape)
     }
 
-    # Add summary lines?
     if (.summary_line_show) {
-        g <- g +
-            ggplot2::geom_vline(ggplot2::aes(xintercept = ..summary_fn, color = .model_desc),
-                                linewidth = .summary_line_size,
-                                alpha     = .summary_line_alpha,
-                                linetype  = .summary_line_type)
+        g <- g + ggplot2::geom_vline(ggplot2::aes(xintercept = ..summary_fn, color = .model_desc),
+                                     linewidth = .summary_line_size,
+                                     alpha     = .summary_line_alpha,
+                                     linetype  = .summary_line_type)
     }
 
-    # Add a X-Intercept if desired
     if (!is.null(.x_intercept)) {
-        g <- g +
-            ggplot2::geom_vline(xintercept = .x_intercept,
-                                color      = .x_intercept_color,
-                                linewidth  = .x_intercept_size)
+        g <- g + ggplot2::geom_vline(xintercept = .x_intercept,
+                                     color      = .x_intercept_color,
+                                     linewidth  = .x_intercept_size)
     }
 
-    # Add theme & labs
-    g <- g +
-        theme_tq() +
-        scale_color_tq() +
-        ggplot2::labs(x = .x_lab, y = .y_lab, title = .title, color = .color_lab)
+    g <- g + theme_tq() + scale_color_tq()
 
-    # Show Legend?
+    g <- g + ggplot2::labs(x = .x_lab, y = .y_lab, title = .title, color = .color_lab)
+
     if (!.legend_show) {
-        g <- g +
-            ggplot2::theme(legend.position = "none")
+        g <- g + ggplot2::theme(legend.position = "none")
     }
 
-    # Interactive?
-    if (.interactive) {
-        p <- plotly::ggplotly(g)
-        return(p)
-    } else {
-        return(g)
+    if (isTRUE(.interactive) && requireNamespace("plotly", quietly = TRUE)) {
+        return(plotly::ggplotly(g))
     }
 
+    g
 }

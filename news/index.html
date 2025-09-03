@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">modeltime.resample</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,6 +71,55 @@
       <small>Source: <a href="https://github.com/business-science/modeltime.resample/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="modeltimeresample-030-1">modeltime.resample 0.3.0<a class="anchor" aria-label="anchor" href="#modeltimeresample-030-1"></a></h2><p class="text-muted">CRAN release: 2025-09-03</p>
+<div class="section level4">
+<h4 id="id_-new-features--improvements-0-3-0">🚀 New Features &amp; Improvements<a class="anchor" aria-label="anchor" href="#id_-new-features--improvements-0-3-0"></a></h4>
+<ul><li>
+<p><strong>Compatibility with tune 2.0.0</strong></p>
+<ul><li>Updated internals to support new <code><a href="https://tune.tidymodels.org/reference/fit_resamples.html" class="external-link">tune::fit_resamples()</a></code> behavior.</li>
+<li>Improved handling of <code>.predictions</code> column reconstruction when missing.</li>
+<li>Added robust fallback logic to normalize truth/prediction columns across versions.</li>
+</ul></li>
+<li>
+<p><strong>Improved Resampling Functions</strong></p>
+<ul><li>
+<code><a href="../reference/modeltime_fit_resamples.html">modeltime_fit_resamples()</a></code> now ensures predictions are always saved.</li>
+<li>Added deterministic seeding (<code><a href="https://withr.r-lib.org/reference/with_seed.html" class="external-link">withr::with_seed()</a></code>) for reproducible resample fits.</li>
+<li>Better error handling: failed resample fits now produce <code>.notes</code> with clear error messages.</li>
+</ul></li>
+<li>
+<p><strong>Plotting Enhancements</strong></p>
+<ul><li>
+<code><a href="../reference/plot_modeltime_resamples.html">plot_modeltime_resamples()</a></code> now standardizes truth/estimate detection.</li>
+<li>Improved facetting and summary-line consistency.</li>
+<li>More graceful error messages if truth/pred columns cannot be identified.</li>
+<li>Optional interactive output improved with Plotly checks.</li>
+</ul></li>
+<li>
+<p><strong>Utility Upgrades</strong></p>
+<ul><li>
+<p><code><a href="../reference/unnest_modeltime_resamples.html">unnest_modeltime_resamples()</a></code> more robust:</p>
+<ul><li>Ensures <code>.predictions</code> column exists (reconstructed if missing).</li>
+<li>Clear actionable errors when predictions are unavailable.</li>
+<li>Guarantees <code>.row_id</code> assignment for comparing models across resamples.</li>
+</ul></li>
+</ul></li>
+</ul></div>
+<div class="section level4">
+<h4 id="id_-dependency-updates-0-3-0">🛠 Dependency Updates<a class="anchor" aria-label="anchor" href="#id_-dependency-updates-0-3-0"></a></h4>
+<ul><li>
+<code>tune (&gt;= 2.0.0)</code> is now required.</li>
+<li>Added <code>withr</code> to <code>Imports</code>.</li>
+<li>Retained compatibility with older <code>tune</code> versions (&lt;2.0.0) via conditional handling.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="id_-internal-improvements-0-3-0">⚡ Internal Improvements<a class="anchor" aria-label="anchor" href="#id_-internal-improvements-0-3-0"></a></h4>
+<ul><li>Standardized use of <code>rlang::abort(message=...)</code> for consistent error messages.</li>
+<li>Reduced reliance on <code>tictoc</code>/<code>progressr</code> in favor of clearer progress reporting.</li>
+<li>Expanded <code><a href="https://rdrr.io/r/utils/globalVariables.html" class="external-link">utils::globalVariables()</a></code> for safer NSE handling across <code>dplyr</code>/<code>tidyr</code>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.3" id="modeltimeresample-023">modeltime.resample 0.2.3<a class="anchor" aria-label="anchor" href="#modeltimeresample-023"></a></h2><p class="text-muted">CRAN release: 2023-04-12</p>
 <ul><li>Resubmit to CRAN (timetk issue)</li>
